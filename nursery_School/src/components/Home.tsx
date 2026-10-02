@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useNavigate } from 'react-router-dom';
+import WorldsSlider from './WorldsSlider';
 
 interface HomeProps {
     introFinished: boolean;
@@ -85,9 +86,8 @@ export default function Home({ introFinished }: HomeProps): React.JSX.Element {
         <div className="hero-card relative flex justify-center">
           <div className="w-72 h-72 md:w-96 md:h-96 rounded-3xl bg-gradient-to-tr from-[#FFD13B]/30 to-[#70C1B3]/30 backdrop-blur-xl border border-white/50 shadow-2xl flex items-center justify-center p-6 relative">
             
-            <div className="text-center">
-              <span className="text-6xl animate-bounce inline-block">🐝</span>
-              <p className="text-sm text-gray-500 mt-4 font-medium">[ Mascot / SVG Animation Area ]</p>
+            <div className="hero-card relative flex justify-center">
+  <             WorldsSlider />
             </div>
 
           </div>
