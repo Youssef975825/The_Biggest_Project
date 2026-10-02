@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Menu, X, Sparkles } from 'lucide-react'; // لو مثبت مكتبة lucide-react للآيكونز، أو تقدر تستبدلها بـ SVGs
+import { Link } from 'react-router-dom';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,13 +19,16 @@ export default function Header() {
       <div className="max-w-7xl mx-auto backdrop-blur-md bg-white/75 border border-white/40 shadow-lg shadow-black/5 rounded-2xl px-6 py-3 flex items-center justify-between transition-all">
         
         {/* 1. الشعار (Logo) */}
-        <a href="#" className="flex items-center gap-2 group">
+        <a href="#">
+            <Link to={'/'}
+            className='flex items-center gap-2 group'>
           <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#FFD13B] to-[#FF70A6] flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
             <span className="text-xl">🐝</span>
           </div>
           <span className="font-extrabold text-xl text-gray-800 tracking-tight">
             Little <span className="text-[#FF70A6]">Wonder</span>
           </span>
+            </Link>
         </a>
 
         {/* 2. الـ 4 عوالم (Desktop Nav Links) */}
