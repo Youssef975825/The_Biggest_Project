@@ -1,86 +1,106 @@
-import React, { useRef } from 'react';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
-import { Flip } from 'gsap/Flip';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import BeeGamesHub from './BeeGamesHub'; // استدعاء قائمة الـ 5 ألعاب
 
-gsap.registerPlugin(Flip);
+export default function BeesWorld() {
+  const navigate = useNavigate();
+  // حالة لتحديد هل نحن في الصفحة الرئيسية لعالم النحل أم داخل قسم الألعاب الـ 5
+  const [currentView, setCurrentView] = useState<'main' | 'games-hub'>('main');
 
-export default function Bees() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const activities = [
+    {
+      id: 'story',
+      title: 'Story 1: Bella Finds a Flower',
+      category: 'Read & Learn',
+      desc: 'A little adventure about curiosity, kindness and friendship featuring Bella the bee.',
+      icon: '📖',
+      color: 'bg-amber-100 border-amber-300 text-amber-900',
+    },
+    {
+      id: 'flashcards',
+      title: 'Flashcards & Vocabulary',
+      category: '12 Words to Learn',
+      desc: 'Learn essential words like Bee, Hive, Honey, Nectar, and Garden with cute flashcards.',
+      icon: '📇',
+      color: 'bg-yellow-100 border-yellow-300 text-yellow-900',
+    },
+    {
+      id: 'games', // هذا هو الكارت الخاص بالـ 5 ألعاب
+      title: 'Fun Bee Games',
+      category: 'Print, Cut & Play',
+      desc: 'Enjoy Bee Memory Match, Bee Race, Honeycomb Sort, and I Spy games!',
+      icon: '🎮',
+      color: 'bg-pink-100 border-pink-300 text-pink-900',
+    },
+    {
+      id: 'crafts',
+      title: 'BEE Craft Pack',
+      category: 'Hands-on Fun',
+      desc: 'Build your springtime bee, paper plate crafts, and cut-and-paste activities.',
+      icon: '✂️',
+      color: 'bg-emerald-100 border-emerald-300 text-emerald-900',
+    },
+  ];
 
-  useGSAP(() => {
-    // تأثير ظهور ناعم وعميق متناسق مع الـ Flip
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-    tl.fromTo(
-      containerRef.current,
-      { opacity: 0, scale: 0.95, filter: 'blur(8px)' },
-      { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 0.8 }
-    )
-    .from('.bee-content-anim', {
-      opacity: 0,
-      y: 20,
-      duration: 0.6,
-      stagger: 0.15,
-    }, '-=0.4');
-
-  }, { scope: containerRef });
+  // لو المستخدم ضغط على كارت الألعاب، نعرض له قُبّة الألعاب الـ 5 (BeeGamesHub)
+  if (currentView === 'games-hub') {
+    return <BeeGamesHub onBackToWorld={() => setCurrentView('main')} />;
+  }
 
   return (
-    <div 
-      ref={containerRef} 
-      data-flip-id="bee-card"
-      className="min-h-screen bg-[#FFFDF9] px-6 pt-32 pb-16 flex flex-col items-center origin-center"
-    >
-      
-      {/* زر العودة */}
-      <div className="w-full max-w-5xl mb-8 bee-content-anim">
-        <Link 
-          to="/" 
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white shadow-md text-gray-700 font-bold hover:bg-gray-50 transition-all border border-gray-100"
-        >
-          ← Back to Home
-        </Link>
-      </div>
+    <div className="min-h-screen bg-gradient-to-b from-yellow-50 via-amber-50 to-emerald-50 p-6 md:p-12">
+      {/* زر العودة للمستويات أو العوالم الرئيسية */}
+      <button 
+        onClick={() => navigate(-1)}
+        className="mb-8 px-5 py-2.5 rounded-2xl bg-white shadow-md text-gray-700 font-bold hover:bg-gray-100 transition-all border border-amber-200 cursor-pointer flex items-center gap-2 translate-y-17 translate-x-18"
+      >
+        ← Back to Worlds
+      </button>
 
-      {/* محتوى عالم النحل */}
-      <div className="max-w-5xl w-full text-center space-y-6">
-        <span className="bee-content-anim inline-block px-4 py-1.5 rounded-full bg-[#FFD13B]/20 text-[#D4AC0D] font-bold text-sm">
-          🐝 The Buzzing World
-        </span>
-
-        <h1 className="bee-content-anim text-4xl md:text-6xl font-extrabold text-gray-800">
-          Welcome to the <span className="text-[#FFD13B]">Bees Kingdom!</span>
+      {/* الهيدر الخاص بالعالم */}
+      <div className="text-center max-w-2xl mx-auto space-y-4 mb-12">
+        <span className="text-6xl inline-block animate-bounce">🐝</span>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-amber-900 tracking-tight">
+          Bees Kingdom & Activity Center
         </h1>
-
-        <p className="bee-content-anim text-lg text-gray-600 max-w-2xl mx-auto">
-          Discover how little bees work together, make sweet honey, and keep nature blooming with magic and wonder.
+        <p className="text-gray-600 font-medium text-lg">
+          Little Wonder Studio — Print, Play & Learn! Discover stories, vocabulary, and games designed for little explorers.
         </p>
-
-        {/* الكروت التفاعلية */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 bee-content-anim">
-          <div className="p-6 rounded-3xl bg-gradient-to-tr from-[#FFD13B]/20 to-white border border-[#FFD13B]/30 shadow-xl text-center space-y-3">
-            <span className="text-5xl inline-block">🍯</span>
-            <h3 className="text-xl font-bold text-gray-800">Honey Factory</h3>
-            <p className="text-sm text-gray-500">Learn how nectar transforms into delicious golden honey.</p>
-          </div>
-
-          <div className="p-6 rounded-3xl bg-gradient-to-tr from-[#FFD13B]/20 to-white border border-[#FFD13B]/30 shadow-xl text-center space-y-3">
-            <span className="text-5xl inline-block">🌸</span>
-            <h3 className="text-xl font-bold text-gray-800">Flower Garden</h3>
-            <p className="text-sm text-gray-500">Help the cute bees pollinate flowers and grow the garden.</p>
-          </div>
-
-          <div className="p-6 rounded-3xl bg-gradient-to-tr from-[#FFD13B]/20 to-white border border-[#FFD13B]/30 shadow-xl text-center space-y-3">
-            <span className="text-5xl inline-block">🎮</span>
-            <h3 className="text-xl font-bold text-gray-800">Mini Game</h3>
-            <p className="text-sm text-gray-500">Play and fly with Buzzy through the magical maze.</p>
-          </div>
-        </div>
-
       </div>
 
+      {/* شبكة الأنشطة والقصص الـ 4 */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        {activities.map((item) => (
+          <div
+            key={item.id}
+            onClick={() => {
+              // إذا كان الضغط على كارت الألعاب (Fun Bee Games)، انتقل إلى صفحة الـ 5 ألعاب
+              if (item.id === 'games') {
+                setCurrentView('games-hub');
+              } else {
+                alert(`قريباً سيتم تفعيل قسم الـ ${item.title}!`);
+              }
+            }}
+            className={`rounded-3xl p-6 border-2 shadow-xl transition-all transform hover:-translate-y-1 hover:shadow-2xl cursor-pointer flex flex-col justify-between ${item.color}`}
+          >
+            <div>
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-5xl">{item.icon}</span>
+                <span className="text-xs font-extrabold uppercase tracking-wider px-3 py-1 bg-white/80 rounded-full shadow-sm">
+                  {item.category}
+                </span>
+              </div>
+              <h3 className="text-2xl font-extrabold mb-2">{item.title}</h3>
+              <p className="text-sm font-medium opacity-90">{item.desc}</p>
+            </div>
+
+            <div className="mt-6 pt-4 border-t border-black/10 flex justify-between items-center text-sm font-bold">
+              <span>{item.id === 'games' ? 'Explore 5 Games' : 'Explore Activity'}</span>
+              <span>→</span>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
