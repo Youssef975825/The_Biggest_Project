@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import BeeMemoryMatch from '../Games/Bee_Memory_Match'; // استدعاء مكون اللعبة اللي عملناه
+import Bee_Race from '../Games/Bee_Race'; // استدعاء مكون اللعبة اللي عملناه
+import Honeycomb_Sort from '../Games/Honeycomb_Sort'; // استدعاء مكون اللعبة اللي عملناه
+import Bee_I_Spy from '../Games/Bee_I_Spy';
+import Bee_Path_Match from '../Games/Bee`s_Path_Match';
 
 const gamesList = [
   {
@@ -16,7 +20,7 @@ const gamesList = [
     desc: 'Help Bella the bee reach the flower first in this fun board race game[cite: 8]!',
     icon: '🏁',
     color: 'bg-amber-100 border-amber-300 text-amber-900',
-    available: false,
+    available: true,
   },
   {
     id: 'honeycomb-sort',
@@ -24,7 +28,7 @@ const gamesList = [
     desc: 'Sort the picture cards into Living and Non-living under the correct beehive[cite: 9]!',
     icon: '🏡',
     color: 'bg-orange-100 border-orange-300 text-orange-900',
-    available: false,
+    available: true,
   },
   {
     id: 'i-spy',
@@ -32,7 +36,7 @@ const gamesList = [
     desc: 'Find the hidden pictures in the busy beehive scene and say "I found it!"[cite: 10].',
     icon: '🔍',
     color: 'bg-pink-100 border-pink-300 text-pink-900',
-    available: false,
+    available: true,
   },
   {
     id: 'path-match',
@@ -40,7 +44,7 @@ const gamesList = [
     desc: 'Match the picture cards to the correct spot on the board and win[cite: 10]!',
     icon: '🗺️',
     color: 'bg-emerald-100 border-emerald-300 text-emerald-900',
-    available: false,
+    available: true,
   },
 ];
 
@@ -51,17 +55,29 @@ interface BeeGamesHubProps {
 export default function BeeGamesHub({ onBackToWorld }: BeeGamesHubProps) {
   const [selectedGame, setSelectedGame] = useState<string | null>(null);
 
-  // لو المستخدم اختار لعبة الـ Memory Match، اعرض كود اللعبة الخاص بها
+
   if (selectedGame === 'memory-match') {
     return <BeeMemoryMatch onBackToGames={() => setSelectedGame(null)} />;
   }
-
+  else if(selectedGame === 'bee-race'){
+    return <Bee_Race onBackToGames={() => setSelectedGame(null)} />;
+  }
+  else if(selectedGame === 'honeycomb-sort'){
+    return <Honeycomb_Sort onBackToGames={() => setSelectedGame(null)} />;
+  }
+  else if(selectedGame === 'i-spy'){
+    return <Bee_I_Spy onBackToGames={() => setSelectedGame(null)} />;
+  }
+  else if(selectedGame === 'path-match'){
+    return <Bee_Path_Match onBackToGames={() => setSelectedGame(null)} />;
+  }
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-yellow-50 via-amber-50 to-emerald-50 p-6 md:p-12">
       {/* زر العودة لعالم النحل */}
       <button 
         onClick={onBackToWorld}
-        className="mb-8 px-5 py-2.5 rounded-2xl bg-white shadow-md text-gray-700 font-bold hover:bg-gray-100 transition-all border border-amber-200 cursor-pointer flex items-center gap-2 translate-y-17 translate-x-18"
+        className="mb-8 px-5 py-2.5 rounded-2xl bg-white shadow-md text-gray-700 font-bold hover:bg-gray-100 transition-all border border-amber-200 cursor-pointer flex items-center gap-2 translate-y-17 lg:translate-x-[9.5rem] md:translate-x-[-1.5rem]"
       >
         ← Back to Bees World
       </button>
