@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Dino_Memory from "../Games/Dino_Memory"
 import DinoRollAndFind from '../Games/DinoRollAndFind';
+import DinoFeed from '../Games/DinoFeed';
 
 const dinoGamesList = [
   {
@@ -20,12 +21,12 @@ const dinoGamesList = [
     available: true,
   },
   {
-    id: 'fossil-sort',
-    title: 'Fossil Sort',
+    id: 'dino-feed',
+    title: 'Dino Feed',
     desc: 'Sort the items into Prehistoric and Modern categories correctly!',
     icon: '🦴',
     color: 'bg-sky-100 border-sky-300 text-sky-900',
-    available: false,
+    available: true,
   },
   {
     id: 'dino-spy',
@@ -58,13 +59,16 @@ export default function DinoGamesHub({ onBackToWorld }: DinoGamesHubProps) {
   else if (selectedGame === 'dino-race') {
     return <DinoRollAndFind onBackToGames={() => setSelectedGame(null)} />;
   }
+  else if (selectedGame === 'dino-feed') {
+    return <DinoFeed onBackToGames={() => setSelectedGame(null)} />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-teal-50 via-cyan-50 to-blue-50 p-6 md:p-12">
       {/* زر العودة لعالم الديناصورات */}
       <button 
         onClick={onBackToWorld}
-        className="mb-8 px-5 py-2.5 rounded-2xl bg-white shadow-md text-gray-700 font-bold hover:bg-gray-100 transition-all border border-teal-200 cursor-pointer flex items-center gap-2 translate-y-17 lg:translate-x-[9.5rem] md:translate-x-[-1.5rem]"
+        className="mb-8 px-5 py-2.5 rounded-2xl bg-white shadow-md text-gray-700 font-bold hover:bg-gray-100 transition-all border border-teal-200 cursor-pointer flex items-center gap-2 translate-y-17 lg:translate-x-[5rem] md:translate-x-[-1.5rem]"
       >
         ← Back to Dino Island
       </button>
