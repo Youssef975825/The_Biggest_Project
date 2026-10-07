@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Dino_Memory from "../Games/Dino_Memory"
+import DinoRollAndFind from '../Games/DinoRollAndFind';
 
 const dinoGamesList = [
   {
@@ -16,7 +17,7 @@ const dinoGamesList = [
     desc: 'Help Rexy reach the volcano finish line in this fun board race game!',
     icon: '🏁',
     color: 'bg-cyan-100 border-cyan-300 text-cyan-900',
-    available: false,
+    available: true,
   },
   {
     id: 'fossil-sort',
@@ -53,6 +54,9 @@ export default function DinoGamesHub({ onBackToWorld }: DinoGamesHubProps) {
 
   if (selectedGame === 'dino-memory') {
     return <Dino_Memory onBackToGames={() => setSelectedGame(null)} />;
+  }
+  else if (selectedGame === 'dino-race') {
+    return <DinoRollAndFind onBackToGames={() => setSelectedGame(null)} />;
   }
 
   return (

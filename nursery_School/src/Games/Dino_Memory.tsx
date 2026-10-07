@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import confetti from 'canvas-confetti'; 
+import confetti from 'canvas-confetti';
 
 interface Card {
   id: number;
@@ -21,7 +21,7 @@ interface DinoMemoryMatchProps {
   onBackToGames: () => void;
 }
 
-export default function Dino_Memory({ onBackToGames }: DinoMemoryMatchProps) {
+export default function DinoMemoryMatch({ onBackToGames }: DinoMemoryMatchProps) {
   const [cards, setCards] = useState<Card[]>([]);
   const [firstSelection, setFirstSelection] = useState<Card | null>(null);
   const [secondSelection, setSecondSelection] = useState<Card | null>(null);
@@ -29,7 +29,6 @@ export default function Dino_Memory({ onBackToGames }: DinoMemoryMatchProps) {
   const [moves, setMoves] = useState(0);
   const [matchesCount, setMatchesCount] = useState(0);
 
-  // تهيئة وتوليد البطاقات (مزدوجة لكل ديناصور/عنصر)
   const initializeGame = () => {
     const duplicatedCards = [...dinoCardsData, ...dinoCardsData]
       .sort(() => Math.random() - 0.5)
@@ -50,11 +49,9 @@ export default function Dino_Memory({ onBackToGames }: DinoMemoryMatchProps) {
     initializeGame();
   }, []);
 
-  // التعامل مع اختيار البطاقة
   const handleCardClick = (clickedCard: Card) => {
     if (isChecking || clickedCard.isFlipped || clickedCard.isMatched) return;
 
-    // قلب البطاقة
     setCards((prevCards) =>
       prevCards.map((card) =>
         card.id === clickedCard.id ? { ...card, isFlipped: true } : card
@@ -70,7 +67,6 @@ export default function Dino_Memory({ onBackToGames }: DinoMemoryMatchProps) {
     }
   };
 
-  // التحقق من مطابقة البطاقتين
   useEffect(() => {
     if (firstSelection && secondSelection) {
       if (firstSelection.name === secondSelection.name) {
@@ -102,10 +98,8 @@ export default function Dino_Memory({ onBackToGames }: DinoMemoryMatchProps) {
     setIsChecking(false);
   };
 
-  // التحقق من الفوز
   useEffect(() => {
     if (matchesCount === dinoCardsData.length) {
-      // إطلاق بهجة الفوز
       try {
         confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
       } catch (e) {
@@ -120,7 +114,7 @@ export default function Dino_Memory({ onBackToGames }: DinoMemoryMatchProps) {
       <div className="w-full max-w-3xl flex justify-start mb-6">
         <button
           onClick={onBackToGames}
-          className="px-5 py-2.5 rounded-2xl bg-white shadow-md text-gray-700 font-bold hover:bg-gray-100 transition-all border border-teal-200 cursor-pointer flex items-center gap-2"
+          className="px-5 py-2.5 rounded-2xl bg-white shadow-md text-gray-700 font-bold hover:bg-gray-100 transition-all border border-teal-200 cursor-pointer flex items-center gap-2 translate-y-17 lg:translate-x-[-16rem]"
         >
           ← Back to Dino Games
         </button>
@@ -137,19 +131,27 @@ export default function Dino_Memory({ onBackToGames }: DinoMemoryMatchProps) {
         </p>
       </div>
 
-      {/* شبكة البطاقات (Cards Grid) */}
+      {/* شبكة البطاقات */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 max-w-3xl w-full mb-8">
         {cards.map((card) => (
           <div
             key={card.id}
             onClick={() => handleCardClick(card)}
-            className={`h-32 rounded-2xl flex items-center justify-center text-5xl cursor-pointer shadow-lg transition-all duration-300 transform select-none ${
+            className={`h-32 rounded-2xl flex flex-col items-center justify-center cursor-pointer shadow-lg transition-all duration-300 transform select-none ${
               card.isFlipped || card.isMatched
-                ? 'bg-white border-2 border-teal-400 rotate-0'
-                : 'bg-teal-600 hover:bg-teal-500 text-transparent shadow-teal-900/20'
+                ? 'bg-white border-2 border-teal-400 text-5xl'
+                : 'bg-gradient-to-tr from-teal-600 to-cyan-700 hover:from-teal-500 hover:to-cyan-600 text-white shadow-teal-900/20 border-2 border-teal-500'
             }`}
           >
-            {card.isFlipped || card.isMatched ? card.icon : '❓'}
+            {card.isFlipped || card.isMatched ? (
+              <span>{card.icon}</span>
+            ) : (
+              <div className="flex flex-col items-center space-y-1">
+                {/* ظهر الكارت: أيقونة ديناصور مصغرة مع لمسة جمالية */}
+                <span className="text-3xl animate-pulse">🦖</span>
+                <span className="text-xs font-bold tracking-wider text-teal-100 uppercase opacity-80">Dino</span>
+              </div>
+            )}
           </div>
         ))}
       </div>
