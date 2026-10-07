@@ -3,6 +3,7 @@ import Dino_Memory from "../Games/Dino_Memory"
 import DinoRollAndFind from '../Games/DinoRollAndFind';
 import DinoFeed from '../Games/DinoFeed';
 import DinoFootprint from '../Games/DinoFootprintHunt';
+import DinoEggSurprise from '../Games/DinoEggSurprise';
 
 const dinoGamesList = [
   {
@@ -38,12 +39,12 @@ const dinoGamesList = [
     available: true,
   },
   {
-    id: 'dino-path',
-    title: "Dino's Path Match",
+    id: 'dino-egg-surprise',
+    title: "Dino Egg Surprise",
     desc: 'Match the baby dinosaurs to their correct footprints on the board!',
     icon: '🗺️',
     color: 'bg-blue-100 border-blue-300 text-blue-900',
-    available: false,
+    available: true,
   },
 ];
 
@@ -65,6 +66,9 @@ export default function DinoGamesHub({ onBackToWorld }: DinoGamesHubProps) {
   }
   else if (selectedGame === 'dino-footprint') {
     return <DinoFootprint onBackToGames={() => setSelectedGame(null)} />;
+  }
+  else if (selectedGame === 'dino-egg-surprise') {
+    return <DinoEggSurprise onBackToGames={() => setSelectedGame(null)} />;
   }
 
   return (
