@@ -102,7 +102,7 @@ export default function BeeGamesHub({ onBackToWorld }: BeeGamesHubProps) {
               if (game.available) {
                 setSelectedGame(game.id);
               } else {
-                alert('هذه اللعبة قريباً! يمكنك تجربة Bee Memory Match الآن.');
+                alert('هذه اللعبة قريباً!');
               }
             }}
             className={`rounded-3xl p-6 border-2 shadow-xl transition-all transform hover:-translate-y-1 hover:shadow-2xl cursor-pointer flex flex-col justify-between ${game.color} ${

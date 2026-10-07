@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DinoGamesHub from './DinoGameHub'; // مركز ألعاب الديناصورات
 
-export default function DinosaurWorld() {
+export default function Dinosaur() {
   const navigate = useNavigate();
   const [currentView, setCurrentView] = useState<'main' | 'games-hub'>('main');
 

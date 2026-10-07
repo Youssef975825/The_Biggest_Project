@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Home from './components/Home';
 import BeesWorld from './components/Bees';
 import PageTransitionWrapper from './components/PageTransitionWrapper';
+import Dinosaur from './components/Dinosaur';
 
 export default function App() {
   const [showIntro, setShowIntro] = useState(true);
@@ -39,6 +40,14 @@ export default function App() {
                 element={
                   <PageTransitionWrapper>
                     <BeesWorld />
+                  </PageTransitionWrapper>
+                } 
+              />
+              <Route 
+                path="/dinosaur" 
+                element={
+                  <PageTransitionWrapper>
+                    <Dinosaur />
                   </PageTransitionWrapper>
                 } 
               />
