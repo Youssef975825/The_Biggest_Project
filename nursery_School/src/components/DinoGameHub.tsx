@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Dino_Memory from "../Games/Dino_Memory"
 
 const dinoGamesList = [
   {
@@ -50,6 +51,10 @@ interface DinoGamesHubProps {
 export default function DinoGamesHub({ onBackToWorld }: DinoGamesHubProps) {
   const [selectedGame, setSelectedGame] = useState<string | null>(null);
 
+  if (selectedGame === 'dino-memory') {
+    return <Dino_Memory onBackToGames={() => setSelectedGame(null)} />;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-teal-50 via-cyan-50 to-blue-50 p-6 md:p-12">
       {/* زر العودة لعالم الديناصورات */}
@@ -78,7 +83,6 @@ export default function DinoGamesHub({ onBackToWorld }: DinoGamesHubProps) {
             key={game.id}
             onClick={() => {
               if (game.available) {
-                alert(`جارٍ فتح لعبة ${game.title}!`);
                 setSelectedGame(game.id);
               } else {
                 alert('هذه اللعبة قريباً!');
@@ -106,4 +110,8 @@ export default function DinoGamesHub({ onBackToWorld }: DinoGamesHubProps) {
       </div>
     </div>
   );
+}
+
+function onBackToGames(arg0: null): () => void {
+    throw new Error('Function not implemented.');
 }
