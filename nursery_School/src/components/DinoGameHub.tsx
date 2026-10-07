@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Dino_Memory from "../Games/Dino_Memory"
 import DinoRollAndFind from '../Games/DinoRollAndFind';
 import DinoFeed from '../Games/DinoFeed';
+import DinoFootprint from '../Games/DinoFootprintHunt';
 
 const dinoGamesList = [
   {
@@ -29,12 +30,12 @@ const dinoGamesList = [
     available: true,
   },
   {
-    id: 'dino-spy',
-    title: 'Dino I Spy!',
+    id: 'dino-footprint',
+    title: 'Dino Footprint Hunt!',
     desc: 'Find the hidden items in the magical prehistoric jungle scene!',
     icon: '🔍',
     color: 'bg-emerald-100 border-emerald-300 text-emerald-900',
-    available: false,
+    available: true,
   },
   {
     id: 'dino-path',
@@ -61,6 +62,9 @@ export default function DinoGamesHub({ onBackToWorld }: DinoGamesHubProps) {
   }
   else if (selectedGame === 'dino-feed') {
     return <DinoFeed onBackToGames={() => setSelectedGame(null)} />;
+  }
+  else if (selectedGame === 'dino-footprint') {
+    return <DinoFootprint onBackToGames={() => setSelectedGame(null)} />;
   }
 
   return (
