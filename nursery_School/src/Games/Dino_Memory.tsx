@@ -29,16 +29,28 @@ export default function DinoMemoryMatch({ onBackToGames }: DinoMemoryMatchProps)
   const [moves, setMoves] = useState(0);
   const [matchesCount, setMatchesCount] = useState(0);
 
+  // خوارزمية خلط حقيقية وعشوائية بالكامل (Fisher-Yates Shuffle)
+  const shuffleArray = (array: any[]) => {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
+
   const initializeGame = () => {
     const duplicatedCards = [...dinoCardsData, ...dinoCardsData]
-      .sort(() => Math.random() - 0.5)
-      .map((card, index) => ({
+    const randomizedCards = shuffleArray(duplicatedCards);
+
+      const finalCards = randomizedCards.map((card, index) => ({
         ...card,
         id: index,
         isFlipped: false,
         isMatched: false,
       }));
-    setCards(duplicatedCards);
+
+    setCards(finalCards);
     setFirstSelection(null);
     setSecondSelection(null);
     setMoves(0);
