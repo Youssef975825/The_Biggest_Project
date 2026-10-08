@@ -30,17 +30,28 @@ export default function Bee_Memory_Match({ onBackToGames }: BeeMemoryMatchProps)
   const [matches, setMatches] = useState(0);
   const [isWon, setIsWon] = useState(false);
 
-  const initializeGame = () => {
-    const duplicatedCards = [...initialCards, ...initialCards]
-      .map((card, index) => ({
-        ...card,
-        id: index,
-        isFlipped: false,
-        isMatched: false,
-      }))
-      .sort(() => Math.random() - 0.5);
+  // خوارزمية خلط حقيقية وعشوائية بالكامل (Fisher-Yates Shuffle)
+  const shuffleArray = (array: any[]) => {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
 
-    setCards(duplicatedCards);
+  const initializeGame = () => {
+    const duplicatedCards = [...initialCards, ...initialCards].map((card, index) => ({
+      ...card,
+      id: index,
+      isFlipped: false,
+      isMatched: false,
+    }));
+
+    // خلط الكروت باستخدام الخوارزمية الحقيقية لضمان تغير الأاماكن كلياً
+    const randomizedCards = shuffleArray(duplicatedCards);
+
+    setCards(randomizedCards);
     setFirstSelection(null);
     setSecondSelection(null);
     setMoves(0);
@@ -103,7 +114,7 @@ export default function Bee_Memory_Match({ onBackToGames }: BeeMemoryMatchProps)
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-yellow-50 via-amber-50 to-emerald-50 p-6 md:p-12 flex flex-col items-center">
-      {/* زر العودة لقائمة الألعاب الـ 5 */}
+      {/* زر العودة لقائمة الألعاب */}
       <div className="w-full max-w-2xl flex justify-between items-center mb-6">
         <button 
           onClick={onBackToGames}
@@ -124,7 +135,7 @@ export default function Bee_Memory_Match({ onBackToGames }: BeeMemoryMatchProps)
           Bee Memory Match
         </h1>
         <p className="text-gray-600 font-medium">
-          Find the matching pairs! Turn cards and test your memory[cite: 6].
+          Find the matching pairs! Turn cards and test your memory.
         </p>
       </div>
 
@@ -147,7 +158,7 @@ export default function Bee_Memory_Match({ onBackToGames }: BeeMemoryMatchProps)
 
       {/* نافذة الفوز */}
       {isWon && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-3xl p-8 max-w-sm w-full text-center space-y-4 shadow-2xl border-4 border-amber-300 animate-bounce">
             <span className="text-6xl">🎉</span>
             <h2 className="text-3xl font-extrabold text-amber-900">You Won!</h2>
