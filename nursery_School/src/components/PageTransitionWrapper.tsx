@@ -10,12 +10,12 @@ export default function PageTransitionWrapper({ children }: PageTransitionWrappe
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    // أنيميشن دخول نعم وسلس للصفحة الجديدة
+    // Smooth entrance animation for the new page
     gsap.fromTo(
       wrapperRef.current,
       { 
         opacity: 0, 
-        scale: 0.94, // انكماش بسيط زي الفيديو
+        scale: 0.94, // slight shrink
         y: 20 
       },
       { 
@@ -24,7 +24,7 @@ export default function PageTransitionWrapper({ children }: PageTransitionWrappe
         y: 0, 
         duration: 0.8, 
         ease: 'power3.out',
-        clearProps: 'all' // عشان يمسح أي تأثيرات بعد ما تخلص عشان الـ Layout ما يبصش
+        clearProps: 'all' // clear inline styles after the animation so layout is not affected
       }
     );
   }, { scope: wrapperRef });

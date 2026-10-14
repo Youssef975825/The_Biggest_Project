@@ -18,10 +18,10 @@ const TARGET_ITEMS = [
 export default function BeeISpy({ onBackToGames }: BeeISpyProps) {
   const [foundItems, setFoundItems] = useState<number[]>([]);
   
-  // تصفية العناصر التي لم يتم العثور عليها بعد
+  // Items that have not been found yet
   const remainingItems = TARGET_ITEMS.filter(item => !foundItems.includes(item.id));
   
-  // اختيار كرت نشط عشوائي من العناصر المتبقية باستخدام معادلتك العشوائية
+  // Pick a random active card from the remaining items
   const [currentRandomIndex, setCurrentRandomIndex] = useState(() => 
     Math.floor(Math.random() * TARGET_ITEMS.length)
   );
@@ -29,7 +29,7 @@ export default function BeeISpy({ onBackToGames }: BeeISpyProps) {
   const [gameMessage, setGameMessage] = useState('Look at the busy beehive scene and find the target item!');
   const [isWon, setIsWon] = useState(false);
 
-  // التأكد من أن المؤشر العشوائي في حدود القائمة المتبقية
+  // Make sure the random index is within the remaining list
   const activeIndex = currentRandomIndex >= remainingItems.length ? 0 : currentRandomIndex;
   const currentTarget = remainingItems.length > 0 ? remainingItems[activeIndex] : null;
 
@@ -44,7 +44,7 @@ export default function BeeISpy({ onBackToGames }: BeeISpyProps) {
         setIsWon(true);
         setGameMessage('🎉 Hurray! You found all the hidden items in the beehive scene! "I found it!"');
       } else {
-        // توليد index عشوائي جديد للعنصر التالي من العناصر المتبقية
+        // Generate a new random index for the next item
         const newRemainingCount = TARGET_ITEMS.length - newFound.length;
         const nextRandom = Math.floor(Math.random() * newRemainingCount);
         setCurrentRandomIndex(nextRandom);
@@ -65,7 +65,7 @@ export default function BeeISpy({ onBackToGames }: BeeISpyProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-yellow-50 via-amber-50 to-emerald-50 p-6 md:p-12 flex flex-col items-center">
-      {/* زر العودة */}
+      {/* Back button */}
       <div className="w-full max-w-5xl flex justify-between items-center mb-6">
         <button 
           onClick={onBackToGames}
@@ -78,7 +78,7 @@ export default function BeeISpy({ onBackToGames }: BeeISpyProps) {
         </div>
       </div>
 
-      {/* عنوان اللعبة */}
+      {/* Game title */}
       <div className="text-center space-y-2 mb-6">
         <span className="text-5xl inline-block animate-bounce">🔍</span>
         <h1 className="text-3xl md:text-4xl font-extrabold text-amber-900">
@@ -89,17 +89,17 @@ export default function BeeISpy({ onBackToGames }: BeeISpyProps) {
         </p>
       </div>
 
-      {/* لوحة الرسائل */}
+      {/* Message board */}
       <div className="w-full max-w-2xl bg-white/90 backdrop-blur-md rounded-2xl p-4 shadow-md border border-amber-200 text-center mb-8">
         <p className="text-amber-900 font-bold text-base md:text-lg">
           {gameMessage}
         </p>
       </div>
 
-      {/* منطقة اللعب الرئيسية */}
+      {/* Main play area */}
       <div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
         
-        {/* لوحة المشهد */}
+        {/* Scene board */}
         <div className="lg:col-span-2 bg-emerald-100/80 backdrop-blur-md rounded-3xl p-6 shadow-xl border-3 border-emerald-400 flex flex-col items-center relative min-h-[350px]">
           <h3 className="text-sm font-extrabold text-emerald-900 uppercase tracking-wider mb-4">
             Busy Beehive Scene (Click the hidden items!)
@@ -130,7 +130,7 @@ export default function BeeISpy({ onBackToGames }: BeeISpyProps) {
           </div>
         </div>
 
-        {/* الكرت النشط العشوائي */}
+        {/* Random active card */}
         <div className="bg-white rounded-3xl p-6 shadow-xl border-3 border-amber-300 flex flex-col items-center justify-center text-center">
           <span className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
             Your Active Card

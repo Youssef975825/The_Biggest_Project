@@ -4,12 +4,12 @@ interface HoneycombSortProps {
   onBackToGames: () => void;
 }
 
-// قائمة الكروت الموجودة في الكتيب بدقة وتصنيفها الصحيح
+// Cards with their classification
 const INITIAL_CARDS = [
   { id: 1, name: 'Bee', icon: '🐝', type: 'living' },
   { id: 2, name: 'Tree', icon: '🌳', type: 'living' },
   { id: 3, name: 'Rock', icon: '🪨', type: 'non-living' },
-  { id: 4, name: 'Flower', icon: '🌸', type: 'non-living' }, // مطابق للكرت الموجود في القسم الثاني
+  { id: 4, name: 'Flower', icon: '🌸', type: 'non-living' }, // matches the card in the booklet's second section
   { id: 5, name: 'Sun', icon: '☀️', type: 'non-living' },
   { id: 6, name: 'Butterfly', icon: '🦋', type: 'living' },
   { id: 7, name: 'Car', icon: '🚗', type: 'non-living' },
@@ -25,11 +25,11 @@ export default function Honeycomb_Sort({ onBackToGames }: HoneycombSortProps) {
   const [gameMessage, setGameMessage] = useState('Look at each picture card, decide if it is LIVING or NON-LIVING, and place it under the correct beehive!');
   const [isWon, setIsWon] = useState(false);
 
-  // دالة فرز الكرت عند النقر واختيار الخلية المناسبة
+  // Sort a card into the chosen hive
   const handleSort = (card: any, targetType: string) => {
     if (isWon) return;
 
-    // إزالة الكرت من القائمة الرئيسية
+    // Remove the card from the main list
     setCards(prev => prev.filter(c => c.id !== card.id));
 
     if (targetType === 'living') {
@@ -38,7 +38,7 @@ export default function Honeycomb_Sort({ onBackToGames }: HoneycombSortProps) {
       setNonLivingBin(prev => [...prev, card]);
     }
 
-    // التحقق هل الاختيار صحيح أم خاطئ
+    // Check whether the choice is correct
     if (card.type === targetType) {
       setGameMessage(`Great job! ${card.name} is correctly sorted! ✨`);
     } else {
@@ -46,7 +46,7 @@ export default function Honeycomb_Sort({ onBackToGames }: HoneycombSortProps) {
     }
   };
 
-  // التحقق من انتهاء جميع الكروت
+  // Check whether all cards have been sorted
   useEffect(() => {
     if (cards.length === 0 && (livingBin.length > 0 || nonLivingBin.length > 0)) {
       setIsWon(true);
@@ -59,12 +59,12 @@ export default function Honeycomb_Sort({ onBackToGames }: HoneycombSortProps) {
     setLivingBin([]);
     setNonLivingBin([]);
     setIsWon(false);
-    setGameMessage('Look at each picture card, decide if it is LIVING or NON-LIVING, and place it under the correct beehive![cite: 39]');
+    setGameMessage('Look at each picture card, decide if it is LIVING or NON-LIVING, and place it under the correct beehive!');
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-yellow-50 via-amber-50 to-emerald-50 p-6 md:p-12 flex flex-col items-center">
-      {/* زر العودة */}
+      {/* Back button */}
       <div className="w-full max-w-4xl flex justify-between items-center mb-6">
         <button 
           onClick={onBackToGames}
@@ -77,34 +77,34 @@ export default function Honeycomb_Sort({ onBackToGames }: HoneycombSortProps) {
         </div>
       </div>
 
-      {/* رأس اللعبة مطابق للـ PDF */}
+      {/* Game header */}
       <div className="text-center space-y-2 mb-6">
         <span className="text-5xl inline-block animate-bounce">🍯</span>
         <h1 className="text-3xl md:text-4xl font-extrabold text-amber-900">
           Honeycomb Sort
         </h1>
         <p className="text-amber-800 font-bold text-lg">
-          Sort the cards into: <span className="text-emerald-700">Living</span> / <span className="text-rose-600">Non-living</span>[cite: 39]
+          Sort the cards into: <span className="text-emerald-700">Living</span> / <span className="text-rose-600">Non-living</span>
         </p>
       </div>
 
-      {/* لوحة الرسائل */}
+      {/* Message board */}
       <div className="w-full max-w-2xl bg-white/90 backdrop-blur-md rounded-2xl p-4 shadow-md border border-amber-200 text-center mb-8">
         <p className="text-amber-900 font-semibold text-sm md:text-base">
           {gameMessage}
         </p>
       </div>
 
-      {/* خليتي النحل (الأساسيتين للتصنيف: LIVING و NON-LIVING) */}
+      {/* The two hives: LIVING and NON-LIVING */}
       <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        {/* خلية Living */}
+        {/* Living hive */}
         <div className="bg-emerald-50 border-3 border-emerald-400 rounded-3xl p-6 shadow-xl flex flex-col items-center min-h-[240px] relative">
           <div className="bg-emerald-600 text-white font-extrabold px-6 py-1.5 rounded-full shadow-md mb-3 tracking-wider text-sm">
             LIVING 🌿
           </div>
           <div className="text-5xl mb-2">🏡</div>
           
-          {/* منطقة وضع الكروت الخاصة بالكائنات الحية */}
+          {/* Area for living cards */}
           <div className="flex flex-wrap gap-2 justify-center w-full mt-2">
             {livingBin.map(card => (
               <div key={card.id} className="bg-white px-3 py-1.5 rounded-xl border border-emerald-300 shadow-sm flex items-center gap-1.5 text-xs font-bold text-emerald-900 animate-fade-in">
@@ -115,7 +115,7 @@ export default function Honeycomb_Sort({ onBackToGames }: HoneycombSortProps) {
             {livingBin.length === 0 && <span className="text-emerald-700/50 text-xs italic mt-4">Place living cards here</span>}
           </div>
 
-          {/* زر التفاعل المباشر لو فيه كروت متبقية للإرسال هنا */}
+          {/* Direct sort control while cards remain */}
           {cards.length > 0 && (
             <div className="absolute bottom-3 w-full px-6 flex justify-center">
               <select 
@@ -138,14 +138,14 @@ export default function Honeycomb_Sort({ onBackToGames }: HoneycombSortProps) {
           )}
         </div>
 
-        {/* خلية Non-living */}
+        {/* Non-living hive */}
         <div className="bg-rose-50 border-3 border-rose-400 rounded-3xl p-6 shadow-xl flex flex-col items-center min-h-[240px] relative">
           <div className="bg-rose-600 text-white font-extrabold px-6 py-1.5 rounded-full shadow-md mb-3 tracking-wider text-sm">
             NON-LIVING 🪨
           </div>
           <div className="text-5xl mb-2">🏡</div>
 
-          {/* منطقة وضع الكروت الخاصة بالكائنات غير الحية */}
+          {/* Area for non-living cards */}
           <div className="flex flex-wrap gap-2 justify-center w-full mt-2">
             {nonLivingBin.map(card => (
               <div key={card.id} className="bg-white px-3 py-1.5 rounded-xl border border-rose-300 shadow-sm flex items-center gap-1.5 text-xs font-bold text-rose-900 animate-fade-in">
@@ -156,7 +156,7 @@ export default function Honeycomb_Sort({ onBackToGames }: HoneycombSortProps) {
             {nonLivingBin.length === 0 && <span className="text-rose-700/50 text-xs italic mt-4">Place non-living cards here</span>}
           </div>
 
-          {/* زر التفاعل المباشر لإرسال الكرت هنا */}
+          {/* Direct sort control */}
           {cards.length > 0 && (
             <div className="absolute bottom-3 w-full px-6 flex justify-center">
               <select 
@@ -180,10 +180,10 @@ export default function Honeycomb_Sort({ onBackToGames }: HoneycombSortProps) {
         </div>
       </div>
 
-      {/* لوحة الكروت المتاحة للقص واللعب (مطابقة للـ PDF تماماً) */}
+      {/* Available cards to cut out and play */}
       <div className="w-full max-w-4xl bg-white/90 backdrop-blur-md rounded-3xl p-6 shadow-xl border-2 border-amber-200 mb-8">
         <h3 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-4 text-center">
-          Cut out the cards and play! (Click any card to auto-sort)[cite: 39]
+          Cut out the cards and play! (Click any card to auto-sort)
         </h3>
         
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
@@ -191,7 +191,7 @@ export default function Honeycomb_Sort({ onBackToGames }: HoneycombSortProps) {
             <div
               key={card.id}
               onClick={() => {
-                // افتراضيًا بنحدد التصنيف الصح بناءً على نوع الكرت عند النقر المباشر عليه
+                // Clicking a card sorts it into its correct hive
                 handleSort(card, card.type);
               }}
               className="bg-amber-50 hover:bg-amber-100 border-2 border-dashed border-amber-300 rounded-2xl p-4 flex flex-col items-center justify-center cursor-pointer transition-all transform hover:scale-105 shadow-sm group"
@@ -208,7 +208,7 @@ export default function Honeycomb_Sort({ onBackToGames }: HoneycombSortProps) {
         </div>
       </div>
 
-      {/* زر إعادة اللعب */}
+      {/* Play again button */}
       {isWon && (
         <button
           onClick={resetGame}

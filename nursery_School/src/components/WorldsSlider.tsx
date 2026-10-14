@@ -33,16 +33,6 @@ const worlds = [
     path: '/space',
     bgGradient: 'from-[#50514F]/30 to-[#F25F5C]/20',
     borderColor: 'border-[#F25F5C]/40'
-  },
-  {
-    id: 'nature',
-    title: 'Magical Forest',
-    category: 'Enchanted Woods',
-    desc: 'Explore glowing flowers, hidden treehouses, and secret paths of the magic forest.',
-    icon: '🌿',
-    path: '/nature',
-    bgGradient: 'from-[#70C1B3]/30 to-[#FFE066]/20',
-    borderColor: 'border-[#FFE066]/40'
   }
 ];
 
@@ -54,7 +44,7 @@ export default function WorldsSlider() {
 
   const currentWorld = worlds[currentIndex];
 
-  // أنيميشنGSAP عند التنقل بين العوالم
+  // GSAP animation when switching worlds
   useGSAP(() => {
     gsap.fromTo(
       slideRef.current,
@@ -71,9 +61,9 @@ export default function WorldsSlider() {
     setCurrentIndex((prev) => (prev - 1 + worlds.length) % worlds.length);
   };
 
-  // نظام الحركة التلقائية (Auto-play) كل 3 ثواني
+  // Auto-play every 3 seconds
   useEffect(() => {
-    if (isPaused) return; // لو الماوس فوق الكارت، وقف المؤقت
+    if (isPaused) return; // pause while the mouse is over the card
 
     const interval = setInterval(() => {
       nextSlide();
@@ -85,11 +75,11 @@ export default function WorldsSlider() {
   return (
     <div 
       className="relative flex flex-col items-center justify-center w-full max-w-xl mx-auto"
-      onMouseEnter={() => setIsPaused(true)}   // إيقاف مؤقت عند وضع الماوس
-      onMouseLeave={() => setIsPaused(false)}  // استئناف الحركة عند إبعاد الماوس
+      onMouseEnter={() => setIsPaused(true)}   // pause on hover
+      onMouseLeave={() => setIsPaused(false)}  // resume when the mouse leaves
     >
       
-      {/* الكارت الرئيسي المتحرك */}
+      {/* Main animated card */}
       <div 
         ref={slideRef}
         data-flip-id={currentWorld.id === 'bees' ? 'bee-card' : undefined}
@@ -118,7 +108,7 @@ export default function WorldsSlider() {
         </div>
       </div>
 
-      {/* أزرار التنقل (Arrows & Dots) */}
+      {/* Navigation (arrows and dots) */}
       <div className="flex items-center justify-between w-full mt-6 px-4">
         <button 
           onClick={prevSlide}
@@ -127,7 +117,7 @@ export default function WorldsSlider() {
           ← Prev
         </button>
 
-        {/* مؤشرات النقاط */}
+        {/* Dot indicators */}
         <div className="flex gap-2">
           {worlds.map((_, idx) => (
             <button

@@ -5,7 +5,7 @@ interface DinoEggSurpriseProps {
   onBackToGames: () => void;
 }
 
-// محطات المسار الدائري الـ 12 المطابقة للوحة اللعبة
+// The 12 stations of the circular board path
 const boardSteps = [
   { id: 1, name: 'START', x: 50, y: 15 },
   { id: 2, name: '2', x: 75, y: 20 },
@@ -21,26 +21,26 @@ const boardSteps = [
   { id: 12, name: 'FINISH', x: 50, y: 45 },
 ];
 
-// محتويات الـ 12 بيضة
+// Contents of the 12 eggs
 const eggSurprises = [
-  { id: 1, type: 'move', value: 2, text: '🎉 مفاجأة! تقدم خطوتين للأمام!' },
-  { id: 2, type: 'action', value: 0, text: '🦖 صرخة الديناصور! اقفز مكانك من الفرحة!' },
-  { id: 3, type: 'move', value: 1, text: '🌟 بيضة محظوظة! تقدم خطوة إضافية.' },
-  { id: 4, type: 'back', value: -1, text: '⚠️ عاصفة خفيفة! ارجع خطوة للوراء.' },
-  { id: 5, type: 'move', value: 3, text: '🚀 واو! قفزة عملاقة، تقدم 3 خطوات!' },
-  { id: 6, type: 'action', value: 0, text: '🎨 اقلد صوت ديناصور صغير!' },
-  { id: 7, type: 'move', value: 2, text: '🥚 بيضة ذهبية! تقدم خطوتين.' },
-  { id: 8, type: 'back', value: -2, text: '🍃 احتكاك بالأشجار، ارجع خطوتين.' },
-  { id: 9, type: 'move', value: 1, text: '✨ خطوة موفقة للأمام!' },
-  { id: 10, type: 'action', value: 0, text: '🦕 رقصة الديناصور السعيدة!' },
-  { id: 11, type: 'move', value: 2, text: '🔥 سرعة البرق، تقدم خطوتين!' },
-  { id: 12, type: 'move', value: 1, text: '🏆 خطوة قريبة من خط النهاية!' },
+  { id: 1, type: 'move', value: 2, text: '🎉 Surprise! Move forward 2 steps!' },
+  { id: 2, type: 'action', value: 0, text: '🦖 Dino roar! Jump in place with joy!' },
+  { id: 3, type: 'move', value: 1, text: '🌟 Lucky egg! Move forward 1 extra step.' },
+  { id: 4, type: 'back', value: -1, text: '⚠️ A light storm! Go back 1 step.' },
+  { id: 5, type: 'move', value: 3, text: '🚀 Wow! A giant leap, move forward 3 steps!' },
+  { id: 6, type: 'action', value: 0, text: '🎨 Imitate the sound of a baby dinosaur!' },
+  { id: 7, type: 'move', value: 2, text: '🥚 Golden egg! Move forward 2 steps.' },
+  { id: 8, type: 'back', value: -2, text: '🍃 Tangled in the trees, go back 2 steps.' },
+  { id: 9, type: 'move', value: 1, text: '✨ A lucky step forward!' },
+  { id: 10, type: 'action', value: 0, text: '🦕 The happy dino dance!' },
+  { id: 11, type: 'move', value: 2, text: '🔥 Lightning speed, move forward 2 steps!' },
+  { id: 12, type: 'move', value: 1, text: '🏆 One step closer to the finish line!' },
 ];
 
 export default function DinoEggSurprise({ onBackToGames }: DinoEggSurpriseProps) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [openedEggs, setOpenedEggs] = useState<number[]>([]);
-  const [currentMessage, setCurrentMessage] = useState('اختر بيضة من الـ 12 بيضة لاكتشاف المفاجأة وتحريك الديناصور!');
+  const [currentMessage, setCurrentMessage] = useState('Pick one of the 12 eggs to discover a surprise and move the dino!');
   const [isGameOver, setIsGameOver] = useState(false);
   const [activeSurprise, setActiveSurprise] = useState<string | null>(null);
 
@@ -63,18 +63,18 @@ export default function DinoEggSurprise({ onBackToGames }: DinoEggSurpriseProps)
 
     setCurrentStepIndex(newIndex);
 
-    // التحقق هل وصل الديناصور للنهاية
+    // Check whether the dino reached the finish
     if (newIndex === boardSteps.length - 1) {
       setIsGameOver(true);
-      setCurrentMessage('🏆 مبروك يا بطل! وصل الديناصور إلى خط النهاية بنجاح تام!');
+      setCurrentMessage('🏆 Congratulations, champ! The dino reached the finish line!');
       try {
         confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
       } catch (e) {}
     } 
-    // التحقق مما إذا نفدت جميع البيضات ولم يصل للنهاية بعد
+    // Check whether all eggs are used up without reaching the finish
     else if (newOpenedEggs.length === eggSurprises.length) {
       setIsGameOver(true);
-      setCurrentMessage('⚠️ نفدت جميع البيضات ولم تبلغ خط النهاية بعد! حاول مرة أخرى لتصل للنهاية.');
+      setCurrentMessage('⚠️ You ran out of eggs before reaching the finish line! Try again.');
     } else {
       setCurrentMessage(surprise.text);
     }
@@ -85,12 +85,12 @@ export default function DinoEggSurprise({ onBackToGames }: DinoEggSurpriseProps)
     setOpenedEggs([]);
     setIsGameOver(false);
     setActiveSurprise(null);
-    setCurrentMessage('اختر بيضة من الـ 12 بيضة لاكتشاف المفاجأة وتحريك الديناصور!');
+    setCurrentMessage('Pick one of the 12 eggs to discover a surprise and move the dino!');
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-yellow-50 p-4 md:p-8 flex flex-col items-center">
-      {/* زر العودة */}
+      {/* Back button */}
       <div className="w-full max-w-4xl flex justify-start mb-4">
         <button
           onClick={onBackToGames}
@@ -100,26 +100,26 @@ export default function DinoEggSurprise({ onBackToGames }: DinoEggSurpriseProps)
         </button>
       </div>
 
-      {/* عنوان اللعبة */}
+      {/* Game title */}
       <div className="text-center space-y-1 mb-4">
         <span className="text-4xl">🥚</span>
         <h1 className="text-2xl md:text-3xl font-extrabold text-amber-950">
           Dino Egg Surprise Game
         </h1>
         <p className="text-gray-600 text-xs md:text-sm font-medium">
-          Story 1 - Dino's Big Surprise: افتح البيضات وساعد الديناصور للوصول للنهاية!
+          Story 1 - Dino's Big Surprise: Open the eggs and help the dino reach the finish!
         </p>
       </div>
 
-      {/* تخطيط متجاوب يجمع اللوحة والبيض بطريقة مريحة للعين */}
+      {/* Responsive layout combining the board and the eggs */}
       <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-12 gap-6 mb-6">
         
-        {/* لوحة المسار المرئي (تأخذ مساحة مناسبة) */}
+        {/* Visual path board */}
         <div className="md:col-span-6 bg-white/95 backdrop-blur-md border border-amber-200 rounded-3xl p-4 shadow-xl flex flex-col items-center space-y-4">
           <div className="w-full flex items-center justify-between bg-amber-100/80 p-2.5 rounded-2xl border border-amber-300">
-            <span className="text-sm font-extrabold text-amber-900">🗺️ لوحة المسار</span>
+            <span className="text-sm font-extrabold text-amber-900">🗺️ Path Board</span>
             <span className="text-xs font-bold bg-amber-700 text-white px-2.5 py-0.5 rounded-full">
-              المحطة: {boardSteps[currentStepIndex].name}
+              Station: {boardSteps[currentStepIndex].name}
             </span>
           </div>
 
@@ -155,11 +155,11 @@ export default function DinoEggSurprise({ onBackToGames }: DinoEggSurpriseProps)
           </div>
         </div>
 
-        {/* لوحة البيضات التفاعلية */}
+        {/* Interactive eggs board */}
         <div className="md:col-span-6 bg-white/95 backdrop-blur-md border border-amber-200 rounded-3xl p-4 shadow-xl flex flex-col justify-between">
           <div>
             <h3 className="text-center font-extrabold text-amber-950 text-sm mb-3">
-              اختر بيضة من الـ 12 بيضة[cite: 3]:
+              Choose one of the 12 eggs:
             </h3>
             {!isGameOver ? (
               <div className="grid grid-cols-3 sm:grid-cols-4 gap-2.5">
@@ -177,33 +177,33 @@ export default function DinoEggSurprise({ onBackToGames }: DinoEggSurpriseProps)
                       }`}
                     >
                       <span className="text-2xl">🥚</span>
-                      <span className="text-[10px]">بيضة #{egg.id}</span>
+                      <span className="text-[10px]">Egg #{egg.id}</span>
                     </button>
                   );
                 })}
               </div>
             ) : (
-              /* شاشة الفوز أو نفاد البيض */
+              /* Win or out-of-eggs screen */
               <div className="text-center space-y-3 py-6">
                 <span className="text-5xl">🎉</span>
-                <h2 className="text-lg font-extrabold text-amber-900">انتهت المحاولة!</h2>
+                <h2 className="text-lg font-extrabold text-amber-900">Round over!</h2>
                 <p className="text-gray-600 text-xs font-medium px-4">
                   {currentStepIndex === boardSteps.length - 1
-                    ? 'لقد وصلت إلى خط النهاية بنجاح تام!'
-                    : 'نفدت البيضات قبل الوصول للنهاية. حاول مرة أخرى لتنجح!'}
+                    ? 'You reached the finish line!'
+                    : 'You ran out of eggs before reaching the finish. Try again!'}
                 </p>
                 <button
                   onClick={resetGame}
                   className="w-full py-2.5 bg-amber-700 hover:bg-amber-600 text-white font-extrabold rounded-xl shadow-md transition-all cursor-pointer text-xs"
                 >
-                  العب مرة أخرى 🔄
+                  Play Again 🔄
                 </button>
               </div>
             )}
           </div>
 
           <div className="text-center text-[11px] text-gray-400 mt-3">
-            البيضات المفتوحة: {openedEggs.length} / 12
+            Eggs opened: {openedEggs.length} / 12
           </div>
         </div>
 

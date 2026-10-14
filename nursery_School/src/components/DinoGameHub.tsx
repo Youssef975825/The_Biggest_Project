@@ -16,8 +16,8 @@ const dinoGamesList = [
   },
   {
     id: 'dino-race',
-    title: 'Prehistoric Race',
-    desc: 'Help Rexy reach the volcano finish line in this fun board race game!',
+    title: 'Roll & Find Dino',
+    desc: 'Roll the dice and find the matching prehistoric item on the board!',
     icon: '🏁',
     color: 'bg-cyan-100 border-cyan-300 text-cyan-900',
     available: true,
@@ -25,7 +25,7 @@ const dinoGamesList = [
   {
     id: 'dino-feed',
     title: 'Dino Feed',
-    desc: 'Sort the items into Prehistoric and Modern categories correctly!',
+    desc: 'Help the dino choose the right foods and avoid things it should not eat!',
     icon: '🦴',
     color: 'bg-sky-100 border-sky-300 text-sky-900',
     available: true,
@@ -33,7 +33,7 @@ const dinoGamesList = [
   {
     id: 'dino-footprint',
     title: 'Dino Footprint Hunt!',
-    desc: 'Find the hidden items in the magical prehistoric jungle scene!',
+    desc: 'Follow the colored footprints to guide the dino to the finish line!',
     icon: '🔍',
     color: 'bg-emerald-100 border-emerald-300 text-emerald-900',
     available: true,
@@ -41,7 +41,7 @@ const dinoGamesList = [
   {
     id: 'dino-egg-surprise',
     title: "Dino Egg Surprise",
-    desc: 'Match the baby dinosaurs to their correct footprints on the board!',
+    desc: 'Open the surprise eggs to move the dino along the board!',
     icon: '🗺️',
     color: 'bg-blue-100 border-blue-300 text-blue-900',
     available: true,
@@ -73,7 +73,7 @@ export default function DinoGamesHub({ onBackToWorld }: DinoGamesHubProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-teal-50 via-cyan-50 to-blue-50 p-6 md:p-12">
-      {/* زر العودة لعالم الديناصورات */}
+      {/* Back to the Dino world */}
       <button 
         onClick={onBackToWorld}
         className="mb-8 px-5 py-2.5 rounded-2xl bg-white shadow-md text-gray-700 font-bold hover:bg-gray-100 transition-all border border-teal-200 cursor-pointer flex items-center gap-2 translate-y-17 lg:translate-x-[5rem] md:translate-x-[-1.5rem]"
@@ -81,7 +81,7 @@ export default function DinoGamesHub({ onBackToWorld }: DinoGamesHubProps) {
         ← Back to Dino Island
       </button>
 
-      {/* الهيدر */}
+      {/* Header */}
       <div className="text-center max-w-2xl mx-auto space-y-4 mb-12">
         <span className="text-6xl inline-block">🎮</span>
         <h1 className="text-4xl md:text-5xl font-extrabold text-teal-950 tracking-tight">
@@ -92,7 +92,7 @@ export default function DinoGamesHub({ onBackToWorld }: DinoGamesHubProps) {
         </p>
       </div>
 
-      {/* الـ 5 كروت الخاص بالألعاب */}
+      {/* The 5 game cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
         {dinoGamesList.map((game) => (
           <div
@@ -101,7 +101,7 @@ export default function DinoGamesHub({ onBackToWorld }: DinoGamesHubProps) {
               if (game.available) {
                 setSelectedGame(game.id);
               } else {
-                alert('هذه اللعبة قريباً!');
+                alert('This game is coming soon!');
               }
             }}
             className={`rounded-3xl p-6 border-2 shadow-xl transition-all transform hover:-translate-y-1 hover:shadow-2xl cursor-pointer flex flex-col justify-between ${game.color}`}
@@ -126,8 +126,4 @@ export default function DinoGamesHub({ onBackToWorld }: DinoGamesHubProps) {
       </div>
     </div>
   );
-}
-
-function onBackToGames(arg0: null): () => void {
-    throw new Error('Function not implemented.');
 }

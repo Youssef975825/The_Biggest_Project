@@ -5,14 +5,14 @@ interface DinoRollAndFindProps {
   onBackToGames: () => void;
 }
 
-// قائمة العناصر أو الديناصورات التي يتم البحث عنها بعد رمي النرد
+// Items to find after rolling the dice
 const boardItems = [
-  { id: 1, name: 'T-Rex', icon: '🦖', desc: 'الديناصور العملاق الودود' },
-  { id: 2, name: 'Stegosaurus', icon: '🦕', desc: 'صاحب الألواح الظهرية' },
-  { id: 3, name: 'Dino Egg', icon: '🥚', desc: 'بيضة الديناصور المفاجئة' },
-  { id: 4, name: 'Volcano', icon: '🌋', desc: 'البركان المشتعل في الغابة' },
-  { id: 5, name: 'Footprint', icon: '🐾', desc: 'أثر قدم الديناصور الكبير' },
-  { id: 6, name: 'Jungle Leaves', icon: '🌿', desc: 'أوراق الشجر الكثيفة' },
+  { id: 1, name: 'T-Rex', icon: '🦖', desc: 'The friendly giant dinosaur' },
+  { id: 2, name: 'Stegosaurus', icon: '🦕', desc: 'The one with the back plates' },
+  { id: 3, name: 'Dino Egg', icon: '🥚', desc: 'The surprise dino egg' },
+  { id: 4, name: 'Volcano', icon: '🌋', desc: 'The blazing volcano in the jungle' },
+  { id: 5, name: 'Footprint', icon: '🐾', desc: 'The big dino footprint' },
+  { id: 6, name: 'Jungle Leaves', icon: '🌿', desc: 'Thick jungle leaves' },
 ];
 
 export default function DinoRollAndFind({ onBackToGames }: DinoRollAndFindProps) {
@@ -20,16 +20,16 @@ export default function DinoRollAndFind({ onBackToGames }: DinoRollAndFindProps)
   const [isRolling, setIsRolling] = useState(false);
   const [targetItem, setTargetItem] = useState<(typeof boardItems[0]) | null>(null);
   const [foundItems, setFoundItems] = useState<number[]>([]);
-  const [message, setMessage] = useState<string>('اضغط على زر رمي النرد لبدء التحدي!');
+  const [message, setMessage] = useState<string>('Press the Roll Dice button to start the challenge!');
 
-  // دالة رمي النرد العشوائي (من 1 إلى 6)
+  // Random dice roll (1 to 6)
   const rollDice = () => {
     if (isRolling) return;
     setIsRolling(true);
     setDiceNumber(null);
-    setMessage('جاري رمي النرد... 🎲');
+    setMessage('Rolling the dice... 🎲');
 
-    // تأثير حركة تخيُّلية لرمي النرد
+    // Dice rolling animation effect
     let counter = 0;
     const interval = setInterval(() => {
       const randomTemp = Math.floor(Math.random() * 6) + 1;
@@ -41,18 +41,18 @@ export default function DinoRollAndFind({ onBackToGames }: DinoRollAndFindProps)
         setDiceNumber(finalDice);
         setIsRolling(false);
 
-        // اختيار عنصر بناءً على رقم النرد (من 1 إلى 6)
+        // Pick an item based on the dice number (1 to 6)
         const selected = boardItems[finalDice - 1];
         setTargetItem(selected);
-        setMessage(`رائع! لقد ظهر الرقم ${finalDice}. ابحث في اللوحة عن: ${selected.name} (${selected.icon}) واضغط عليه!`);
+        setMessage(`Great! You rolled ${finalDice}. Find ${selected.name} (${selected.icon}) on the board and click it!`);
       }
     }, 80);
   };
 
-  // التحقق عند الضغط على عنصر في اللوحة
+  // Check when an item on the board is clicked
   const handleItemClick = (item: typeof boardItems[0]) => {
     if (!targetItem) {
-      alert('الرجاء رمي النرد أولاً لتحديد الهدف المطلوب!');
+      alert('Please roll the dice first to get your target!');
       return;
     }
 
@@ -60,24 +60,24 @@ export default function DinoRollAndFind({ onBackToGames }: DinoRollAndFindProps)
       if (!foundItems.includes(item.id)) {
         const updatedFound = [...foundItems, item.id];
         setFoundItems(updatedFound);
-        setMessage(`🎉 أحسنت يا بطل! لقد وجدت "${item.name}" بنجاح.`);
+        setMessage(`🎉 Well done, champ! You found "${item.name}".`);
 
-        // التحقق إذا وجد كل العناصر الـ 6
+        // Check whether all 6 items were found
         if (updatedFound.length === boardItems.length) {
           try {
             confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
           } catch (e) {
-            // تجاهل
+            // ignore
           }
-          setMessage('🏆 مبروك! لقد أكملت مغامرة البحث عن جميع ديناصورات وعناصر الغابة بنجاح!');
+          setMessage('🏆 Congratulations! You found all the dinosaurs and jungle items!');
         } else {
-          setTargetItem(null); // اطلب رمية جديدة
+          setTargetItem(null); // ask for a new roll
         }
       } else {
-        setMessage('لقد وجدت هذا العنصر مسبقاً! اضغط رمي النرد للبحث عن عنصر جديد.');
+        setMessage('You already found this item! Roll the dice to look for a new one.');
       }
     } else {
-      setMessage(`❌ ليس هذا هو المطلوب! ابحث عن: ${targetItem.name} (${targetItem.icon})`);
+      setMessage(`❌ Not that one! Look for: ${targetItem.name} (${targetItem.icon})`);
     }
   };
 
@@ -85,12 +85,12 @@ export default function DinoRollAndFind({ onBackToGames }: DinoRollAndFindProps)
     setDiceNumber(null);
     setTargetItem(null);
     setFoundItems([]);
-    setMessage('اضغط على زر رمي النرد لبدء التحدي من جديد!');
+    setMessage('Press the Roll Dice button to start the challenge again!');
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-teal-50 via-cyan-50 to-blue-50 p-6 md:p-12 flex flex-col items-center">
-      {/* زر العودة */}
+      {/* Back button */}
       <div className="w-full max-w-4xl flex justify-start mb-6">
         <button
           onClick={onBackToGames}
@@ -100,18 +100,18 @@ export default function DinoRollAndFind({ onBackToGames }: DinoRollAndFindProps)
         </button>
       </div>
 
-      {/* العنوان */}
+      {/* Title */}
       <div className="text-center space-y-2 mb-6">
         <span className="text-5xl">🎲</span>
         <h1 className="text-3xl md:text-4xl font-extrabold text-teal-950">
           Roll & Find Dino
         </h1>
         <p className="text-gray-600 font-medium">
-          ألقِ النرد، اتبع الإرشادات، واكتشف عناصر وعوالم الديناصورات في الغابة!
+          Roll the dice, follow the clues, and discover dinosaurs and items in the jungle!
         </p>
       </div>
 
-      {/* لوحة التحكم (النرد والرسائل) */}
+      {/* Controls (dice and messages) */}
       <div className="bg-white/95 backdrop-blur-md border border-teal-200 rounded-3xl p-6 shadow-xl max-w-md w-full text-center mb-8 space-y-4">
         <div className="text-xl font-bold text-teal-900 min-h-[3rem] flex items-center justify-center px-2">
           {message}
@@ -127,12 +127,12 @@ export default function DinoRollAndFind({ onBackToGames }: DinoRollAndFindProps)
             disabled={isRolling || foundItems.length === boardItems.length}
             className="px-6 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-500 hover:to-cyan-500 text-white font-extrabold rounded-2xl shadow-lg transition-all cursor-pointer disabled:opacity-50"
           >
-            {isRolling ? 'جاري الرمي...' : 'رمي النرد 🎲'}
+            {isRolling ? 'Rolling...' : 'Roll Dice 🎲'}
           </button>
         </div>
       </div>
 
-      {/* شبكة اللوحة (Board Grid) */}
+      {/* Board grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 max-w-4xl w-full mb-8">
         {boardItems.map((item) => {
           const isFound = foundItems.includes(item.id);
@@ -152,7 +152,7 @@ export default function DinoRollAndFind({ onBackToGames }: DinoRollAndFindProps)
             >
               {isFound && (
                 <span className="absolute top-3 right-3 bg-emerald-500 text-white text-xs px-2.5 py-1 rounded-full font-bold">
-                  تم العثور عليها ✓
+                  Found ✓
                 </span>
               )}
               <span className="text-6xl mb-3">{item.icon}</span>
@@ -163,13 +163,13 @@ export default function DinoRollAndFind({ onBackToGames }: DinoRollAndFindProps)
         })}
       </div>
 
-      {/* زر إعادة اللعب إذا اكتملت اللعبة */}
+      {/* Play again button when the game is complete */}
       {foundItems.length === boardItems.length && (
         <button
           onClick={resetGame}
           className="px-8 py-3 bg-teal-600 hover:bg-teal-500 text-white font-extrabold rounded-2xl shadow-xl transition-all cursor-pointer"
         >
-          العب مرة أخرى 🔄
+          Play Again 🔄
         </button>
       )}
     </div>

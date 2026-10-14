@@ -4,7 +4,7 @@ interface BeesPathMatchProps {
   onBackToGames: () => void;
 }
 
-// مسار خلايا العسل المرتبة من البداية للنهاية
+// Honeycomb path steps in order from start to finish
 const PATH_STEPS = [
   { id: 1, name: 'Bee', icon: '🐝' },
   { id: 2, name: 'Beehive', icon: '🏡' },
@@ -21,51 +21,51 @@ const PATH_STEPS = [
 ];
 
 export default function BeesPathMatch({ onBackToGames }: BeesPathMatchProps) {
-  // مؤشر الخطوة الحالية في المسار
+  // Current step index on the path
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   
-  // خلط الكروت بشكل عشوائي عند بدء اللعبة لتكون أوراق اللعب غير مرتبة
+  // Shuffle the cards at game start so they come in random order
   const [shuffledCards, setShuffledCards] = useState(() => [...PATH_STEPS].sort(() => Math.random() - 0.5));
   
-  // مؤشر الكرت الحالي المسحوب من مجموعة الكروت المخلطة
+  // Index of the card currently drawn from the shuffled deck
   const [cardIndex, setCardIndex] = useState(0);
 
-  const [gameMessage, setGameMessage] = useState('Follow the bee path! Match the drawn card to the current path step[cite: 4].');
+  const [gameMessage, setGameMessage] = useState('Follow the bee path! Match the drawn card to the current path step.');
   const [isWon, setIsWon] = useState(false);
 
   const currentPathTarget = PATH_STEPS[currentStepIndex];
   const activeCard = shuffledCards[cardIndex % shuffledCards.length];
 
-  // التعامل مع اختيار اللاعب (هل يتطابق الكرت مع خطوة المسار أم لا؟)
+  // Handle the player's choice (does the card match the path step?)
   const handlePlayerChoice = (userSaysMatch: boolean) => {
     if (isWon) return;
 
     const isActuallyMatching = activeCard.id === currentPathTarget.id;
 
     if (userSaysMatch) {
-      // اللاعب يؤكد أن الكرت يطابق الخطوة الحالية
+      // Player says the card matches the current step
       if (isActuallyMatching) {
-        // إجابة صحيحة: تقدم خطوة في المسار
+        // Correct answer: advance one step
         if (currentStepIndex + 1 === PATH_STEPS.length) {
           setIsWon(true);
-          setGameMessage('🎉 Fantastic! The bee reached the FINISH line successfully![cite: 4]');
+          setGameMessage('🎉 Fantastic! The bee reached the FINISH line successfully!');
         } else {
           setCurrentStepIndex(prev => prev + 1);
           setCardIndex(prev => prev + 1);
-          setGameMessage('✨ Correct match! The bee moves forward on the path![cite: 4]');
+          setGameMessage('✨ Correct match! The bee moves forward on the path!');
         }
       } else {
-        // إجابة خاطئة: الكرت لا يطابق الخلية الحالية
+        // Wrong answer: the card does not match the current cell
         setGameMessage('❌ Incorrect! This card does not match the current path step. Try skipping or finding the right one!');
       }
     } else {
-      // اللاعب اختار تخطي الكرت (Skip / Not Here)
+      // Player chose to skip the card (Skip / Not Here)
       if (!isActuallyMatching) {
-        // إجابة صحيحة فعلاً الكرت ليس هو المطلوب، ننتقل للكرت التالي
+        // Correct skip: this card is not the one needed, move to the next card
         setCardIndex(prev => prev + 1);
         setGameMessage('👍 Correct skip! This card is not for the current step. Look at the next card.');
       } else {
-        // إجابة خاطئة: اللاعب تخطى الكرت مع أنه هو المطلوب بالأساس!
+        // Wrong skip: the player skipped the card that was actually needed
         setGameMessage('⚠️ Wait! This card actually matches the current path step. Try matching it!');
       }
     }
@@ -76,12 +76,12 @@ export default function BeesPathMatch({ onBackToGames }: BeesPathMatchProps) {
     setCardIndex(0);
     setShuffledCards([...PATH_STEPS].sort(() => Math.random() - 0.5));
     setIsWon(false);
-    setGameMessage('Follow the bee path! Match the drawn card to the current path step[cite: 4].');
+    setGameMessage('Follow the bee path! Match the drawn card to the current path step.');
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-yellow-50 via-amber-50 to-emerald-50 p-6 md:p-12 flex flex-col items-center">
-      {/* زر العودة */}
+      {/* Back button */}
       <div className="w-full max-w-5xl flex justify-between items-center mb-6">
         <button 
           onClick={onBackToGames}
@@ -94,33 +94,33 @@ export default function BeesPathMatch({ onBackToGames }: BeesPathMatchProps) {
         </div>
       </div>
 
-      {/* عنوان اللعبة */}
+      {/* Game title */}
       <div className="text-center space-y-2 mb-6">
         <span className="text-5xl inline-block animate-bounce">🐝</span>
         <h1 className="text-3xl md:text-4xl font-extrabold text-amber-900">
-          Bee's Path Match[cite: 4]
+          Bee's Path Match
         </h1>
         <p className="text-amber-800 font-medium max-w-lg mx-auto">
-          Place the picture cards to the correct spot on the board and guide the bee along the path[cite: 4]!
+          Place the picture cards to the correct spot on the board and guide the bee along the path!
         </p>
       </div>
 
-      {/* لوحة الرسائل */}
+      {/* Message board */}
       <div className="w-full max-w-2xl bg-white/90 backdrop-blur-md rounded-2xl p-4 shadow-md border border-amber-200 text-center mb-8">
         <p className="text-amber-900 font-bold text-base md:text-lg">
           {gameMessage}
         </p>
       </div>
 
-      {/* لوحة المسار الخطي (Path Board) */}
+      {/* Path board */}
       <div className="w-full max-w-5xl bg-emerald-100/90 backdrop-blur-md rounded-3xl p-6 shadow-xl border-3 border-emerald-400 mb-8 flex flex-col items-center">
         <div className="w-full flex justify-between items-center mb-4 px-4">
           <span className="bg-amber-600 text-white font-extrabold px-4 py-1.5 rounded-full text-xs shadow">START 🚀</span>
-          <span className="text-xs font-bold text-emerald-900 uppercase tracking-wider">Bee's Journey Path[cite: 4]</span>
+          <span className="text-xs font-bold text-emerald-900 uppercase tracking-wider">Bee's Journey Path</span>
           <span className="bg-emerald-600 text-white font-extrabold px-4 py-1.5 rounded-full text-xs shadow">FINISH 🏁</span>
         </div>
 
-        {/* خلايا المسار مرتبة */}
+        {/* Path cells in order */}
         <div className="grid grid-cols-4 md:grid-cols-6 gap-3 w-full py-4">
           {PATH_STEPS.map((step, idx) => {
             const isPassed = idx < currentStepIndex;
@@ -156,11 +156,11 @@ export default function BeesPathMatch({ onBackToGames }: BeesPathMatchProps) {
         </div>
       </div>
 
-      {/* منطقة سحب الكرت والاختيار */}
+      {/* Card draw and choice area */}
       {!isWon ? (
         <div className="w-full max-w-xl bg-white rounded-3xl p-6 shadow-xl border-3 border-amber-300 flex flex-col items-center text-center">
           <span className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
-            Drawn Card to Match on Path[cite: 4]
+            Drawn Card to Match on Path
           </span>
 
           <div className="w-36 h-36 rounded-2xl bg-amber-50 border-3 border-dashed border-amber-400 flex flex-col items-center justify-center p-4 shadow-inner mb-6">
@@ -191,7 +191,7 @@ export default function BeesPathMatch({ onBackToGames }: BeesPathMatchProps) {
         <div className="bg-white rounded-3xl p-8 shadow-xl border-3 border-amber-300 text-center space-y-4">
           <span className="text-6xl">🏆</span>
           <h3 className="text-2xl font-extrabold text-emerald-700">You Won the Path Game!</h3>
-          <p className="text-gray-600 font-medium">The bee successfully crossed the entire path from Start to Finish[cite: 4]!</p>
+          <p className="text-gray-600 font-medium">The bee successfully crossed the entire path from Start to Finish!</p>
           <button
             onClick={resetGame}
             className="px-8 py-3 rounded-2xl bg-amber-600 hover:bg-amber-700 text-white font-extrabold shadow-lg transition-all cursor-pointer"

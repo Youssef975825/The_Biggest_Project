@@ -29,7 +29,7 @@ export default function DinoMemoryMatch({ onBackToGames }: DinoMemoryMatchProps)
   const [moves, setMoves] = useState(0);
   const [matchesCount, setMatchesCount] = useState(0);
 
-  // خوارزمية خلط حقيقية وعشوائية بالكامل (Fisher-Yates Shuffle)
+  // Unbiased Fisher-Yates shuffle
   const shuffleArray = (array: any[]) => {
     const arr = [...array];
     for (let i = arr.length - 1; i > 0; i--) {
@@ -115,14 +115,14 @@ export default function DinoMemoryMatch({ onBackToGames }: DinoMemoryMatchProps)
       try {
         confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
       } catch (e) {
-        // تجاهل لو المكتبة غير مشغلة
+        // Ignore if the library is not available
       }
     }
   }, [matchesCount]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-teal-50 via-cyan-50 to-blue-50 p-6 md:p-12 flex flex-col items-center">
-      {/* زر العودة */}
+      {/* Back button */}
       <div className="w-full max-w-3xl flex justify-start mb-6">
         <button
           onClick={onBackToGames}
@@ -132,7 +132,7 @@ export default function DinoMemoryMatch({ onBackToGames }: DinoMemoryMatchProps)
         </button>
       </div>
 
-      {/* عنوان اللعبة والإحصائيات */}
+      {/* Game title and stats */}
       <div className="text-center space-y-2 mb-8">
         <span className="text-5xl">🧩</span>
         <h1 className="text-3xl md:text-4xl font-extrabold text-teal-950">
@@ -143,7 +143,7 @@ export default function DinoMemoryMatch({ onBackToGames }: DinoMemoryMatchProps)
         </p>
       </div>
 
-      {/* شبكة البطاقات */}
+      {/* Cards grid */}
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 max-w-3xl w-full mb-8">
         {cards.map((card) => (
           <div
@@ -159,7 +159,7 @@ export default function DinoMemoryMatch({ onBackToGames }: DinoMemoryMatchProps)
               <span>{card.icon}</span>
             ) : (
               <div className="flex flex-col items-center space-y-1">
-                {/* ظهر الكارت: أيقونة ديناصور مصغرة مع لمسة جمالية */}
+                {/* Card back: small dino icon */}
                 <span className="text-3xl animate-pulse">🦖</span>
                 <span className="text-xs font-bold tracking-wider text-teal-100 uppercase opacity-80">Dino</span>
               </div>
@@ -168,16 +168,16 @@ export default function DinoMemoryMatch({ onBackToGames }: DinoMemoryMatchProps)
         ))}
       </div>
 
-      {/* شاشة الفوز وإعادة اللعب */}
+      {/* Win screen and replay */}
       {matchesCount === dinoCardsData.length && (
         <div className="text-center bg-white/90 backdrop-blur-md p-6 rounded-3xl shadow-xl border border-teal-300 animate-bounce mt-4 max-w-md w-full">
-          <h2 className="text-2xl font-extrabold text-teal-900 mb-2">🎉 مبروك يا بطل!</h2>
-          <p className="text-gray-600 mb-4">لقد أنهيت اللعبة في {moves} محاولة بنجاح!</p>
+          <h2 className="text-2xl font-extrabold text-teal-900 mb-2">🎉 Congratulations, champ!</h2>
+          <p className="text-gray-600 mb-4">You finished the game in {moves} moves!</p>
           <button
             onClick={initializeGame}
             className="px-6 py-2.5 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-xl shadow-md transition-all cursor-pointer"
           >
-            العب مرة أخرى 🔄
+            Play Again 🔄
           </button>
         </div>
       )}

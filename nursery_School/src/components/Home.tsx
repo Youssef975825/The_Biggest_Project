@@ -13,7 +13,7 @@ export default function Home({ introFinished }: HomeProps): React.JSX.Element {
     const navigate = useNavigate();
 
   useGSAP(() => {
-    // لو الإنترو لسه مخلصش، متبدأش أنيميشن الهوم
+    // Do not start the home animation until the intro has finished
     if (!introFinished) return;
 
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
@@ -50,12 +50,12 @@ export default function Home({ introFinished }: HomeProps): React.JSX.Element {
   return (
     <section ref={containerRef} className="relative min-h-screen bg-[#FFFDF9] flex items-center justify-center overflow-hidden px-6 pt-24">
       
-      {/* خلفية جمالية دافئة */}
+      {/* Warm decorative background */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#FFD13B]/20 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center z-10 w-full">
         
-        {/* الجانب الأيمن / النصوص */}
+        {/* Left side / text */}
         <div className="space-y-6 text-center md:text-left">
           <span className="hero-badge inline-block px-4 py-1.5 rounded-full bg-[#FF70A6]/10 text-[#FF70A6] font-semibold text-sm">
             ✨ Play • Learn • Create • Grow
@@ -82,13 +82,11 @@ export default function Home({ introFinished }: HomeProps): React.JSX.Element {
           </div>
         </div>
 
-        {/* الجانب الأيسر / مكان الـ Mascot */}
+        {/* Right side / world slider */}
         <div className="hero-card relative flex justify-center">
           <div className="w-72 h-72 md:w-96 md:h-96 rounded-3xl bg-gradient-to-tr from-[#FFD13B]/30 to-[#70C1B3]/30 backdrop-blur-xl border border-white/50 shadow-2xl flex items-center justify-center p-6 relative">
             
-            <div className="hero-card relative flex justify-center">
-  <             WorldsSlider />
-            </div>
+            <WorldsSlider />
 
           </div>
         </div>

@@ -4,7 +4,7 @@ interface BeeRaceProps {
   onBackToGames: () => void;
 }
 
-const TOTAL_STEPS = 15; // عدد خطوات مسار السباق
+const TOTAL_STEPS = 15; // Number of steps on the race track
 
 export default function BeeRace({ onBackToGames }: BeeRaceProps) {
   const [playerPosition, setPlayerPosition] = useState(0);
@@ -20,13 +20,13 @@ export default function BeeRace({ onBackToGames }: BeeRaceProps) {
     setGameMessage('Rolling the magic dice... 🎲');
 
     setTimeout(() => {
-      const rolled = Math.floor(Math.random() * 3) + 1; // نرد من 1 لـ 3
+      const rolled = Math.floor(Math.random() * 3) + 1; // Dice roll from 1 to 3
       setDiceValue(rolled);
       setIsRolling(false);
 
       let newPos = playerPosition + rolled;
 
-      // 1. فحص المفاجآت أولاً
+      // 1. Check for surprise squares first
       if (newPos === 3) {
         newPos += 2; 
         setGameMessage('🍯 Sweet! Bella found a honey drop and moved forward 2 extra steps!');
@@ -40,7 +40,7 @@ export default function BeeRace({ onBackToGames }: BeeRaceProps) {
         setGameMessage(`Bella moved forward by ${rolled} steps! Keep going! 🐝`);
       }
 
-      // 2. فحص خط النهاية
+      // 2. Check for the finish line
       if (newPos >= TOTAL_STEPS) {
         newPos = TOTAL_STEPS;
         setIsWon(true);
@@ -60,7 +60,7 @@ export default function BeeRace({ onBackToGames }: BeeRaceProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-yellow-50 via-amber-50 to-emerald-50 p-6 md:p-12 flex flex-col items-center">
-      {/* زر العودة لقائمة الألعاب */}
+      {/* Back to games list */}
       <div className="w-full max-w-4xl flex justify-between items-center mb-6">
         <button 
           onClick={onBackToGames}
@@ -73,7 +73,7 @@ export default function BeeRace({ onBackToGames }: BeeRaceProps) {
         </div>
       </div>
 
-      {/* عنوان اللعبة */}
+      {/* Game title */}
       <div className="text-center space-y-2 mb-8">
         <span className="text-5xl inline-block animate-bounce">🐝</span>
         <h1 className="text-3xl md:text-4xl font-extrabold text-amber-900">
@@ -84,13 +84,13 @@ export default function BeeRace({ onBackToGames }: BeeRaceProps) {
         </p>
       </div>
 
-      {/* مسار السباق (دوائر متسلسلة تشبه الـ PDF) */}
+      {/* Race track (circles in sequence) */}
       <div className="w-full max-w-4xl bg-white/90 backdrop-blur-md rounded-3xl p-8 shadow-xl border-2 border-amber-200 mb-8 flex flex-col items-center">
         <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6 py-4">
           {Array.from({ length: TOTAL_STEPS + 1 }).map((_, index) => {
             const isHere = playerPosition === index;
             
-            // تخصيص ألوان وشكل الدوائر
+            // Circle colors and style
             let circleStyle = 'bg-amber-100 border-amber-300 text-amber-900';
             if (index === 0) circleStyle = 'bg-emerald-200 border-emerald-400 text-emerald-900';
             if (index === TOTAL_STEPS) circleStyle = 'bg-pink-200 border-pink-400 text-pink-900';
@@ -102,7 +102,7 @@ export default function BeeRace({ onBackToGames }: BeeRaceProps) {
                     isHere ? 'ring-4 ring-amber-500 scale-110 shadow-xl bg-amber-200 z-10' : 'hover:scale-105'
                   }`}
                 >
-                  {/* رقم الخطوة أو أيقونتها */}
+                  {/* Step number or icon */}
                   <span className="text-[10px] md:text-xs font-extrabold opacity-70">
                     {index === 0 ? 'START' : index === TOTAL_STEPS ? 'GOAL' : index}
                   </span>
@@ -116,7 +116,7 @@ export default function BeeRace({ onBackToGames }: BeeRaceProps) {
                     {index !== 0 && index !== 3 && index !== 7 && index !== 11 && index !== TOTAL_STEPS && '⚪'}
                   </span>
 
-                  {/* ظهور النحلة فوق الدائرة الحالية */}
+                  {/* Bee shown above the current circle */}
                   {isHere && (
                     <div className="absolute -top-6 text-3xl md:text-4xl animate-bounce drop-shadow-lg">
                       🐝
@@ -124,7 +124,7 @@ export default function BeeRace({ onBackToGames }: BeeRaceProps) {
                   )}
                 </div>
 
-                {/*آخر خط سهم بين الدوائر (ما عدا الأخيرة) */}
+                {/* Connector between circles (except the last) */}
                 {index < TOTAL_STEPS && (
                   <div className="w-3 md:w-6 h-1 bg-amber-300 mx-1 hidden sm:block rounded-full"></div>
                 )}
@@ -134,7 +134,7 @@ export default function BeeRace({ onBackToGames }: BeeRaceProps) {
         </div>
       </div>
 
-      {/* لوحة التحكم والرسائل */}
+      {/* Controls and messages */}
       <div className="w-full max-w-md bg-white rounded-3xl p-6 shadow-xl border-2 border-amber-300 text-center space-y-4">
         <p className="text-amber-900 font-bold text-lg min-h-[3rem] flex items-center justify-center">
           {gameMessage}

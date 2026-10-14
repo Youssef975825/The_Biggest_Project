@@ -30,7 +30,7 @@ export default function Bee_Memory_Match({ onBackToGames }: BeeMemoryMatchProps)
   const [matches, setMatches] = useState(0);
   const [isWon, setIsWon] = useState(false);
 
-  // خوارزمية خلط حقيقية وعشوائية بالكامل (Fisher-Yates Shuffle)
+  // Unbiased Fisher-Yates shuffle
   const shuffleArray = (array: any[]) => {
     const arr = [...array];
     for (let i = arr.length - 1; i > 0; i--) {
@@ -48,7 +48,7 @@ export default function Bee_Memory_Match({ onBackToGames }: BeeMemoryMatchProps)
       isMatched: false,
     }));
 
-    // خلط الكروت باستخدام الخوارزمية الحقيقية لضمان تغير الأاماكن كلياً
+    // Shuffle so positions change completely every game
     const randomizedCards = shuffleArray(duplicatedCards);
 
     setCards(randomizedCards);
@@ -114,7 +114,7 @@ export default function Bee_Memory_Match({ onBackToGames }: BeeMemoryMatchProps)
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-yellow-50 via-amber-50 to-emerald-50 p-6 md:p-12 flex flex-col items-center">
-      {/* زر العودة لقائمة الألعاب */}
+      {/* Back to games list */}
       <div className="w-full max-w-2xl flex justify-between items-center mb-6">
         <button 
           onClick={onBackToGames}
@@ -128,7 +128,7 @@ export default function Bee_Memory_Match({ onBackToGames }: BeeMemoryMatchProps)
         </div>
       </div>
 
-      {/* عنوان اللعبة */}
+      {/* Game title */}
       <div className="text-center space-y-2 mb-8">
         <span className="text-5xl inline-block">🐝</span>
         <h1 className="text-3xl md:text-4xl font-extrabold text-amber-900">
@@ -139,7 +139,7 @@ export default function Bee_Memory_Match({ onBackToGames }: BeeMemoryMatchProps)
         </p>
       </div>
 
-      {/* شبكة الكروت */}
+      {/* Cards grid */}
       <div className="grid grid-cols-3 md:grid-cols-4 gap-4 max-w-xl w-full mb-8">
         {cards.map(card => (
           <div
@@ -156,7 +156,7 @@ export default function Bee_Memory_Match({ onBackToGames }: BeeMemoryMatchProps)
         ))}
       </div>
 
-      {/* نافذة الفوز */}
+      {/* Win modal */}
       {isWon && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-3xl p-8 max-w-sm w-full text-center space-y-4 shadow-2xl border-4 border-amber-300 animate-bounce">
@@ -175,7 +175,7 @@ export default function Bee_Memory_Match({ onBackToGames }: BeeMemoryMatchProps)
         </div>
       )}
 
-      {/* زر إعادة اللعبة */}
+      {/* Restart button */}
       {!isWon && (
         <button
           onClick={initializeGame}

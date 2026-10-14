@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import DinoGamesHub from './DinoGameHub'; // مركز ألعاب الديناصورات
+import DinoGamesHub from './DinoGameHub'; // Dino games hub
 
 export default function Dinosaur() {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ export default function Dinosaur() {
       id: 'games',
       title: 'Fun Dino Games',
       category: 'Print, Cut & Play',
-      desc: 'Enjoy Dino Memory Match, Prehistoric Race, Fossil Sort, and Dino I Spy games!',
+      desc: 'Enjoy Dino Memory Match, Roll & Find Dino, Feed the Dino, Footprint Hunt, and Egg Surprise!',
       icon: '🎮',
       color: 'bg-sky-100 border-sky-300 text-sky-900',
     },
@@ -47,7 +47,7 @@ export default function Dinosaur() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-teal-50 via-cyan-50 to-blue-50 p-6 md:p-12">
-      {/* زر العودة للعوالم الرئيسية */}
+      {/* Back to worlds */}
       <button 
         onClick={() => navigate(-1)}
         className="mb-8 px-5 py-2.5 rounded-2xl bg-white shadow-md text-gray-700 font-bold hover:bg-gray-100 transition-all border border-teal-200 cursor-pointer flex items-center gap-2 translate-y-17 translate-x-18"
@@ -55,7 +55,7 @@ export default function Dinosaur() {
         ← Back to Worlds
       </button>
 
-      {/* الهيدر الخاص بالعالم */}
+      {/* World header */}
       <div className="text-center max-w-2xl mx-auto space-y-4 mb-12">
         <span className="text-6xl inline-block animate-bounce">🦖</span>
         <h1 className="text-4xl md:text-5xl font-extrabold text-teal-950 tracking-tight">
@@ -66,7 +66,7 @@ export default function Dinosaur() {
         </p>
       </div>
 
-      {/* شبكة الأنشطة والقصص */}
+      {/* Activities and stories grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
         {activities.map((item) => (
           <div
@@ -75,7 +75,7 @@ export default function Dinosaur() {
               if (item.id === 'games') {
                 setCurrentView('games-hub');
               } else {
-                alert(`قريباً سيتم تفعيل قسم الـ ${item.title}!`);
+                alert(`${item.title} is coming soon!`);
               }
             }}
             className={`rounded-3xl p-6 border-2 shadow-xl transition-all transform hover:-translate-y-1 hover:shadow-2xl cursor-pointer flex flex-col justify-between ${item.color}`}
