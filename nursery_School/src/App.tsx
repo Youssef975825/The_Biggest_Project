@@ -6,6 +6,7 @@ import Home from './components/Home';
 import BeesWorld from './components/Bees';
 import PageTransitionWrapper from './components/PageTransitionWrapper';
 import Dinosaur from './components/Dinosaur';
+import ThemePacks from './components/ThemePacks';
 
 export default function App() {
   const [showIntro, setShowIntro] = useState(true);
@@ -71,7 +72,17 @@ export default function App() {
                   </PageTransitionWrapper>
                 } 
               />
+
+              <Route 
+                path="/themes" 
+                element={
+                  <PageTransitionWrapper>
+                    <ThemePacks />
+                  </PageTransitionWrapper>
+                } 
+              />
             </Routes>
+            
           )}
         </main>
       </Router>
