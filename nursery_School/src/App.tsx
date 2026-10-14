@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Intro from './components/Preloader_Intro';
 import Header from './components/Header';
@@ -10,22 +10,42 @@ import Dinosaur from './components/Dinosaur';
 export default function App() {
   const [showIntro, setShowIntro] = useState(true);
   const [introFinished, setIntroFinished] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    return localStorage.getItem('theme') === 'dark'; 
+  });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isDarkMode) {
+      root.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      root.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDarkMode]);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(prev => !prev);
+  };
 
   return (
-    <Router>
-      <main className="relative min-h-screen bg-[#FFFDF9]">
-        {showIntro && (
-          <Intro 
-            onComplete={() => {
-              setShowIntro(false);
-              setIntroFinished(true);
-            }} 
-          />
-        )}
+    <div className='min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 transition-colors duration-300'>
+      <Router>
+        {/* Properties Of Dark Mode to Header */}
+        <Header isDarkMode={isDarkMode} onToggleDarkMode={toggleDarkMode} />
+        
+        <main className="relative min-h-screen pt-20">
+          {showIntro && (
+            <Intro 
+              onComplete={() => {
+                setShowIntro(false);
+                setIntroFinished(true);
+              }} 
+            />
+          )}
 
-        {!showIntro && (
-          <>
-            <Header />
+          {!showIntro && (
             <Routes>
               <Route 
                 path="/" 
@@ -52,9 +72,9 @@ export default function App() {
                 } 
               />
             </Routes>
-          </>
-        )}
-      </main>
-    </Router>
+          )}
+        </main>
+      </Router>
+    </div>
   );
 }
