@@ -48,43 +48,43 @@ export default function Home({ introFinished }: HomeProps): React.JSX.Element {
   }, { scope: containerRef, dependencies: [introFinished] });
 
   return (
-    <section ref={containerRef} className="relative min-h-screen bg-[#FFFDF9] flex items-center justify-center overflow-hidden px-6 pt-24">
+    <section ref={containerRef} className="relative min-h-screen bg-[#FFFDF9] dark:bg-gray-950 flex items-center justify-center overflow-hidden px-6 pt-24 transition-colors duration-300">
       
-      {/* Warm decorative background */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#FFD13B]/20 rounded-full blur-3xl pointer-events-none"></div>
+      {/* Warm decorative background with dark mode adjustment */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#FFD13B]/20 dark:bg-yellow-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center z-10 w-full">
         
         {/* Left side / text */}
         <div className="space-y-6 text-center md:text-left">
-          <span className="hero-badge inline-block px-4 py-1.5 rounded-full bg-[#FF70A6]/10 text-[#FF70A6] font-semibold text-sm">
+          <span className="hero-badge inline-block px-4 py-1.5 rounded-full bg-[#FF70A6]/10 dark:bg-pink-950/60 text-[#FF70A6] dark:text-pink-400 font-semibold text-sm">
             ✨ Play • Learn • Create • Grow
           </span>
 
-          <h1 className="hero-title text-4xl md:text-6xl font-extrabold text-gray-800 leading-tight">
-            What if learning could feel <span className="text-[#FFD13B] drop-shadow-sm">different?</span>
+          <h1 className="hero-title text-4xl md:text-6xl font-extrabold text-gray-800 dark:text-white leading-tight">
+            What if learning could feel <span className="text-[#FFD13B] dark:text-yellow-400 drop-shadow-sm">different?</span>
             <span className="hero-title block text-[#FF70A6] mt-2">Let the magic begin!</span>
           </h1>
 
-          <p className="hero-desc text-lg text-gray-600 max-w-lg">
+          <p className="hero-desc text-lg text-gray-600 dark:text-gray-300 max-w-lg">
             Welcome to Little Wonder Studio — where little minds wonder. Explore interactive worlds, fun games, and magical educational resources.
           </p>
 
           <div className="hero-buttons flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <button
             onClick={() => navigate('/bees')}
-            className="px-8 py-3.5 rounded-xl bg-[#FF70A6] text-white font-bold shadow-lg shadow-[#FF70A6]/30 hover:bg-[#ff5293] transition-all transform hover:-translate-y-0.5">
+            className="px-8 py-3.5 rounded-xl bg-[#FF70A6] text-white font-bold shadow-lg shadow-[#FF70A6]/30 hover:bg-[#ff5293] transition-all transform hover:-translate-y-0.5 cursor-pointer">
               Explore Worlds 🚀
             </button>
-            <button className="px-8 py-3.5 rounded-xl bg-white/80 backdrop-blur-md border-2 border-gray-200 text-gray-700 font-bold hover:bg-gray-50 transition-all">
+            <button className="px-8 py-3.5 rounded-xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-2 border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-200 font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer">
               Watch Intro
             </button>
           </div>
         </div>
 
-        {/* Right side / world slider */}
+        {/* Right side / world slider wrapper */}
         <div className="hero-card relative flex justify-center">
-          <div className="w-72 h-72 md:w-96 md:h-96 rounded-3xl bg-gradient-to-tr from-[#FFD13B]/30 to-[#70C1B3]/30 backdrop-blur-xl border border-white/50 shadow-2xl flex items-center justify-center p-6 relative">
+          <div className="w-72 h-72 md:w-96 md:h-96 rounded-3xl bg-gradient-to-tr from-[#FFD13B]/30 to-[#70C1B3]/30 dark:from-yellow-950/30 dark:to-teal-950/30 backdrop-blur-xl border border-white/50 dark:border-gray-800 shadow-2xl flex items-center justify-center p-6 relative">
             
             <WorldsSlider />
 

@@ -79,31 +79,31 @@ export default function WorldsSlider() {
       onMouseLeave={() => setIsPaused(false)}  // resume when the mouse leaves
     >
       
-      {/* Main animated card */}
+      {/* Main animated card with Dark Mode support */}
       <div 
         ref={slideRef}
         data-flip-id={currentWorld.id === 'bees' ? 'bee-card' : undefined}
         onClick={() => navigate(currentWorld.path)}
-        className={`w-full h-80 md:h-96 rounded-3xl bg-gradient-to-tr ${currentWorld.bgGradient} backdrop-blur-xl border ${currentWorld.borderColor} shadow-2xl flex flex-col items-center justify-center p-8 relative cursor-pointer transform transition-transform hover:scale-[1.02] group text-center space-y-4`}
+        className={`w-full h-80 md:h-96 rounded-3xl bg-gradient-to-tr ${currentWorld.bgGradient} dark:from-gray-900/90 dark:to-gray-950/90 backdrop-blur-xl border ${currentWorld.borderColor} dark:border-gray-800 shadow-2xl flex flex-col items-center justify-center p-8 relative cursor-pointer transform transition-transform hover:scale-[1.02] group text-center space-y-4`}
       >
         <span className="text-6xl inline-block group-hover:scale-110 transition-transform">
           {currentWorld.icon}
         </span>
         
         <div className="space-y-1">
-          <span className="text-xs font-extrabold uppercase tracking-widest text-gray-500">
+          <span className="text-xs font-extrabold uppercase tracking-widest text-gray-500 dark:text-gray-400">
             {currentWorld.category}
           </span>
-          <h3 className="text-3xl font-extrabold text-gray-800">
+          <h3 className="text-3xl font-extrabold text-gray-800 dark:text-white">
             {currentWorld.title}
           </h3>
         </div>
 
-        <p className="text-sm text-gray-600 font-medium max-w-sm">
+        <p className="text-sm text-gray-600 dark:text-gray-300 font-medium max-w-sm">
           {currentWorld.desc}
         </p>
 
-        <div className="absolute bottom-4 text-xs font-bold text-gray-700 bg-white/60 px-3 py-1 rounded-full shadow-sm">
+        <div className="absolute bottom-4 text-xs font-bold text-gray-700 dark:text-gray-300 bg-white/60 dark:bg-gray-800/80 px-3 py-1 rounded-full shadow-sm">
           Click to explore world →
         </div>
       </div>
@@ -112,7 +112,7 @@ export default function WorldsSlider() {
       <div className="flex items-center justify-between w-full mt-6 px-4">
         <button 
           onClick={prevSlide}
-          className="p-3 rounded-xl bg-white shadow-md text-gray-700 font-bold hover:bg-gray-50 transition-all border border-gray-100 cursor-pointer"
+          className="p-3 rounded-xl bg-white dark:bg-gray-900 shadow-md text-gray-700 dark:text-gray-200 font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-all border border-gray-100 dark:border-gray-800 cursor-pointer"
         >
           ← Prev
         </button>
@@ -124,7 +124,7 @@ export default function WorldsSlider() {
               key={idx}
               onClick={() => setCurrentIndex(idx)}
               className={`h-2.5 rounded-full transition-all duration-300 ${
-                currentIndex === idx ? 'w-8 bg-[#FF70A6]' : 'w-2.5 bg-gray-300'
+                currentIndex === idx ? 'w-8 bg-[#FF70A6]' : 'w-2.5 bg-gray-300 dark:bg-gray-700'
               }`}
             />
           ))}
@@ -132,7 +132,7 @@ export default function WorldsSlider() {
 
         <button 
           onClick={nextSlide}
-          className="p-3 rounded-xl bg-white shadow-md text-gray-700 font-bold hover:bg-gray-50 transition-all border border-gray-100 cursor-pointer"
+          className="p-3 rounded-xl bg-white dark:bg-gray-900 shadow-md text-gray-700 dark:text-gray-200 font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-all border border-gray-100 dark:border-gray-800 cursor-pointer"
         >
           Next →
         </button>

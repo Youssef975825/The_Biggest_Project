@@ -5,7 +5,6 @@ interface DinoEggSurpriseProps {
   onBackToGames: () => void;
 }
 
-// The 12 stations of the circular board path
 const boardSteps = [
   { id: 1, name: 'START', x: 50, y: 15 },
   { id: 2, name: '2', x: 75, y: 20 },
@@ -21,7 +20,6 @@ const boardSteps = [
   { id: 12, name: 'FINISH', x: 50, y: 45 },
 ];
 
-// Contents of the 12 eggs
 const eggSurprises = [
   { id: 1, type: 'move', value: 2, text: '🎉 Surprise! Move forward 2 steps!' },
   { id: 2, type: 'action', value: 0, text: '🦖 Dino roar! Jump in place with joy!' },
@@ -63,16 +61,13 @@ export default function DinoEggSurprise({ onBackToGames }: DinoEggSurpriseProps)
 
     setCurrentStepIndex(newIndex);
 
-    // Check whether the dino reached the finish
     if (newIndex === boardSteps.length - 1) {
       setIsGameOver(true);
       setCurrentMessage('🏆 Congratulations, champ! The dino reached the finish line!');
       try {
         confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
       } catch (e) {}
-    } 
-    // Check whether all eggs are used up without reaching the finish
-    else if (newOpenedEggs.length === eggSurprises.length) {
+    } else if (newOpenedEggs.length === eggSurprises.length) {
       setIsGameOver(true);
       setCurrentMessage('⚠️ You ran out of eggs before reaching the finish line! Try again.');
     } else {
@@ -89,12 +84,12 @@ export default function DinoEggSurprise({ onBackToGames }: DinoEggSurpriseProps)
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-yellow-50 p-4 md:p-8 flex flex-col items-center">
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-yellow-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 p-4 md:p-8 flex flex-col items-center transition-colors duration-300">
       {/* Back button */}
       <div className="w-full max-w-4xl flex justify-start mb-4">
         <button
           onClick={onBackToGames}
-          className="px-4 py-2 rounded-2xl bg-white shadow-md text-gray-700 font-bold hover:bg-gray-100 transition-all border border-amber-200 cursor-pointer flex items-center gap-2 text-sm translate-y-18 lg:translate-x-[-12rem]"
+          className="px-4 py-2 rounded-2xl bg-white dark:bg-gray-900 shadow-md text-gray-700 dark:text-gray-200 font-bold hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border border-amber-200 dark:border-amber-900/50 cursor-pointer flex items-center gap-2 text-sm"
         >
           ← Back to Dino Games
         </button>
@@ -103,27 +98,25 @@ export default function DinoEggSurprise({ onBackToGames }: DinoEggSurpriseProps)
       {/* Game title */}
       <div className="text-center space-y-1 mb-4">
         <span className="text-4xl">🥚</span>
-        <h1 className="text-2xl md:text-3xl font-extrabold text-amber-950">
+        <h1 className="text-2xl md:text-3xl font-extrabold text-amber-950 dark:text-amber-300">
           Dino Egg Surprise Game
         </h1>
-        <p className="text-gray-600 text-xs md:text-sm font-medium">
+        <p className="text-gray-600 dark:text-gray-400 text-xs md:text-sm font-medium">
           Story 1 - Dino's Big Surprise: Open the eggs and help the dino reach the finish!
         </p>
       </div>
 
-      {/* Responsive layout combining the board and the eggs */}
       <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-12 gap-6 mb-6">
-        
         {/* Visual path board */}
-        <div className="md:col-span-6 bg-white/95 backdrop-blur-md border border-amber-200 rounded-3xl p-4 shadow-xl flex flex-col items-center space-y-4">
-          <div className="w-full flex items-center justify-between bg-amber-100/80 p-2.5 rounded-2xl border border-amber-300">
-            <span className="text-sm font-extrabold text-amber-900">🗺️ Path Board</span>
+        <div className="md:col-span-6 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border border-amber-200 dark:border-amber-900/50 rounded-3xl p-4 shadow-xl flex flex-col items-center space-y-4">
+          <div className="w-full flex items-center justify-between bg-amber-100/80 dark:bg-amber-950/60 p-2.5 rounded-2xl border border-amber-300 dark:border-amber-800">
+            <span className="text-sm font-extrabold text-amber-900 dark:text-amber-300">🗺️ Path Board</span>
             <span className="text-xs font-bold bg-amber-700 text-white px-2.5 py-0.5 rounded-full">
               Station: {boardSteps[currentStepIndex].name}
             </span>
           </div>
 
-          <div className="relative w-full h-56 bg-amber-50/70 border-2 border-dashed border-amber-300 rounded-2xl flex items-center justify-center p-2">
+          <div className="relative w-full h-56 bg-amber-50/70 dark:bg-gray-800/50 border-2 border-dashed border-amber-300 dark:border-amber-800 rounded-2xl flex items-center justify-center p-2">
             {boardSteps.map((step, index) => {
               const isCurrent = index === currentStepIndex;
               return (
@@ -135,7 +128,7 @@ export default function DinoEggSurprise({ onBackToGames }: DinoEggSurpriseProps)
                       ? 'bg-amber-600 text-white ring-4 ring-amber-300 scale-125 z-20 animate-bounce'
                       : index < currentStepIndex
                       ? 'bg-emerald-600 text-white opacity-80'
-                      : 'bg-white text-amber-900 border border-amber-200'
+                      : 'bg-white dark:bg-gray-800 text-amber-900 dark:text-amber-200 border border-amber-200 dark:border-amber-700'
                   }`}
                 >
                   {isCurrent ? <span className="text-sm">🦖</span> : <span>{step.name}</span>}
@@ -145,20 +138,20 @@ export default function DinoEggSurprise({ onBackToGames }: DinoEggSurpriseProps)
           </div>
 
           {activeSurprise && (
-            <div className="w-full bg-orange-50 border border-orange-200 text-orange-900 font-extrabold text-center p-2 rounded-xl text-xs animate-pulse">
+            <div className="w-full bg-orange-50 dark:bg-orange-950/60 border border-orange-200 dark:border-orange-800 text-orange-900 dark:text-orange-300 font-extrabold text-center p-2 rounded-xl text-xs animate-pulse">
               {activeSurprise}
             </div>
           )}
 
-          <div className="text-amber-900 font-bold text-center px-3 py-1.5 bg-amber-50 rounded-xl w-full text-xs">
+          <div className="text-amber-900 dark:text-amber-300 font-bold text-center px-3 py-1.5 bg-amber-50 dark:bg-gray-800 rounded-xl w-full text-xs">
             {currentMessage}
           </div>
         </div>
 
         {/* Interactive eggs board */}
-        <div className="md:col-span-6 bg-white/95 backdrop-blur-md border border-amber-200 rounded-3xl p-4 shadow-xl flex flex-col justify-between">
+        <div className="md:col-span-6 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border border-amber-200 dark:border-amber-900/50 rounded-3xl p-4 shadow-xl flex flex-col justify-between">
           <div>
-            <h3 className="text-center font-extrabold text-amber-950 text-sm mb-3">
+            <h3 className="text-center font-extrabold text-amber-950 dark:text-amber-300 text-sm mb-3">
               Choose one of the 12 eggs:
             </h3>
             {!isGameOver ? (
@@ -172,7 +165,7 @@ export default function DinoEggSurprise({ onBackToGames }: DinoEggSurpriseProps)
                       disabled={isOpened}
                       className={`p-2.5 rounded-xl shadow-md font-extrabold flex flex-col items-center justify-center gap-1 transition-transform transform ${
                         isOpened
-                          ? 'bg-gray-200 text-gray-400 opacity-50 cursor-not-allowed'
+                          ? 'bg-gray-200 dark:bg-gray-800 text-gray-400 opacity-50 cursor-not-allowed'
                           : 'bg-amber-700 hover:bg-amber-600 text-white hover:-translate-y-1 cursor-pointer'
                       }`}
                     >
@@ -183,11 +176,10 @@ export default function DinoEggSurprise({ onBackToGames }: DinoEggSurpriseProps)
                 })}
               </div>
             ) : (
-              /* Win or out-of-eggs screen */
               <div className="text-center space-y-3 py-6">
                 <span className="text-5xl">🎉</span>
-                <h2 className="text-lg font-extrabold text-amber-900">Round over!</h2>
-                <p className="text-gray-600 text-xs font-medium px-4">
+                <h2 className="text-lg font-extrabold text-amber-900 dark:text-amber-300">Round over!</h2>
+                <p className="text-gray-600 dark:text-gray-300 text-xs font-medium px-4">
                   {currentStepIndex === boardSteps.length - 1
                     ? 'You reached the finish line!'
                     : 'You ran out of eggs before reaching the finish. Try again!'}
@@ -206,7 +198,6 @@ export default function DinoEggSurprise({ onBackToGames }: DinoEggSurpriseProps)
             Eggs opened: {openedEggs.length} / 12
           </div>
         </div>
-
       </div>
     </div>
   );

@@ -5,7 +5,6 @@ interface DinoRollAndFindProps {
   onBackToGames: () => void;
 }
 
-// Items to find after rolling the dice
 const boardItems = [
   { id: 1, name: 'T-Rex', icon: '🦖', desc: 'The friendly giant dinosaur' },
   { id: 2, name: 'Stegosaurus', icon: '🦕', desc: 'The one with the back plates' },
@@ -22,14 +21,12 @@ export default function DinoRollAndFind({ onBackToGames }: DinoRollAndFindProps)
   const [foundItems, setFoundItems] = useState<number[]>([]);
   const [message, setMessage] = useState<string>('Press the Roll Dice button to start the challenge!');
 
-  // Random dice roll (1 to 6)
   const rollDice = () => {
     if (isRolling) return;
     setIsRolling(true);
     setDiceNumber(null);
     setMessage('Rolling the dice... 🎲');
 
-    // Dice rolling animation effect
     let counter = 0;
     const interval = setInterval(() => {
       const randomTemp = Math.floor(Math.random() * 6) + 1;
@@ -41,7 +38,6 @@ export default function DinoRollAndFind({ onBackToGames }: DinoRollAndFindProps)
         setDiceNumber(finalDice);
         setIsRolling(false);
 
-        // Pick an item based on the dice number (1 to 6)
         const selected = boardItems[finalDice - 1];
         setTargetItem(selected);
         setMessage(`Great! You rolled ${finalDice}. Find ${selected.name} (${selected.icon}) on the board and click it!`);
@@ -49,7 +45,6 @@ export default function DinoRollAndFind({ onBackToGames }: DinoRollAndFindProps)
     }, 80);
   };
 
-  // Check when an item on the board is clicked
   const handleItemClick = (item: typeof boardItems[0]) => {
     if (!targetItem) {
       alert('Please roll the dice first to get your target!');
@@ -62,16 +57,13 @@ export default function DinoRollAndFind({ onBackToGames }: DinoRollAndFindProps)
         setFoundItems(updatedFound);
         setMessage(`🎉 Well done, champ! You found "${item.name}".`);
 
-        // Check whether all 6 items were found
         if (updatedFound.length === boardItems.length) {
           try {
             confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
-          } catch (e) {
-            // ignore
-          }
+          } catch (e) {}
           setMessage('🏆 Congratulations! You found all the dinosaurs and jungle items!');
         } else {
-          setTargetItem(null); // ask for a new roll
+          setTargetItem(null);
         }
       } else {
         setMessage('You already found this item! Roll the dice to look for a new one.');
@@ -89,12 +81,12 @@ export default function DinoRollAndFind({ onBackToGames }: DinoRollAndFindProps)
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-teal-50 via-cyan-50 to-blue-50 p-6 md:p-12 flex flex-col items-center">
+    <div className="min-h-screen bg-gradient-to-b from-teal-50 via-cyan-50 to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 p-6 md:p-12 flex flex-col items-center transition-colors duration-300">
       {/* Back button */}
       <div className="w-full max-w-4xl flex justify-start mb-6">
         <button
           onClick={onBackToGames}
-          className="px-5 py-2.5 rounded-2xl bg-white shadow-md text-gray-700 font-bold hover:bg-gray-100 transition-all border border-teal-200 cursor-pointer flex items-center gap-2 translate-y-17 lg:translate-x-[-12rem]"
+          className="px-5 py-2.5 rounded-2xl bg-white dark:bg-gray-900 shadow-md text-gray-700 dark:text-gray-200 font-bold hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border border-teal-200 dark:border-teal-900/50 cursor-pointer flex items-center gap-2"
         >
           ← Back to Dino Games
         </button>
@@ -103,17 +95,17 @@ export default function DinoRollAndFind({ onBackToGames }: DinoRollAndFindProps)
       {/* Title */}
       <div className="text-center space-y-2 mb-6">
         <span className="text-5xl">🎲</span>
-        <h1 className="text-3xl md:text-4xl font-extrabold text-teal-950">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-teal-950 dark:text-teal-300">
           Roll & Find Dino
         </h1>
-        <p className="text-gray-600 font-medium">
+        <p className="text-gray-600 dark:text-gray-400 font-medium">
           Roll the dice, follow the clues, and discover dinosaurs and items in the jungle!
         </p>
       </div>
 
-      {/* Controls (dice and messages) */}
-      <div className="bg-white/95 backdrop-blur-md border border-teal-200 rounded-3xl p-6 shadow-xl max-w-md w-full text-center mb-8 space-y-4">
-        <div className="text-xl font-bold text-teal-900 min-h-[3rem] flex items-center justify-center px-2">
+      {/* Controls */}
+      <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border border-teal-200 dark:border-teal-900/50 rounded-3xl p-6 shadow-xl max-w-md w-full text-center mb-8 space-y-4">
+        <div className="text-xl font-bold text-teal-900 dark:text-teal-300 min-h-[3rem] flex items-center justify-center px-2">
           {message}
         </div>
 
@@ -144,10 +136,10 @@ export default function DinoRollAndFind({ onBackToGames }: DinoRollAndFindProps)
               onClick={() => handleItemClick(item)}
               className={`rounded-3xl p-6 border-2 shadow-lg transition-all transform flex flex-col items-center justify-center text-center cursor-pointer min-h-[160px] relative ${
                 isFound
-                  ? 'bg-emerald-100 border-emerald-400 opacity-60 scale-95'
+                  ? 'bg-emerald-100 dark:bg-emerald-950/60 border-emerald-400 dark:border-emerald-700 opacity-60 scale-95'
                   : isCurrentTarget
-                  ? 'bg-amber-100 border-amber-400 ring-4 ring-amber-300 animate-bounce'
-                  : 'bg-white border-teal-200 hover:border-teal-400 hover:-translate-y-1'
+                  ? 'bg-amber-100 dark:bg-amber-950/60 border-amber-400 dark:border-amber-700 ring-4 ring-amber-300 animate-bounce'
+                  : 'bg-white dark:bg-gray-900 border-teal-200 dark:border-teal-900/50 hover:border-teal-400 hover:-translate-y-1'
               }`}
             >
               {isFound && (
@@ -156,14 +148,13 @@ export default function DinoRollAndFind({ onBackToGames }: DinoRollAndFindProps)
                 </span>
               )}
               <span className="text-6xl mb-3">{item.icon}</span>
-              <h3 className="text-lg font-extrabold text-teal-950 mb-1">{item.name}</h3>
-              <p className="text-xs text-gray-500 font-medium">{item.desc}</p>
+              <h3 className="text-lg font-extrabold text-teal-950 dark:text-white mb-1">{item.name}</h3>
+              <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">{item.desc}</p>
             </div>
           );
         })}
       </div>
 
-      {/* Play again button when the game is complete */}
       {foundItems.length === boardItems.length && (
         <button
           onClick={resetGame}

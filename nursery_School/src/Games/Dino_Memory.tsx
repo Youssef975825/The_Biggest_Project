@@ -29,7 +29,6 @@ export default function DinoMemoryMatch({ onBackToGames }: DinoMemoryMatchProps)
   const [moves, setMoves] = useState(0);
   const [matchesCount, setMatchesCount] = useState(0);
 
-  // Unbiased Fisher-Yates shuffle
   const shuffleArray = (array: any[]) => {
     const arr = [...array];
     for (let i = arr.length - 1; i > 0; i--) {
@@ -40,15 +39,15 @@ export default function DinoMemoryMatch({ onBackToGames }: DinoMemoryMatchProps)
   };
 
   const initializeGame = () => {
-    const duplicatedCards = [...dinoCardsData, ...dinoCardsData]
+    const duplicatedCards = [...dinoCardsData, ...dinoCardsData];
     const randomizedCards = shuffleArray(duplicatedCards);
 
-      const finalCards = randomizedCards.map((card, index) => ({
-        ...card,
-        id: index,
-        isFlipped: false,
-        isMatched: false,
-      }));
+    const finalCards = randomizedCards.map((card, index) => ({
+      ...card,
+      id: index,
+      isFlipped: false,
+      isMatched: false,
+    }));
 
     setCards(finalCards);
     setFirstSelection(null);
@@ -114,19 +113,17 @@ export default function DinoMemoryMatch({ onBackToGames }: DinoMemoryMatchProps)
     if (matchesCount === dinoCardsData.length) {
       try {
         confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-      } catch (e) {
-        // Ignore if the library is not available
-      }
+      } catch (e) {}
     }
   }, [matchesCount]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-teal-50 via-cyan-50 to-blue-50 p-6 md:p-12 flex flex-col items-center">
+    <div className="min-h-screen bg-gradient-to-b from-teal-50 via-cyan-50 to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 p-6 md:p-12 flex flex-col items-center transition-colors duration-300">
       {/* Back button */}
       <div className="w-full max-w-3xl flex justify-start mb-6">
         <button
           onClick={onBackToGames}
-          className="px-5 py-2.5 rounded-2xl bg-white shadow-md text-gray-700 font-bold hover:bg-gray-100 transition-all border border-teal-200 cursor-pointer flex items-center gap-2 translate-y-17 lg:translate-x-[-16rem]"
+          className="px-5 py-2.5 rounded-2xl bg-white dark:bg-gray-900 shadow-md text-gray-700 dark:text-gray-200 font-bold hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border border-teal-200 dark:border-teal-900/50 cursor-pointer flex items-center gap-2"
         >
           ← Back to Dino Games
         </button>
@@ -135,11 +132,11 @@ export default function DinoMemoryMatch({ onBackToGames }: DinoMemoryMatchProps)
       {/* Game title and stats */}
       <div className="text-center space-y-2 mb-8">
         <span className="text-5xl">🧩</span>
-        <h1 className="text-3xl md:text-4xl font-extrabold text-teal-950">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-teal-950 dark:text-teal-300">
           Dino Memory Match
         </h1>
-        <p className="text-gray-600 font-medium">
-          Find the matching pairs by turning the cards over! Moves: <span className="text-teal-700 font-bold">{moves}</span>
+        <p className="text-gray-600 dark:text-gray-400 font-medium">
+          Find the matching pairs by turning the cards over! Moves: <span className="text-teal-700 dark:text-teal-400 font-bold">{moves}</span>
         </p>
       </div>
 
@@ -151,15 +148,14 @@ export default function DinoMemoryMatch({ onBackToGames }: DinoMemoryMatchProps)
             onClick={() => handleCardClick(card)}
             className={`h-32 rounded-2xl flex flex-col items-center justify-center cursor-pointer shadow-lg transition-all duration-300 transform select-none ${
               card.isFlipped || card.isMatched
-                ? 'bg-white border-2 border-teal-400 text-5xl'
-                : 'bg-gradient-to-tr from-teal-600 to-cyan-700 hover:from-teal-500 hover:to-cyan-600 text-white shadow-teal-900/20 border-2 border-teal-500'
+                ? 'bg-white dark:bg-gray-800 border-2 border-teal-400 dark:border-teal-700 text-5xl text-gray-900 dark:text-white'
+                : 'bg-gradient-to-tr from-teal-600 to-cyan-700 dark:from-teal-800 dark:to-cyan-900 hover:from-teal-500 hover:to-cyan-600 text-white shadow-teal-900/20 border-2 border-teal-500 dark:border-teal-700'
             }`}
           >
             {card.isFlipped || card.isMatched ? (
               <span>{card.icon}</span>
             ) : (
               <div className="flex flex-col items-center space-y-1">
-                {/* Card back: small dino icon */}
                 <span className="text-3xl animate-pulse">🦖</span>
                 <span className="text-xs font-bold tracking-wider text-teal-100 uppercase opacity-80">Dino</span>
               </div>
@@ -168,11 +164,11 @@ export default function DinoMemoryMatch({ onBackToGames }: DinoMemoryMatchProps)
         ))}
       </div>
 
-      {/* Win screen and replay */}
+      {/* Win screen */}
       {matchesCount === dinoCardsData.length && (
-        <div className="text-center bg-white/90 backdrop-blur-md p-6 rounded-3xl shadow-xl border border-teal-300 animate-bounce mt-4 max-w-md w-full">
-          <h2 className="text-2xl font-extrabold text-teal-900 mb-2">🎉 Congratulations, champ!</h2>
-          <p className="text-gray-600 mb-4">You finished the game in {moves} moves!</p>
+        <div className="text-center bg-white/90 dark:bg-gray-900/95 backdrop-blur-md p-6 rounded-3xl shadow-xl border border-teal-300 dark:border-teal-800 animate-bounce mt-4 max-w-md w-full">
+          <h2 className="text-2xl font-extrabold text-teal-900 dark:text-teal-300 mb-2">🎉 Congratulations, champ!</h2>
+          <p className="text-gray-600 dark:text-gray-300 mb-4">You finished the game in {moves} moves!</p>
           <button
             onClick={initializeGame}
             className="px-6 py-2.5 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-xl shadow-md transition-all cursor-pointer"
