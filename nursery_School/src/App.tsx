@@ -7,6 +7,7 @@ import BeesWorld from './components/Bees';
 import PageTransitionWrapper from './components/PageTransitionWrapper';
 import Dinosaur from './components/Dinosaur';
 import ThemePacks from './components/ThemePacks';
+import Worksheets from './components/Worksheets';
 
 export default function App() {
   const [showIntro, setShowIntro] = useState(true);
@@ -78,6 +79,14 @@ export default function App() {
                 element={
                   <PageTransitionWrapper>
                     <ThemePacks />
+                  </PageTransitionWrapper>
+                } 
+              />
+              <Route 
+                path="/worksheets" 
+                element={
+                  <PageTransitionWrapper>
+                    <Worksheets />
                   </PageTransitionWrapper>
                 } 
               />
