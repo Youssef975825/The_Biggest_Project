@@ -8,6 +8,7 @@ import PageTransitionWrapper from './components/PageTransitionWrapper';
 import Dinosaur from './components/Dinosaur';
 import ThemePacks from './components/ThemePacks';
 import Worksheets from './components/Worksheets';
+import About from "./components/About";
 
 export default function App() {
   const [showIntro, setShowIntro] = useState(true);
@@ -87,6 +88,14 @@ export default function App() {
                 element={
                   <PageTransitionWrapper>
                     <Worksheets />
+                  </PageTransitionWrapper>
+                } 
+              />
+              <Route 
+                path="/about" 
+                element={
+                  <PageTransitionWrapper>
+                    <About />
                   </PageTransitionWrapper>
                 } 
               />

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Download, Printer, Sparkles, FileText, CheckCircle2 } from 'lucide-react';
+import { Download, Printer, Sparkles } from 'lucide-react';
 
 export default function Worksheets() {
   const [childName, setChildName] = useState('');
   const [selectedWorld, setSelectedWorld] = useState('all');
 
-  // List of available worksheets for each world
   const worksheets = [
     {
       id: 1,
@@ -69,7 +68,6 @@ export default function Worksheets() {
     },
   ];
 
-  // Filter worksheets based on the selected world
   const filteredWorksheets = selectedWorld === 'all' 
     ? worksheets 
     : worksheets.filter(w => w.world === selectedWorld);
@@ -81,8 +79,36 @@ export default function Worksheets() {
   return (
     <div className="min-h-screen pt-28 pb-20 px-6 max-w-7xl mx-auto transition-colors duration-300">
       
+      {/* Print Specific CSS to prevent breaking and hide controls */}
+      <style>{`
+        @media print {
+          body * {
+            visibility: hidden;
+          }
+          .printable-sheet, .printable-sheet * {
+            visibility: visible;
+          }
+          .printable-sheet {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+          }
+          .no-print {
+            display: none !important;
+          }
+          .worksheet-card {
+            break-inside: avoid;
+            page-break-inside: avoid;
+            border: 2px solid #ddd !important;
+            box-shadow: none !important;
+            margin-bottom: 20px;
+          }
+        }
+      `}</style>
+
       {/* Header Section */}
-      <div className="text-center max-w-3xl mx-auto mb-12">
+      <div className="text-center max-w-3xl mx-auto mb-12 no-print">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100 dark:bg-pink-950/60 text-pink-600 dark:text-pink-400 font-bold text-sm mb-4 shadow-sm">
           <Sparkles className="w-4 h-4" />
           <span>Printable Learning Hub</span>
@@ -95,10 +121,8 @@ export default function Worksheets() {
         </p>
       </div>
 
-      {/* Customization Bar & Filters (Responsive) */}
-      <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-gray-200 dark:border-gray-800 rounded-3xl p-6 shadow-xl mb-12 flex flex-col md:flex-row items-center justify-between gap-6">
-        
-        {/* Child Name Input */}
+      {/* Customization Bar & Filters */}
+      <div className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border border-gray-200 dark:border-gray-800 rounded-3xl p-6 shadow-xl mb-12 flex flex-col md:flex-row items-center justify-between gap-6 no-print">
         <div className="w-full md:w-1/3">
           <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">
             Child&apos;s Name (for worksheet header):
@@ -107,12 +131,11 @@ export default function Worksheets() {
             type="text"
             value={childName}
             onChange={(e) => setChildName(e.target.value)}
-            placeholder="e.g., Youssef 🌟"
+            placeholder="Enter Your Name Here 🌟"
             className="w-full px-4 py-3 rounded-xl border border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#FF70A6] transition-all"
           />
         </div>
 
-        {/* World Filter Buttons */}
         <div className="w-full md:w-auto flex flex-wrap items-center gap-2 justify-center">
           {[
             { id: 'all', label: 'All Worlds' },
@@ -135,15 +158,14 @@ export default function Worksheets() {
         </div>
       </div>
 
-      {/* Worksheets Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* Worksheets Grid (Printable Area) */}
+      <div className="printable-sheet grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {filteredWorksheets.map((sheet) => (
           <div
             key={sheet.id}
-            className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between group"
+            className="worksheet-card bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-3xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col justify-between group"
           >
             <div>
-              {/* Top Meta */}
               <div className="flex items-center justify-between mb-4">
                 <span className="px-3 py-1 rounded-full text-xs font-bold bg-pink-50 dark:bg-pink-950/50 text-[#FF70A6] dark:text-pink-400">
                   {sheet.category}
@@ -153,7 +175,6 @@ export default function Worksheets() {
                 </span>
               </div>
 
-              {/* Icon & Title */}
               <div className="flex items-center gap-4 mb-4">
                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-tr ${sheet.gradient} flex items-center justify-center text-2xl shadow-md group-hover:scale-110 transition-transform`}>
                   {sheet.icon}
@@ -175,8 +196,8 @@ export default function Worksheets() {
               </p>
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex items-center gap-3">
+            {/* Action Buttons (Hidden on print) */}
+            <div className="flex items-center gap-3 no-print">
               <button
                 onClick={() => handlePrint(sheet.title)}
                 className="flex-1 py-3 px-4 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 font-bold hover:bg-gray-200 dark:hover:bg-gray-700 transition-all flex items-center justify-center gap-2 cursor-pointer text-sm"
