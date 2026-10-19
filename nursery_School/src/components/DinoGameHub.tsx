@@ -5,55 +5,38 @@ import DinoFeed from '../Games/DinoFeed';
 import DinoFootprint from '../Games/DinoFootprintHunt';
 import DinoEggSurprise from '../Games/DinoEggSurprise';
 
-const dinoGamesList = [
-  {
-    id: 'dino-memory',
-    title: 'Dino Memory Match',
-    desc: 'Find the matching pairs of cute dinosaurs by turning the cards over!',
-    icon: '🧩',
-    color: 'bg-teal-100 border-teal-300 text-teal-900 dark:bg-teal-950/40 dark:border-teal-800/60 dark:text-teal-200',
-    available: true,
-  },
-  {
-    id: 'dino-race',
-    title: 'Roll & Find Dino',
-    desc: 'Roll the dice and find the matching prehistoric item on the board!',
-    icon: '🏁',
-    color: 'bg-cyan-100 border-cyan-300 text-cyan-900 dark:bg-cyan-950/40 dark:border-cyan-800/60 dark:text-cyan-200',
-    available: true,
-  },
-  {
-    id: 'dino-feed',
-    title: 'Dino Feed',
-    desc: 'Help the dino choose the right foods and avoid things it should not eat!',
-    icon: '🦴',
-    color: 'bg-sky-100 border-sky-300 text-sky-900 dark:bg-sky-950/40 dark:border-sky-800/60 dark:text-sky-200',
-    available: true,
-  },
-  {
-    id: 'dino-footprint',
-    title: 'Dino Footprint Hunt!',
-    desc: 'Follow the colored footprints to guide the dino to the finish line!',
-    icon: '🔍',
-    color: 'bg-emerald-100 border-emerald-300 text-emerald-900 dark:bg-emerald-950/40 dark:border-emerald-800/60 dark:text-emerald-200',
-    available: true,
-  },
-  {
-    id: 'dino-egg-surprise',
-    title: "Dino Egg Surprise",
-    desc: 'Open the surprise eggs to move the dino along the board!',
-    icon: '🗺️',
-    color: 'bg-blue-100 border-blue-300 text-blue-900 dark:bg-blue-950/40 dark:border-blue-800/60 dark:text-blue-200',
-    available: true,
-  },
-];
-
 interface DinoGamesHubProps {
+  storyId: string; // 👈 إضافة استقبال رقم القصة
   onBackToWorld: () => void;
 }
 
-export default function DinoGamesHub({ onBackToWorld }: DinoGamesHubProps) {
+export default function DinoGamesHub({ storyId, onBackToWorld }: DinoGamesHubProps) {
   const [selectedGame, setSelectedGame] = useState<string | null>(null);
+
+  // دالة لتخصيص محتوى ألعاب الديناصورات بناءً على رقم القصة
+  const getDinoGamesForStory = (id: string) => {
+    switch (id) {
+      case 'story-1':
+        return [
+          { id: 'dino-memory', title: 'Rexy’s Memory Match', desc: 'Find matching pairs of baby dinos!', icon: '🦖', color: 'bg-teal-100 border-teal-300 text-teal-900 dark:bg-teal-950/40 dark:border-teal-800/60 dark:text-teal-200', available: true },
+          { id: 'dino-race', title: 'Jungle Roll & Find', desc: 'Roll and find items in the prehistoric jungle.', icon: '🎲', color: 'bg-cyan-100 border-cyan-300 text-cyan-900 dark:bg-cyan-950/40 dark:border-cyan-800/60 dark:text-cyan-200', available: true },
+          { id: 'dino-feed', title: 'Feed Baby Rexy', desc: 'Give Rexy the right tasty leaves!', icon: '🌿', color: 'bg-sky-100 border-sky-300 text-sky-900 dark:bg-sky-950/40 dark:border-sky-800/60 dark:text-sky-200', available: true },
+          { id: 'dino-footprint', title: 'Footprint Trail', desc: 'Follow the correct dinosaur tracks.', icon: '🐾', color: 'bg-emerald-100 border-emerald-300 text-emerald-900 dark:bg-emerald-950/40 dark:border-emerald-800/60 dark:text-emerald-200', available: true },
+          { id: 'dino-egg-surprise', title: 'Hatch the Egg', desc: 'Discover what is inside the mystery egg!', icon: '🥚', color: 'bg-blue-100 border-blue-300 text-blue-900 dark:bg-blue-950/40 dark:border-blue-800/60 dark:text-blue-200', available: true },
+        ];
+      default:
+        // القائمة الافتراضية
+        return [
+          { id: 'dino-memory', title: 'Dino Memory Match', desc: 'Find the matching pairs of cute dinosaurs by turning cards over!', icon: '🧩', color: 'bg-teal-100 border-teal-300 text-teal-900 dark:bg-teal-950/40 dark:border-teal-800/60 dark:text-teal-200', available: true },
+          { id: 'dino-race', title: 'Roll & Find Dino', desc: 'Roll the dice and find the matching prehistoric item!', icon: '🏁', color: 'bg-cyan-100 border-cyan-300 text-cyan-900 dark:bg-cyan-950/40 dark:border-cyan-800/60 dark:text-cyan-200', available: true },
+          { id: 'dino-feed', title: 'Dino Feed', desc: 'Help the dino choose the right foods and avoid things!', icon: '🦴', color: 'bg-sky-100 border-sky-300 text-sky-900 dark:bg-sky-950/40 dark:border-sky-800/60 dark:text-sky-200', available: true },
+          { id: 'dino-footprint', title: 'Dino Footprint Hunt!', desc: 'Follow the colored footprints to the finish line!', icon: '🔍', color: 'bg-emerald-100 border-emerald-300 text-emerald-900 dark:bg-emerald-950/40 dark:border-emerald-800/60 dark:text-emerald-200', available: true },
+          { id: 'dino-egg-surprise', title: "Dino Egg Surprise", desc: 'Open the surprise eggs to move along the board!', icon: '🗺️', color: 'bg-blue-100 border-blue-300 text-blue-900 dark:bg-blue-950/40 dark:border-blue-800/60 dark:text-blue-200', available: true },
+        ];
+    }
+  };
+
+  const dinoGamesList = getDinoGamesForStory(storyId);
 
   if (selectedGame === 'dino-memory') {
     return <Dino_Memory onBackToGames={() => setSelectedGame(null)} />;
@@ -73,22 +56,22 @@ export default function DinoGamesHub({ onBackToWorld }: DinoGamesHubProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-teal-50 via-cyan-50 to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 p-6 md:p-12 transition-colors duration-300">
-      {/* Back to the Dino world */}
+      {/* Back to the Story */}
       <button 
         onClick={onBackToWorld}
         className="mb-8 px-5 py-2.5 rounded-2xl bg-white dark:bg-gray-900 shadow-md text-gray-700 dark:text-gray-200 font-bold hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border border-teal-200 dark:border-teal-900/50 cursor-pointer flex items-center gap-2 translate-y-17 lg:translate-x-[5rem] md:translate-x-[-1.5rem]"
       >
-        ← Back to Dino Island
+        ← Back to Story
       </button>
 
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto space-y-4 mb-12">
         <span className="text-6xl inline-block">🎮</span>
         <h1 className="text-4xl md:text-5xl font-extrabold text-teal-950 dark:text-teal-300 tracking-tight">
-          Fun Dino Games Center
+          Dino Games Hub ({storyId.toUpperCase()})
         </h1>
         <p className="text-gray-600 dark:text-gray-300 font-medium text-lg">
-          Choose a game, print, play & learn! Test your skills with our prehistoric collection.
+          Customized prehistoric games for this week's adventure!
         </p>
       </div>
 
@@ -110,7 +93,7 @@ export default function DinoGamesHub({ onBackToWorld }: DinoGamesHubProps) {
               <div className="flex items-center justify-between mb-4">
                 <span className="text-5xl">{game.icon}</span>
                 <span className="text-xs font-extrabold uppercase tracking-wider px-3 py-1 bg-white/80 dark:bg-gray-900/80 rounded-full shadow-sm text-gray-800 dark:text-gray-200">
-                  {game.available? "Play Now 🚀" : "Coming Soon ⏳"}
+                  {game.available ? "Play Now 🚀" : "Coming Soon ⏳"}
                 </span>
               </div>
               <h3 className="text-2xl font-extrabold mb-2">{game.title}</h3>

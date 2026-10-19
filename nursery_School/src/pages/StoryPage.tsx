@@ -117,7 +117,7 @@ export default function StoryPage() {
               <span>Status: Ready</span>
               {act.isGamesHub ? (
                 <Link
-                  to={`/themes/${theme.id}/games`}
+                  to={`/themes/${theme.id}/stories/${story.id}/games`} // 👈 ربط الألعاب بالقصة الحالية
                   className="px-4 py-2 rounded-xl bg-purple-600 text-white shadow-md hover:bg-purple-700 transition-all cursor-pointer text-xs flex items-center gap-1"
                 >
                   <span>{act.actionText}</span>

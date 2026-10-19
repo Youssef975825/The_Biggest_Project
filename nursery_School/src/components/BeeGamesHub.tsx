@@ -5,69 +5,60 @@ import Honeycomb_Sort from '../Games/Honeycomb_Sort';
 import Bee_I_Spy from '../Games/Bee_I_Spy';
 import Bee_Path_Match from '../Games/Bee_Path_Match';
 
-const gamesList = [
-  {
-    id: 'memory-match',
-    title: 'Bee Memory Match',
-    desc: 'Find the matching pairs by turning the cards over! Test your memory.',
-    icon: '🧩',
-    color: 'bg-yellow-100 border-yellow-300 text-yellow-900 dark:bg-yellow-950/40 dark:border-yellow-800/60 dark:text-yellow-200',
-    available: true,
-  },
-  {
-    id: 'bee-race',
-    title: 'Bee Race',
-    desc: 'Help Bella the bee reach the flower first in this fun board race game!',
-    icon: '🏁',
-    color: 'bg-amber-100 border-amber-300 text-amber-900 dark:bg-amber-950/40 dark:border-amber-800/60 dark:text-amber-200',
-    available: true,
-  },
-  {
-    id: 'honeycomb-sort',
-    title: 'Honeycomb Sort',
-    desc: 'Sort the picture cards into Living and Non-living under the correct beehive!',
-    icon: '🏡',
-    color: 'bg-orange-100 border-orange-300 text-orange-900 dark:bg-orange-950/40 dark:border-orange-800/60 dark:text-orange-200',
-    available: true,
-  },
-  {
-    id: 'i-spy',
-    title: 'Bee I Spy!',
-    desc: 'Find the hidden pictures in the busy beehive scene and say "I found it!".',
-    icon: '🔍',
-    color: 'bg-pink-100 border-pink-300 text-pink-900 dark:bg-pink-950/40 dark:border-pink-800/60 dark:text-pink-200',
-    available: true,
-  },
-  {
-    id: 'path-match',
-    title: "Bee's Path Match",
-    desc: 'Match the picture cards to the correct spot on the board and win!',
-    icon: '🗺️',
-    color: 'bg-emerald-100 border-emerald-300 text-emerald-900 dark:bg-emerald-950/40 dark:border-emerald-800/60 dark:text-emerald-200',
-    available: true,
-  },
-];
-
 interface BeeGamesHubProps {
+  storyId: string;
   onBackToWorld: () => void;
 }
 
-export default function BeeGamesHub({ onBackToWorld }: BeeGamesHubProps) {
+export default function BeeGamesHub({ storyId, onBackToWorld }: BeeGamesHubProps) {
   const [selectedGame, setSelectedGame] = useState<string | null>(null);
+
+  // دالة لتخصيص محتوى الألعاب بناءً على رقم القصة (storyId)
+  const getGamesForStory = (id: string) => {
+    switch (id) {
+      case 'story-1':
+        return [
+          { id: 'memory-match', title: 'Bella’s Flower Memory', desc: 'Match the flower pairs found by Bella!', icon: '🌸', color: 'bg-yellow-100 border-yellow-300 text-yellow-900 dark:bg-yellow-950/40 dark:border-yellow-800/60 dark:text-yellow-200', available: true },
+          { id: 'bee-race', title: 'Garden Sprint', desc: 'Help Bella reach the sunlit garden first!', icon: '🐝', color: 'bg-amber-100 border-amber-300 text-amber-900 dark:bg-amber-950/40 dark:border-amber-800/60 dark:text-amber-200', available: true },
+          { id: 'honeycomb-sort', title: 'Petal & Leaf Sort', desc: 'Sort items into correct botanical categories.', icon: '🍃', color: 'bg-orange-100 border-orange-300 text-orange-900 dark:bg-orange-950/40 dark:border-orange-800/60 dark:text-orange-200', available: true },
+          { id: 'i-spy', title: 'I Spy Spring Flowers', desc: 'Find hidden sprouts in the garden scene.', icon: '🔍', color: 'bg-pink-100 border-pink-300 text-pink-900 dark:bg-pink-950/40 dark:border-pink-800/60 dark:text-pink-200', available: true },
+          { id: 'path-match', title: 'Nectar Path Match', desc: 'Guide the bee through the correct maze path.', icon: '🗺️', color: 'bg-emerald-100 border-emerald-300 text-emerald-900 dark:bg-emerald-950/40 dark:border-emerald-800/60 dark:text-emerald-200', available: true },
+        ];
+      case 'story-2':
+        return [
+          { id: 'memory-match', title: 'Busy Hive Match', desc: 'Match the worker bees and honey tools!', icon: '🍯', color: 'bg-yellow-100 border-yellow-300 text-yellow-900 dark:bg-yellow-950/40 dark:border-yellow-800/60 dark:text-yellow-200', available: true },
+          { id: 'bee-race', title: 'Hive Rush', desc: 'Race back to the honeycomb before dark!', icon: '🏁', color: 'bg-amber-100 border-amber-300 text-amber-900 dark:bg-amber-950/40 dark:border-amber-800/60 dark:text-amber-200', available: true },
+          { id: 'honeycomb-sort', title: 'Honeycomb Cell Sort', desc: 'Organize honey drops by size and color.', icon: '🏡', color: 'bg-orange-100 border-orange-300 text-orange-900 dark:bg-orange-950/40 dark:border-orange-800/60 dark:text-orange-200', available: true },
+          { id: 'i-spy', title: 'I Spy Inside the Hive', desc: 'Spot hidden tools inside the busy workshop.', icon: '🔍', color: 'bg-pink-100 border-pink-300 text-pink-900 dark:bg-pink-950/40 dark:border-pink-800/60 dark:text-pink-200', available: true },
+          { id: 'path-match', title: 'Honeycomb Maze', desc: 'Connect the matching hexagonal cells.', icon: '🗺️', color: 'bg-emerald-100 border-emerald-300 text-emerald-900 dark:bg-emerald-950/40 dark:border-emerald-800/60 dark:text-emerald-200', available: true },
+        ];
+      default:
+        // القائمه الافتراضية للقصص 3 و 4 أو البقية
+        return [
+          { id: 'memory-match', title: 'Bee Memory Match', desc: 'Find the matching pairs by turning cards over!', icon: '🧩', color: 'bg-yellow-100 border-yellow-300 text-yellow-900 dark:bg-yellow-950/40 dark:border-yellow-800/60 dark:text-yellow-200', available: true },
+          { id: 'bee-race', title: 'Bee Race', desc: 'Help Bella reach the flower first!', icon: '🏁', color: 'bg-amber-100 border-amber-300 text-amber-900 dark:bg-amber-950/40 dark:border-amber-800/60 dark:text-amber-200', available: true },
+          { id: 'honeycomb-sort', title: 'Honeycomb Sort', desc: 'Sort picture cards correctly!', icon: '🏡', color: 'bg-orange-100 border-orange-300 text-orange-900 dark:bg-orange-950/40 dark:border-orange-800/60 dark:text-orange-200', available: true },
+          { id: 'i-spy', title: 'Bee I Spy!', desc: 'Find the hidden pictures in the scene.', icon: '🔍', color: 'bg-pink-100 border-pink-300 text-pink-900 dark:bg-pink-950/40 dark:border-pink-800/60 dark:text-pink-200', available: true },
+          { id: 'path-match', title: "Bee's Path Match", desc: 'Match cards to the correct spot.', icon: '🗺️', color: 'bg-emerald-100 border-emerald-300 text-emerald-900 dark:bg-emerald-950/40 dark:border-emerald-800/60 dark:text-emerald-200', available: true },
+        ];
+    }
+  };
+
+  const gamesList = getGamesForStory(storyId);
 
   if (selectedGame === 'memory-match') {
     return <BeeMemoryMatch onBackToGames={() => setSelectedGame(null)} />;
   }
-  else if(selectedGame === 'bee-race'){
+  else if (selectedGame === 'bee-race'){
     return <Bee_Race onBackToGames={() => setSelectedGame(null)} />;
   }
-  else if(selectedGame === 'honeycomb-sort'){
+  else if (selectedGame === 'honeycomb-sort'){
     return <Honeycomb_Sort onBackToGames={() => setSelectedGame(null)} />;
   }
-  else if(selectedGame === 'i-spy'){
+  else if (selectedGame === 'i-spy'){
     return <Bee_I_Spy onBackToGames={() => setSelectedGame(null)} />;
   }
-  else if(selectedGame === 'path-match'){
+  else if (selectedGame === 'path-match'){
     return <Bee_Path_Match onBackToGames={() => setSelectedGame(null)} />;
   }
   
@@ -78,17 +69,17 @@ export default function BeeGamesHub({ onBackToWorld }: BeeGamesHubProps) {
         onClick={onBackToWorld}
         className="mb-8 px-5 py-2.5 rounded-2xl bg-white dark:bg-gray-900 shadow-md text-gray-700 dark:text-gray-200 font-bold hover:bg-gray-100 dark:hover:bg-gray-800 transition-all border border-amber-200 dark:border-amber-900/50 cursor-pointer flex items-center gap-2 translate-y-17 lg:translate-x-[9.5rem] md:translate-x-[-1.5rem]"
       >
-        ← Back to Bees World
+        ← Back to Story
       </button>
 
       {/* Header */}
       <div className="text-center max-w-2xl mx-auto space-y-4 mb-12">
         <span className="text-6xl inline-block">🎮</span>
         <h1 className="text-4xl md:text-5xl font-extrabold text-amber-900 dark:text-amber-300 tracking-tight">
-          Fun Bee Games Center
+          Mini-Games Hub ({storyId.toUpperCase()})
         </h1>
         <p className="text-gray-600 dark:text-gray-300 font-medium text-lg">
-          Choose a game, print, play & learn! Click on "Bee Memory Match" to start playing right now.
+          Customized games for this week's learning adventure!
         </p>
       </div>
 

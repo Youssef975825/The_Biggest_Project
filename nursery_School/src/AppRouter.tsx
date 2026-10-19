@@ -1,19 +1,24 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home'; // تأكد إن مسار صفحة الهوم عندك مظبوط
+import Home from './pages/Home';
 import ThemesPage from './pages/ThemesPage';
 import ThemePage from './pages/ThemePage';
 import StoryPage from './pages/StoryPage';
+import GamesHubPage from './pages/GamesHubPage'; // 👈 استيراد صفحة الألعاب الجديدة
+import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 
 export default function AppRoutes() {
   return (
     <Routes>
-      {/* مسار الصفحة الرئيسية اللي كان مختفي */}
       <Route path="/" element={<Home introFinished={true} />} />
-      
       <Route path="/themes" element={<ThemesPage />} />
       <Route path="/themes/:themeId" element={<ThemePage />} />
       <Route path="/themes/:themeId/stories/:storyId" element={<StoryPage />} />
+      
+        {/* مسار مركز الألعاب الخاص بكل قصة منفصلة */}
+        <Route path="/themes/:themeId/stories/:storyId/games" element={<GamesHubPage />} />
+
+      <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
       
       {/* الروابط القديمة */}

@@ -25,9 +25,21 @@ const beesNov: MonthlyPack = {
   teacherGuide: res('Teacher guide: November'),
 };
 
+const dinoNov: MonthlyPack = {
+  month: '2026-10', // أو الشهر الحالي عشان يفتح فوراً
+  stories: [
+    story(1, "Rexy’s Big Adventure", '2026-10-01'),
+    story(2, "The Prehistoric Jungle", '2026-11-08'),
+    story(3, "Fossil Hunt Day", '2026-11-15'),
+    story(4, "Dino Goodbye to Sunset", '2026-11-22'),
+  ],
+  decoration: [res('Dino classroom banner'), res('Door sign')],
+  teacherGuide: res('Teacher guide: Dino World'),
+};
+
 export const THEMES: Theme[] = [
   { id: 'bees', status: 'available', name: 'Bees', icon: '🐝', packs: [beesNov] },
-  { id: 'dino', status: 'locked', name: 'Dinosaurs', icon: '🦖', packs: [] },
+  { id: 'dino', status: 'available', name: 'Dinosaurs', icon: '🦖', packs: [dinoNov] },
   { id: 'space', status: 'locked', name: 'Space', icon: '🚀', packs: [] },
 ];
 export const getTheme = (id?: string) => THEMES.find(t => t.id === id);

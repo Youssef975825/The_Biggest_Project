@@ -1,7 +1,7 @@
 import React from 'react';
 import { Sparkles, Heart, Shield, BookOpen } from 'lucide-react';
 
-export default function About() {
+export default function AboutPage() {
   // Core values and features data
   const values = [
     {
