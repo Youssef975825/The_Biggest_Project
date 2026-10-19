@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { THEMES } from '../data/themes';
-import { useLang } from '../i18n/LanguageProvider';
+import { useLang } from '../i18n/useLang';
 
 export default function ThemesPage() {
   const { t } = useLang();

@@ -1,7 +1,7 @@
 // src/data/types.ts: content model. Content stays English; only the UI chrome is translated.
 export type ThemeId = 'bees' | 'dino' | 'space';
 export type ThemeStatus = 'available' | 'locked';          // Dino and Space = 'locked' for now
-export type ActivityKind = 'story' | 'worksheet' | 'flashcards' | 'crafts';
+export type ActivityKind = 'story' | 'worksheet' | 'flashcards' | 'crafts' | 'Games';
 
 export interface Resource {
   title: string;

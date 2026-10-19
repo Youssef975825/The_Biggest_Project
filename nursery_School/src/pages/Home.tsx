@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useNavigate } from 'react-router-dom';
-import WorldsSlider from './WorldsSlider';
+import WorldsSlider from '../components/WorldsSlider';
 
 interface HomeProps {
     introFinished: boolean;

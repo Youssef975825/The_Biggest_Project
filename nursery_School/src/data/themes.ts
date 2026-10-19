@@ -8,14 +8,15 @@ const story = (n: 1 | 2 | 3 | 4, title: string, releaseDate: string): Story => (
     worksheet: res('Worksheet'),
     flashcards: res('Flashcards'),
     crafts: res('Crafts'),
+    Games: res('5 Mini-Games Center', `bees/games`),
   } satisfies Record<ActivityKind, Resource>,
 });
 
 // PLACEHOLDER CONTENT: replace titles, dates and file paths with the client's real material.
 const beesNov: MonthlyPack = {
-  month: '2026-11',
+  month: '2026-10',
   stories: [
-    story(1, 'Bella Finds a Flower', '2026-11-01'),
+    story(1, 'Bella Finds a Flower', '2026-10-01'),
     story(2, 'The Busy Hive', '2026-11-08'),
     story(3, 'Honey Day', '2026-11-15'),
     story(4, 'Bella Says Goodbye to Autumn', '2026-11-22'),
