@@ -1,5 +1,5 @@
 import { SITE } from '../data/site';
-import { useLang } from '../i18n/useLang';
+import { useLang } from '../i18n/LanguageProvider';
 import { Facebook, Instagram, MessageCircle } from 'lucide-react';
 
 export default function SocialLinks() {

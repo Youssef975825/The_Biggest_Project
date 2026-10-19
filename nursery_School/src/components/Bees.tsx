@@ -2,7 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { getTheme } from '../data/themes';
 import { getCurrentPack, getReleasedStories } from '../lib/schedule';
 import { RELEASE_MODE } from '../data/site';
-import { useLang } from '../i18n/useLang';
+import { useLang } from '../i18n/LanguageProvider';
 import ComingSoon from '../components/ComingSoon';
 import { Download, BookOpen, Sparkles, UserCheck, Lock, ArrowLeft } from 'lucide-react';
 

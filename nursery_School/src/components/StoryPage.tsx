@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { getTheme } from '../data/themes';
 import { getCurrentPack } from '../lib/schedule';
-import { useLang } from '../i18n/useLang';
+import { useLang } from '../i18n/LanguageProvider';
 import { Printer, Download, BookOpen, FileText, Sparkles, Puzzle } from 'lucide-react';
 
 export default function StoryPage() {

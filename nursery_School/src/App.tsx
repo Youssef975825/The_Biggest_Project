@@ -6,7 +6,7 @@ import Home from './components/Home';
 import BeesWorld from './components/Bees';
 import PageTransitionWrapper from './components/PageTransitionWrapper';
 import Dinosaur from './components/Dinosaur';
-import ThemePacks from './components/ThemePacks';
+import ThemePacks from './components/ThemesPage';
 import Worksheets from './components/Worksheets';
 import About from "./components/About";
 

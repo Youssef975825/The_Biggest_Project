@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLang } from '../i18n/useLang';
+import { useLang } from '../i18n/LanguageProvider';
 import { SITE } from '../data/site';
 import { Mail, MessageCircle, MapPin, Settings } from 'lucide-react';
 
