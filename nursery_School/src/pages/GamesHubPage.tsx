@@ -43,9 +43,11 @@ export default function GamesHubPage() {
 
       {/* هنا يمكنك عرض مكون الألعاب الخاص بالثيم، مع تمرير رقم القصة لتغيير محتواها */}
       {themeId === 'bees' ? (
-        <BeeGamesHub storyId={storyId} />
+        <BeeGamesHub storyId={storyId!}
+        onBackToWorld={() => navigate(`/themes/${themeId}/stories/${storyId}`)} />
       ) : themeId === 'dino' ? (
-        <DinoGameHub storyId={storyId} />
+        <DinoGameHub storyId={storyId!}
+        onBackToWorld={() => navigate(`/themes/${themeId}/stories/${storyId}`)} />
       ) : (
         <ComingSoon />
       )}
