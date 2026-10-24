@@ -3,11 +3,11 @@ import Home from './pages/Home';
 import ThemesPage from './pages/ThemesPage';
 import ThemePage from './pages/ThemePage';
 import StoryPage from './pages/StoryPage';
-import GamesHubPage from './pages/GamesHubPage'; // 👈 استيراد صفحة الألعاب الجديدة
+import GamesHubPage from './pages/GamesHubPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 
-export default function AppRoutes() {
+export default function AppRoutes({ IntroFinished }: {IntroFinished: Boolean}) {
   return (
     <Routes>
       <Route path="/" element={<Home introFinished={true} />} />
