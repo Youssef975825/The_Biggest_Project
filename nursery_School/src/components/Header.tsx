@@ -37,7 +37,8 @@ export default function Header({ darkMode, setDarkMode }: HeaderProps) {
           <button
             onClick={toggle}
             className="px-3 py-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 font-bold text-xs flex items-center gap-1.5 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all cursor-pointer"
-            title="Switch Language"
+            title={t('a11y.lang')}
+            aria-label={t('a11y.lang')}
           >
             <Globe className="w-4 h-4 text-[#FF70A6]" />
             <span>{t('lang.switch')}</span>
@@ -46,7 +47,8 @@ export default function Header({ darkMode, setDarkMode }: HeaderProps) {
           <button
             onClick={() => setDarkMode(!darkMode)}
             className="p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all cursor-pointer"
-            title="Toggle Dark Mode"
+            title={t('a11y.dark')}
+            aria-label={t('a11y.dark')}
           >
             {darkMode ? <Sun className="w-4 h-4 text-yellow-400" /> : <Moon className="w-4 h-4 text-gray-700" />}
           </button>
@@ -55,7 +57,8 @@ export default function Header({ darkMode, setDarkMode }: HeaderProps) {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all cursor-pointer"
-            title="Toggle Menu"
+            title={t('a11y.menu')}
+            aria-label={t('a11y.menu')}
           >
             {mobileMenuOpen ? <X className="w-5 h-5 text-[#FF70A6]" /> : <Menu className="w-5 h-5" />}
           </button>

@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
+import { shuffle } from '../lib/shuffle';
 
 interface Card {
   id: number;
@@ -17,48 +18,39 @@ const dinoCardsData = [
   { name: 'Footprint', icon: '🐾' },
 ];
 
+function buildDeck(): Card[] {
+  const duplicated = [...dinoCardsData, ...dinoCardsData].map((card, index) => ({
+    ...card,
+    id: index,
+    isFlipped: false,
+    isMatched: false,
+  }));
+  return shuffle(duplicated);
+}
+
 interface DinoMemoryMatchProps {
   onBackToGames: () => void;
 }
 
 export default function DinoMemoryMatch({ onBackToGames }: DinoMemoryMatchProps) {
-  const [cards, setCards] = useState<Card[]>([]);
+  const [cards, setCards] = useState<Card[]>(buildDeck);
   const [firstSelection, setFirstSelection] = useState<Card | null>(null);
-  const [secondSelection, setSecondSelection] = useState<Card | null>(null);
   const [isChecking, setIsChecking] = useState(false);
   const [moves, setMoves] = useState(0);
   const [matchesCount, setMatchesCount] = useState(0);
 
-  const shuffleArray = (array: any[]) => {
-    const arr = [...array];
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
+  const resetTurn = () => {
+    setFirstSelection(null);
+    setIsChecking(false);
   };
 
   const initializeGame = () => {
-    const duplicatedCards = [...dinoCardsData, ...dinoCardsData];
-    const randomizedCards = shuffleArray(duplicatedCards);
-
-    const finalCards = randomizedCards.map((card, index) => ({
-      ...card,
-      id: index,
-      isFlipped: false,
-      isMatched: false,
-    }));
-
-    setCards(finalCards);
+    setCards(buildDeck());
     setFirstSelection(null);
-    setSecondSelection(null);
+    setIsChecking(false);
     setMoves(0);
     setMatchesCount(0);
   };
-
-  useEffect(() => {
-    initializeGame();
-  }, []);
 
   const handleCardClick = (clickedCard: Card) => {
     if (isChecking || clickedCard.isFlipped || clickedCard.isMatched) return;
@@ -71,49 +63,42 @@ export default function DinoMemoryMatch({ onBackToGames }: DinoMemoryMatchProps)
 
     if (!firstSelection) {
       setFirstSelection(clickedCard);
-    } else {
-      setSecondSelection(clickedCard);
-      setIsChecking(true);
-      setMoves((prev) => prev + 1);
+      return;
     }
-  };
 
-  useEffect(() => {
-    if (firstSelection && secondSelection) {
-      if (firstSelection.name === secondSelection.name) {
+    // Second card: evaluate the pair right here instead of in an effect
+    setIsChecking(true);
+    setMoves((prev) => prev + 1);
+
+    if (firstSelection.name === clickedCard.name) {
+      setCards((prevCards) =>
+        prevCards.map((card) =>
+          card.name === firstSelection.name ? { ...card, isMatched: true } : card
+        )
+      );
+      setMatchesCount((prev) => prev + 1);
+      resetTurn();
+    } else {
+      setTimeout(() => {
         setCards((prevCards) =>
           prevCards.map((card) =>
-            card.name === firstSelection.name ? { ...card, isMatched: true } : card
+            card.id === firstSelection.id || card.id === clickedCard.id
+              ? { ...card, isFlipped: false }
+              : card
           )
         );
-        setMatchesCount((prev) => prev + 1);
         resetTurn();
-      } else {
-        setTimeout(() => {
-          setCards((prevCards) =>
-            prevCards.map((card) =>
-              card.id === firstSelection.id || card.id === secondSelection.id
-                ? { ...card, isFlipped: false }
-                : card
-            )
-          );
-          resetTurn();
-        }, 1000);
-      }
+      }, 1000);
     }
-  }, [firstSelection, secondSelection]);
-
-  const resetTurn = () => {
-    setFirstSelection(null);
-    setSecondSelection(null);
-    setIsChecking(false);
   };
 
   useEffect(() => {
     if (matchesCount === dinoCardsData.length) {
       try {
         confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-      } catch (e) {}
+      } catch {
+        /* confetti is decorative; ignore failures */
+      }
     }
   }, [matchesCount]);
 

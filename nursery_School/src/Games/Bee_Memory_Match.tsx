@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { shuffle } from '../lib/shuffle';
 
 interface Card {
   id: number;
@@ -17,51 +18,37 @@ const initialCards = [
   { icon: '🦋', name: 'butterfly' },
 ];
 
+function buildDeck(): Card[] {
+  const duplicated = [...initialCards, ...initialCards].map((card, index) => ({
+    ...card,
+    id: index,
+    isFlipped: false,
+    isMatched: false,
+  }));
+  // Shuffle so positions change completely every game
+  return shuffle(duplicated);
+}
+
 interface BeeMemoryMatchProps {
   onBackToGames: () => void;
 }
 
 export default function Bee_Memory_Match({ onBackToGames }: BeeMemoryMatchProps) {
-  const [cards, setCards] = useState<Card[]>([]);
+  const [cards, setCards] = useState<Card[]>(buildDeck);
   const [firstSelection, setFirstSelection] = useState<Card | null>(null);
-  const [secondSelection, setSecondSelection] = useState<Card | null>(null);
   const [isEvaluating, setIsEvaluating] = useState(false);
   const [moves, setMoves] = useState(0);
   const [matches, setMatches] = useState(0);
   const [isWon, setIsWon] = useState(false);
 
-  // Unbiased Fisher-Yates shuffle
-  const shuffleArray = (array: any[]) => {
-    const arr = [...array];
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-  };
-
   const initializeGame = () => {
-    const duplicatedCards = [...initialCards, ...initialCards].map((card, index) => ({
-      ...card,
-      id: index,
-      isFlipped: false,
-      isMatched: false,
-    }));
-
-    // Shuffle so positions change completely every game
-    const randomizedCards = shuffleArray(duplicatedCards);
-
-    setCards(randomizedCards);
+    setCards(buildDeck());
     setFirstSelection(null);
-    setSecondSelection(null);
+    setIsEvaluating(false);
     setMoves(0);
     setMatches(0);
     setIsWon(false);
   };
-
-  useEffect(() => {
-    initializeGame();
-  }, []);
 
   const handleCardClick = (clickedCard: Card) => {
     if (isEvaluating || clickedCard.isFlipped || clickedCard.isMatched) return;
@@ -73,7 +60,6 @@ export default function Bee_Memory_Match({ onBackToGames }: BeeMemoryMatchProps)
     if (!firstSelection) {
       setFirstSelection(clickedCard);
     } else {
-      setSecondSelection(clickedCard);
       setIsEvaluating(true);
       setMoves(prev => prev + 1);
 
@@ -83,13 +69,9 @@ export default function Bee_Memory_Match({ onBackToGames }: BeeMemoryMatchProps)
             card.name === firstSelection.name ? { ...card, isMatched: true } : card
           )
         );
-        setMatches(prev => {
-          const newMatches = prev + 1;
-          if (newMatches === initialCards.length) {
-            setIsWon(true);
-          }
-          return newMatches;
-        });
+        const newMatches = matches + 1;
+        setMatches(newMatches);
+        if (newMatches === initialCards.length) setIsWon(true);
         resetTurn();
       } else {
         setTimeout(() => {
@@ -108,7 +90,6 @@ export default function Bee_Memory_Match({ onBackToGames }: BeeMemoryMatchProps)
 
   const resetTurn = () => {
     setFirstSelection(null);
-    setSecondSelection(null);
     setIsEvaluating(false);
   };
 

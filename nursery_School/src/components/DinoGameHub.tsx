@@ -20,7 +20,7 @@ export default function DinoGamesHub({ storyId, onBackToWorld }: DinoGamesHubPro
         return [
           { id: 'dino-memory', title: 'Rexy’s Memory Match', desc: 'Find matching pairs of baby dinos!', icon: '🦖', color: 'bg-teal-100 border-teal-300 text-teal-900 dark:bg-teal-950/40 dark:border-teal-800/60 dark:text-teal-200', available: true },
           { id: 'dino-race', title: 'Jungle Roll & Find', desc: 'Roll and find items in the prehistoric jungle.', icon: '🎲', color: 'bg-cyan-100 border-cyan-300 text-cyan-900 dark:bg-cyan-950/40 dark:border-cyan-800/60 dark:text-cyan-200', available: true },
-          { id: 'dino-feed', title: 'Feed Baby Rexy', desc: 'Give Rexy the right tasty leaves!', icon: '🌿', color: 'bg-sky-100 border-sky-300 text-sky-900 dark:bg-sky-950/40 dark:border-sky-800/60 dark:text-sky-200', available: true },
+          { id: 'dino-feed', title: 'Feed Baby Rexy', desc: 'Give Rexy the right tasty leaves!', icon: '🌿', color: 'bg-amber-100 border-sky-300 text-sky-900 dark:bg-amber-900/40 dark:border-sky-800/60 dark:text-sky-200', available: true },
           { id: 'dino-footprint', title: 'Footprint Trail', desc: 'Follow the correct dinosaur tracks.', icon: '🐾', color: 'bg-emerald-100 border-emerald-300 text-emerald-900 dark:bg-emerald-950/40 dark:border-emerald-800/60 dark:text-emerald-200', available: true },
           { id: 'dino-egg-surprise', title: 'Hatch the Egg', desc: 'Discover what is inside the mystery egg!', icon: '🥚', color: 'bg-blue-100 border-blue-300 text-blue-900 dark:bg-blue-950/40 dark:border-blue-800/60 dark:text-blue-200', available: true },
         ];

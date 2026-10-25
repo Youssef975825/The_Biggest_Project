@@ -14,7 +14,7 @@ export default function ContactPage() {
           {t('contact.title')}
         </h1>
         <p className="text-gray-600 dark:text-gray-300">
-          Get in touch with Little Wonder Studio for school visits, custom educational packages, or inquiries.
+          {t('contact.lead')}
         </p>
       </div>
 
@@ -44,9 +44,9 @@ export default function ContactPage() {
       <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-3xl p-8 shadow-xl mb-10">
         {tab === 'visits' ? (
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">School & Center Visits</h3>
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{t('contact.visits.title')}</h3>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              We organize interactive workshops and magical educational visits for kindergartens, schools, and children centers. Book a visit to bring Little Wonder directly to your students!
+              {t('contact.visits.text')}
             </p>
             <div className="pt-4">
               <a
@@ -55,22 +55,22 @@ export default function ContactPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold shadow-md transition-all"
               >
-                <MessageCircle className="w-5 h-5" /> Book via WhatsApp
+                <MessageCircle className="w-5 h-5" /> {t('contact.visits.cta')}
               </a>
             </div>
           </div>
         ) : (
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Custom Educational Packages</h3>
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{t('contact.custom.title')}</h3>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              Need tailored worksheets, custom branding for your kindergarten, or special theme requests? We specialize in custom curriculum design and materials for young learners.
+              {t('contact.custom.text')}
             </p>
             <div className="pt-4">
               <a
                 href={`mailto:${SITE.email}`}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#FF70A6] hover:bg-[#ff5293] text-white font-bold shadow-md transition-all"
               >
-                <Mail className="w-5 h-5" /> Request Customisation
+                <Mail className="w-5 h-5" /> {t('contact.custom.cta')}
               </a>
             </div>
           </div>
@@ -102,7 +102,7 @@ export default function ContactPage() {
           </div>
           <div>
             <span className="text-xs text-gray-400 font-bold uppercase tracking-wider">{t('contact.whatsapp')}</span>
-            <p className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-emerald-500 transition-colors">Chat on WhatsApp</p>
+            <p className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-emerald-500 transition-colors">{t('contact.chat')}</p>
           </div>
         </a>
       </div>

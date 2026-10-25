@@ -26,7 +26,7 @@ export default function StoryPage() {
     {
       id: 'story-text',
       title: story.activities.story.title,
-      desc: 'Read the interactive story text and enjoy the magical illustrations.',
+      desc: t('act.story.desc'),
       icon: <BookOpen className="w-6 h-6 text-amber-600" />,
       color: 'bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800/60 text-amber-900 dark:text-amber-200',
       actionText: t('res.open'),
@@ -35,7 +35,7 @@ export default function StoryPage() {
     {
       id: 'worksheet',
       title: story.activities.worksheet.title,
-      desc: 'Printable practice worksheet customized with your child\'s name.',
+      desc: t('act.worksheet.desc'),
       icon: <FileText className="w-6 h-6 text-pink-600" />,
       color: 'bg-pink-50 dark:bg-pink-950/40 border-pink-200 dark:border-pink-800/60 text-pink-900 dark:text-pink-200',
       actionText: t('ws.print'),
@@ -44,7 +44,7 @@ export default function StoryPage() {
     {
       id: 'flashcards',
       title: story.activities.flashcards.title,
-      desc: 'Learn essential vocabulary words with colorful printable flashcards.',
+      desc: t('act.flashcards.desc'),
       icon: <Sparkles className="w-6 h-6 text-yellow-600" />,
       color: 'bg-yellow-50 dark:bg-yellow-950/40 border-yellow-200 dark:border-yellow-800/60 text-yellow-900 dark:text-yellow-200',
       actionText: t('res.open'),
@@ -53,7 +53,7 @@ export default function StoryPage() {
     {
       id: 'crafts',
       title: story.activities.crafts.title,
-      desc: 'Fun hands-on paper crafts, cut-and-paste, and creative activities.',
+      desc: t('act.crafts.desc'),
       icon: <Scissors className="w-6 h-6 text-emerald-600" />,
       color: 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800/60 text-emerald-900 dark:text-emerald-200',
       actionText: t('res.open'),
@@ -61,11 +61,11 @@ export default function StoryPage() {
     },
     {
       id: 'games',
-      title: '5 Mini-Games Center',
-      desc: 'Play Bee Memory Match, Bee Race, Honeycomb Sort, I Spy, and Path Match!',
+      title: t('act.games'),
+      desc: t('act.games.desc'),
       icon: <Gamepad2 className="w-6 h-6 text-purple-600" />,
       color: 'bg-purple-50 dark:bg-purple-950/40 border-purple-200 dark:border-purple-800/60 text-purple-900 dark:text-purple-200',
-      actionText: 'Play Now 🚀',
+      actionText: t('act.play'),
       isGamesHub: true,
     },
   ];
@@ -89,7 +89,7 @@ export default function StoryPage() {
           {story.title}
         </h1>
         <p className="text-gray-600 dark:text-gray-300 font-medium text-sm md:text-base">
-          Release Date: {story.releaseDate} • Explore story materials, worksheets, and mini-games.
+          {t('story.release')}: {story.releaseDate} • {t('story.explore')}
         </p>
       </div>
 
@@ -106,7 +106,7 @@ export default function StoryPage() {
                   {act.icon}
                 </div>
                 <span className="text-xs font-extrabold uppercase tracking-wider px-3 py-1 bg-white/80 dark:bg-gray-900/80 rounded-full shadow-sm">
-                  Activity
+                  {t('act.label')}
                 </span>
               </div>
               <h3 className="text-xl font-extrabold mb-2">{act.title}</h3>
@@ -114,7 +114,7 @@ export default function StoryPage() {
             </div>
 
             <div className="mt-6 pt-4 border-t border-black/10 dark:border-white/10 flex justify-between items-center text-sm font-bold">
-              <span>Status: Ready</span>
+              <span>{t('res.status')}: {t('res.ready')}</span>
               {act.isGamesHub ? (
                 <Link
                   to={`/themes/${theme.id}/stories/${story.id}/games`} // 👈 ربط الألعاب بالقصة الحالية
@@ -128,7 +128,7 @@ export default function StoryPage() {
                   onClick={(e) => {
                     if (!act.file) {
                       e.preventDefault();
-                      alert(`Opening ${act.title}...`);
+                      alert(`${act.title}: ${t('res.soon')}`);
                     }
                   }}
                   target="_blank"

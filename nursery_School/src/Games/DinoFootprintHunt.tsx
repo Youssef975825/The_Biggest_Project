@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import confetti from 'canvas-confetti';
 
 interface DinoFootprintHuntProps {
@@ -12,46 +12,56 @@ const colorOptions = [
   { id: 'red', colorName: 'Red Footprint', bg: 'bg-rose-600', cssColor: 'rose', icon: '🐾' },
 ];
 
+interface PathNode {
+  id: number;
+  color: string;
+  cssColor: string;
+  footprint: string;
+  name: string;
+}
+
+const START_MESSAGE = 'Pick the footprint that matches the required color to move forward!';
+
+function buildPath(): PathNode[] {
+  const pathLength = 10;
+  const generatedPath: PathNode[] = [{ id: 1, color: 'bg-amber-700 text-white', cssColor: 'amber', footprint: '🐾', name: 'Start' }];
+
+  for (let i = 2; i <= pathLength; i++) {
+    const randomColorObj = colorOptions[Math.floor(Math.random() * colorOptions.length)];
+    if (i === pathLength) {
+      generatedPath.push({
+        id: i,
+        color: 'bg-amber-700 text-white',
+        cssColor: 'amber',
+        footprint: '🏁',
+        name: 'Finish',
+      });
+    } else {
+      generatedPath.push({
+        id: i,
+        color: `${randomColorObj.bg} text-white`,
+        cssColor: randomColorObj.cssColor,
+        footprint: '🐾',
+        name: randomColorObj.colorName,
+      });
+    }
+  }
+
+  return generatedPath;
+}
+
 export default function DinoFootprintHunt({ onBackToGames }: DinoFootprintHuntProps) {
-  const [boardPath, setBoardPath] = useState<any[]>([]);
+  const [boardPath, setBoardPath] = useState<PathNode[]>(buildPath);
   const [currentStep, setCurrentStep] = useState(0); 
-  const [message, setMessage] = useState('Pick the footprint that matches the required color to move forward!');
+  const [message, setMessage] = useState(START_MESSAGE);
   const [isGameOver, setIsGameOver] = useState(false);
 
   const initializeGame = () => {
-    const pathLength = 10;
-    const generatedPath = [{ id: 1, color: 'bg-amber-700 text-white', cssColor: 'amber', footprint: '🐾', name: 'Start' }];
-
-    for (let i = 2; i <= pathLength; i++) {
-      const randomColorObj = colorOptions[Math.floor(Math.random() * colorOptions.length)];
-      if (i === pathLength) {
-        generatedPath.push({
-          id: i,
-          color: 'bg-amber-700 text-white',
-          cssColor: 'amber',
-          footprint: '🏁',
-          name: 'Finish',
-        });
-      } else {
-        generatedPath.push({
-          id: i,
-          color: `${randomColorObj.bg} text-white`,
-          cssColor: randomColorObj.cssColor,
-          footprint: '🐾',
-          name: randomColorObj.colorName,
-        });
-      }
-    }
-
-    setBoardPath(generatedPath);
+    setBoardPath(buildPath());
     setCurrentStep(0);
     setIsGameOver(false);
-    setMessage('Pick the footprint that matches the required color to move forward!');
+    setMessage(START_MESSAGE);
   };
-
-  useEffect(() => {
-    initializeGame();
-  }, []);
 
   const handleCardSelect = (cardCssColor: string) => {
     if (isGameOver || boardPath.length === 0) return;
@@ -68,7 +78,9 @@ export default function DinoFootprintHunt({ onBackToGames }: DinoFootprintHuntPr
         setMessage('🏆 Congratulations, champ! The dino reached the finish line!');
         try {
           confetti({ particleCount: 130, spread: 80, origin: { y: 0.6 } });
-        } catch (e) {}
+        } catch {
+          /* confetti is decorative; ignore failures */
+        }
       } else {
         setMessage(`🎉 Excellent! The next step needs a new footprint color.`);
       }

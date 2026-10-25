@@ -1,24 +1,26 @@
 import React from 'react';
 import { Sparkles, Heart, Shield, BookOpen } from 'lucide-react';
+import { useLang } from '../i18n/useLang';
 
 export default function AboutPage() {
+  const { t } = useLang();
   // Core values and features data
   const values = [
     {
-      title: 'Interactive Learning',
-      description: 'We combine education with fun through immersive worlds like Bees, Dinos, and Space.',
+      title: t('about.v1.title'),
+      description: t('about.v1.text'),
       icon: <Sparkles className="w-6 h-6 text-pink-500" />,
       gradient: 'from-pink-500/10 to-purple-500/10',
     },
     {
-      title: 'Child-Safe Environment',
-      description: 'A secure, friendly, and distraction-free platform designed with kids and parents in mind.',
+      title: t('about.v2.title'),
+      description: t('about.v2.text'),
       icon: <Shield className="w-6 h-6 text-emerald-500" />,
       gradient: 'from-emerald-500/15 to-teal-500/15',
     },
     {
-      title: 'Printable Worksheets',
-      description: 'Easily customizable and printable offline activities to enhance hands-on learning.',
+      title: t('about.v3.title'),
+      description: t('about.v3.text'),
       icon: <BookOpen className="w-6 h-6 text-amber-500" />,
       gradient: 'from-amber-500/15 to-yellow-500/15',
     },
@@ -31,13 +33,13 @@ export default function AboutPage() {
       <div className="text-center max-w-3xl mx-auto mb-16">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100 dark:bg-pink-950/60 text-pink-600 dark:text-pink-400 font-bold text-sm mb-4 shadow-sm">
           <Heart className="w-4 h-4 text-[#FF70A6]" />
-          <span>About Little Wonder</span>
+          <span>{t('about.badge')}</span>
         </div>
         <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-4">
-          Empowering Young Minds Through <span className="bg-gradient-to-r from-[#FF70A6] to-purple-600 bg-clip-text text-transparent">Magical Worlds</span>
+          {t('about.title.1')} <span className="bg-gradient-to-r from-[#FF70A6] to-purple-600 bg-clip-text text-transparent">{t('about.title.2')}</span>
         </h1>
         <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-          Little Wonder is a next-generation SaaS educational platform designed to make learning an unforgettable adventure for children. We believe education should be interactive, creative, and extremely fun!
+          {t('about.lead')}
         </p>
       </div>
 
@@ -47,9 +49,9 @@ export default function AboutPage() {
           <div className="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-950/60 flex items-center justify-center text-2xl mb-6">
             🎯
           </div>
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Our Mission</h3>
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{t('about.mission')}</h3>
           <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-            To bridge the gap between education and entertainment by creating engaging digital environments where children can develop logical thinking, basic math, and creative skills effortlessly.
+            {t('about.mission.text')}
           </p>
         </div>
 
@@ -57,9 +59,9 @@ export default function AboutPage() {
           <div className="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-950/60 flex items-center justify-center text-2xl mb-6">
             🚀
           </div>
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">Our Vision</h3>
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">{t('about.vision')}</h3>
           <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-            To become the leading global web platform that empowers parents and educators with top-tier interactive tools and printable worksheets tailored for early childhood growth.
+            {t('about.vision.text')}
           </p>
         </div>
       </div>
@@ -67,7 +69,7 @@ export default function AboutPage() {
       {/* Core Values Section */}
       <div className="mb-16">
         <h2 className="text-3xl font-extrabold text-center text-gray-900 dark:text-white mb-10">
-          Why Parents & Kids Love Us
+          {t('about.why')}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {values.map((val, idx) => (

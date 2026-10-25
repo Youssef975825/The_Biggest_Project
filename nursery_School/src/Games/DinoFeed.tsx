@@ -45,7 +45,9 @@ export default function DinoFeed({ onBackToGames }: DinoFeedProps) {
         setFeedbackMessage('🎉 You finished the Feed the Dino challenge!');
         try {
           confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
-        } catch (e) {}
+        } catch {
+          /* confetti is decorative; ignore failures */
+        }
       }
     }, 1500);
   };

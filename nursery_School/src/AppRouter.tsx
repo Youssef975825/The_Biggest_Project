@@ -7,10 +7,10 @@ import GamesHubPage from './pages/GamesHubPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 
-export default function AppRoutes({ IntroFinished }: {IntroFinished: Boolean}) {
+export default function AppRoutes({ introFinished }: { introFinished: boolean }) {
   return (
     <Routes>
-      <Route path="/" element={<Home introFinished={true} />} />
+      <Route path="/" element={<Home introFinished={introFinished} />} />
       <Route path="/themes" element={<ThemesPage />} />
       <Route path="/themes/:themeId" element={<ThemePage />} />
       <Route path="/themes/:themeId/stories/:storyId" element={<StoryPage />} />

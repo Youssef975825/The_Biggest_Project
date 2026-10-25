@@ -4,11 +4,13 @@ import { getCurrentPack } from '../lib/schedule';
 import ComingSoon from '../components/ComingSoon';
 import BeeGamesHub from '../components/BeeGamesHub';
 import DinoGameHub from '../components/DinoGameHub';
-import { ArrowLeft, Gamepad2 } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
+import { useLang } from '../i18n/useLang';
 
 export default function GamesHubPage() {
   const { themeId, storyId } = useParams<{ themeId: string; storyId: string }>();
   const navigate = useNavigate();
+  const { t } = useLang();
 
   const theme = getTheme(themeId);
   if (!theme) return <ComingSoon />;
@@ -27,17 +29,17 @@ export default function GamesHubPage() {
         className="inline-flex items-center gap-2 mb-8 px-4 py-2 rounded-xl bg-white dark:bg-gray-900 shadow-sm border border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-300 font-bold text-sm hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer"
       >
         <ArrowLeft className="w-4 h-4 rtl:rotate-180" />
-        <span>Back to Story</span>
+        <span>{t('games.back.story')}</span>
       </button>
 
       {/* عنوان يوضح أن هذه ألعاب القصة الحالية */}
       <div className="text-center mb-10 space-y-2">
         <span className="text-4xl inline-block">🎮</span>
         <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white">
-          Mini-Games Hub: {story.title}
+          {t('games.hub.title')}: {story.title}
         </h1>
         <p className="text-gray-500 text-sm">
-          Play 5 unique interactive games customized for this week's adventure!
+          {t('games.hub.sub')}
         </p>
       </div>
 
