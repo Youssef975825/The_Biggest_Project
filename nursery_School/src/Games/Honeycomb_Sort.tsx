@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 interface CardItem {
   id: number;
@@ -29,7 +29,7 @@ export default function Honeycomb_Sort({ onBackToGames }: HoneycombSortProps) {
   const [livingBin, setLivingBin] = useState<CardItem[]>([]);
   const [nonLivingBin, setNonLivingBin] = useState<CardItem[]>([]);
   const [gameMessage, setGameMessage] = useState<string>('Look at each picture card, decide if it is LIVING or NON-LIVING, and place it under the correct beehive!');
-  const [isWon, setIsWon] = useState<boolean>(false);
+  const isWon = cards.length === 0;
 
   const handleSort = (card: CardItem, targetType: 'living' | 'non-living'): void => {
     if (isWon) return;
@@ -41,24 +41,20 @@ export default function Honeycomb_Sort({ onBackToGames }: HoneycombSortProps) {
       } else {
         setNonLivingBin(prev => [...prev, card]);
       }
-      setGameMessage(`Great job! ${card.name} is correctly sorted! ✨`);
+      setGameMessage(
+        cards.length === 1
+          ? '🎉 Amazing! All cards are sorted perfectly into Living and Non-living hives!'
+          : `Great job! ${card.name} is correctly sorted! ✨`
+      );
     } else {
       setGameMessage(`❌ Oops! ${card.name} does not belong here. Try the other hive! 🐝`);
     }
   };
 
-  useEffect(() => {
-    if (cards.length === 0 && (livingBin.length > 0 || nonLivingBin.length > 0)) {
-      setIsWon(true);
-      setGameMessage('🎉 Amazing! All cards are sorted perfectly into Living and Non-living hives!');
-    }
-  }, [cards, livingBin, nonLivingBin]);
-
   const resetGame = (): void => {
     setCards(INITIAL_CARDS);
     setLivingBin([]);
     setNonLivingBin([]);
-    setIsWon(false);
     setGameMessage('Look at each picture card, decide if it is LIVING or NON-LIVING, and place it under the correct beehive!');
   };
 

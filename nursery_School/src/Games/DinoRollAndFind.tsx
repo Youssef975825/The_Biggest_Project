@@ -60,7 +60,9 @@ export default function DinoRollAndFind({ onBackToGames }: DinoRollAndFindProps)
         if (updatedFound.length === boardItems.length) {
           try {
             confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 } });
-          } catch (e) {}
+          } catch {
+          /* confetti is decorative; ignore failures */
+        }
           setMessage('🏆 Congratulations! You found all the dinosaurs and jungle items!');
         } else {
           setTargetItem(null);

@@ -3,6 +3,8 @@ import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 import { useNavigate } from 'react-router-dom';
 import WorldsSlider from '../components/WorldsSlider';
+import { useLang } from '../i18n/useLang';
+import { useReplayIntro } from '../context/ReplayIntro';
 
 interface HomeProps {
     introFinished: boolean;
@@ -11,6 +13,8 @@ interface HomeProps {
 export default function Home({ introFinished }: HomeProps): React.JSX.Element {
     const containerRef = useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
+    const { t } = useLang();
+    const replayIntro = useReplayIntro();
 
   useGSAP(() => {
     // Do not start the home animation until the intro has finished
@@ -58,26 +62,28 @@ export default function Home({ introFinished }: HomeProps): React.JSX.Element {
         {/* Left side / text */}
         <div className="space-y-6 text-center md:text-left">
           <span className="hero-badge inline-block px-4 py-1.5 rounded-full bg-[#FF70A6]/10 dark:bg-pink-950/60 text-[#FF70A6] dark:text-pink-400 font-semibold text-sm">
-            ✨ Play • Learn • Create • Grow
+            ✨ {t('home.badge')}
           </span>
 
           <h1 className="hero-title text-4xl md:text-6xl font-extrabold text-gray-800 dark:text-white leading-tight">
-            What if learning could feel <span className="text-[#FFD13B] dark:text-yellow-400 drop-shadow-sm">different?</span>
-            <span className="hero-title block text-[#FF70A6] mt-2">Let the magic begin!</span>
+            {t('home.title.1')} <span className="text-[#FFD13B] dark:text-yellow-400 drop-shadow-sm">{t('home.title.2')}</span>
+            <span className="hero-title block text-[#FF70A6] mt-2">{t('home.title.3')}</span>
           </h1>
 
           <p className="hero-desc text-lg text-gray-600 dark:text-gray-300 max-w-lg">
-            Welcome to Little Wonder Studio — where little minds wonder. Explore interactive worlds, fun games, and magical educational resources.
+            {t('home.desc')}
           </p>
 
           <div className="hero-buttons flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
             <button
             onClick={() => navigate('/bees')}
             className="px-8 py-3.5 rounded-xl bg-[#FF70A6] text-white font-bold shadow-lg shadow-[#FF70A6]/30 hover:bg-[#ff5293] transition-all transform hover:-translate-y-0.5 cursor-pointer">
-              Explore Worlds 🚀
+              {t('home.explore')} 🚀
             </button>
-            <button className="px-8 py-3.5 rounded-xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-2 border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-200 font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer">
-              Watch Intro
+            <button
+            onClick={replayIntro}
+            className="px-8 py-3.5 rounded-xl bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-2 border-gray-200 dark:border-gray-800 text-gray-700 dark:text-gray-200 font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-all cursor-pointer">
+              {t('home.intro')}
             </button>
           </div>
         </div>

@@ -72,7 +72,7 @@ export default function Worksheets() {
     ? worksheets 
     : worksheets.filter(w => w.world === selectedWorld);
 
-  const handlePrint = (title: string) => {
+  const handlePrint = () => {
     window.print();
   };
 
@@ -199,7 +199,7 @@ export default function Worksheets() {
             {/* Action Buttons (Hidden on print) */}
             <div className="flex items-center gap-3 no-print">
               <button
-                onClick={() => handlePrint(sheet.title)}
+                onClick={handlePrint}
                 className="flex-1 py-3 px-4 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 font-bold hover:bg-gray-200 dark:hover:bg-gray-700 transition-all flex items-center justify-center gap-2 cursor-pointer text-sm"
               >
                 <Printer className="w-4 h-4" />

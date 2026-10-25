@@ -66,7 +66,9 @@ export default function DinoEggSurprise({ onBackToGames }: DinoEggSurpriseProps)
       setCurrentMessage('🏆 Congratulations, champ! The dino reached the finish line!');
       try {
         confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
-      } catch (e) {}
+      } catch {
+          /* confetti is decorative; ignore failures */
+        }
     } else if (newOpenedEggs.length === eggSurprises.length) {
       setIsGameOver(true);
       setCurrentMessage('⚠️ You ran out of eggs before reaching the finish line! Try again.');

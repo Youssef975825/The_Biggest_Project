@@ -4,7 +4,7 @@ import { getCurrentPack, getReleasedStories } from '../lib/schedule';
 import { RELEASE_MODE } from '../data/site';
 import { useLang } from '../i18n/useLang';
 import ComingSoon from '../components/ComingSoon';
-import { Download, BookOpen, Sparkles, UserCheck, Lock, ArrowLeft } from 'lucide-react';
+import { Download, Sparkles, UserCheck, Lock, ArrowLeft } from 'lucide-react';
 
 export default function Bees() {
   const { themeId } = useParams<{ themeId: string }>();
@@ -43,10 +43,10 @@ export default function Bees() {
       <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
         <span className="text-6xl inline-block animate-bounce">{theme.icon}</span>
         <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-          {theme.name} Theme Hub
+          {theme.name} {t('theme.hub')}
         </h1>
         <p className="text-gray-600 dark:text-gray-300 font-medium text-base md:text-lg">
-          Explore the 4 weekly stories, teacher resources, and classroom decorations.
+          {t('theme.hub.sub')}
         </p>
       </div>
 
@@ -69,7 +69,7 @@ export default function Bees() {
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <span className="px-3 py-1 rounded-full text-xs font-extrabold bg-pink-100 dark:bg-pink-950/60 text-[#FF70A6] dark:text-pink-400">
-                    Story {story.number}
+                    {t('story.label')} {story.number}
                   </span>
                   {!isReleased && (
                     <span className="flex items-center gap-1 text-xs font-semibold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 px-2.5 py-1 rounded-full">
@@ -82,18 +82,18 @@ export default function Bees() {
                   {story.title}
                 </h3>
                 <p className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">
-                  Includes Story text, Worksheet, Flashcards, Crafts & 5 Mini-Games.
+                  {t('story.includes')}
                 </p>
               </div>
 
               <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
-                <span className="text-xs font-medium text-gray-400">Weekly Activity</span>
+                <span className="text-xs font-medium text-gray-400">{t('story.weekly')}</span>
                 {isReleased ? (
                   <Link
                     to={`/themes/${theme.id}/stories/${story.id}`}
                     className="px-4 py-2 rounded-xl bg-[#FF70A6] hover:bg-[#ff5293] text-white font-bold text-xs shadow-md transition-all flex items-center gap-1 cursor-pointer"
                   >
-                    <span>Open Story</span>
+                    <span>{t('story.open')}</span>
                     <span className="rtl:rotate-180">→</span>
                   </Link>
                 ) : (
@@ -114,7 +114,7 @@ export default function Bees() {
                 <UserCheck className="w-5 h-5" />
               </div>
               <span className="px-3 py-1 rounded-full text-xs font-extrabold bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">
-                Teacher Resource
+                {t('theme.resource')}
               </span>
             </div>
             
@@ -127,7 +127,7 @@ export default function Bees() {
           </div>
 
           <div className="mt-6 pt-4 border-t border-indigo-100 dark:border-indigo-900/50 flex items-center justify-between">
-            <span className="text-xs font-medium text-indigo-900/60 dark:text-indigo-300/60">PDF Guide</span>
+            <span className="text-xs font-medium text-indigo-900/60 dark:text-indigo-300/60">{t('theme.pdf')}</span>
             {currentPack.teacherGuide.file ? (
               <a
                 href={currentPack.teacherGuide.file}
@@ -153,7 +153,7 @@ export default function Bees() {
                 <Sparkles className="w-5 h-5" />
               </div>
               <span className="px-3 py-1 rounded-full text-xs font-extrabold bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300">
-                Classroom Pack
+                {t('theme.pack')}
               </span>
             </div>
 
@@ -179,7 +179,7 @@ export default function Bees() {
 
           <div className="mt-6 pt-4 border-t border-amber-100 dark:border-amber-900/50 flex items-center justify-between">
             <span className="text-xs font-bold text-amber-800 dark:text-amber-400">
-              Printable Extras
+              {t('theme.extras')}
             </span>
           </div>
         </div>

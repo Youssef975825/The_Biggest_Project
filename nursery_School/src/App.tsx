@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Intro from './components/Preloader_Intro';
 import PageTransitionWrapper from './components/PageTransitionWrapper';
 import { useEffect, useState } from 'react';
+import { ReplayIntroContext } from './context/ReplayIntro';
 
 const DARK_KEY = 'lw-dark';
 const INTRO_KEY = 'lw-intro-seen';
@@ -30,7 +31,7 @@ function AnimatedMain({ introFinished }: { introFinished: boolean }) {
   return (
     <main>
       <PageTransitionWrapper key={location.pathname}>
-        <AppRoutes IntroFinished={introFinished} />
+        <AppRoutes introFinished={introFinished} />
       </PageTransitionWrapper>
     </main>
   );
@@ -68,27 +69,17 @@ export default function App() {
 
   return (
     <LanguageProvider>
-      <BrowserRouter>
-        <div className={darkMode ? 'dark' : ''}>
-          <div className="min-h-screen bg-[#FFFDF9] dark:bg-gray-950 text-gray-900 dark:text-white transition-colors duration-300">
-            {!introDone && <Intro onComplete={finishIntro} />}
-            <Header darkMode={darkMode} setDarkMode={setDarkMode} />
-            <AnimatedMain introFinished={introDone} />
-            <ReplayIntroContext replayIntro={replayIntro} />
+      <ReplayIntroContext.Provider value={replayIntro}>
+        <BrowserRouter>
+          <div className={darkMode ? 'dark' : ''}>
+            <div className="min-h-screen bg-[#FFFDF9] dark:bg-gray-950 text-gray-900 dark:text-white transition-colors duration-300">
+              {!introDone && <Intro onComplete={finishIntro} />}
+              <Header darkMode={darkMode} setDarkMode={setDarkMode} />
+              <AnimatedMain introFinished={introDone} />
+            </div>
           </div>
-        </div>
-      </BrowserRouter>
+        </BrowserRouter>
+      </ReplayIntroContext.Provider>
     </LanguageProvider>
   );
-}
-
-/** Tiny bridge so Home can replay the intro without lifting more props through every route. */
-import { createContext, useContext } from 'react';
-
-const ReplayIntro = createContext<() => void>(() => {});
-export function useReplayIntro() {
-  return useContext(ReplayIntro);
-}
-function ReplayIntroContext({ replayIntro }: { replayIntro: () => void }) {
-  return <ReplayIntro.Provider value={replayIntro}>{null}</ReplayIntro.Provider>;
 }

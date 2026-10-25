@@ -21,11 +21,11 @@ const TARGET_ITEMS: TargetItem[] = [
   { id: 8, name: 'Honey Pot', icon: '🍯' },
 ];
 
+const randomIndex = (max: number): number => Math.floor(Math.random() * max);
+
 export default function BeeISpy({ onBackToGames }: BeeISpyProps) {
   const [foundItems, setFoundItems] = useState<number[]>([]);
-  const [currentRandomIndex, setCurrentRandomIndex] = useState<number>(() => 
-    Math.floor(Math.random() * TARGET_ITEMS.length)
-  );
+  const [currentRandomIndex, setCurrentRandomIndex] = useState<number>(() => randomIndex(TARGET_ITEMS.length));
   const [gameMessage, setGameMessage] = useState<string>('Look at the busy beehive scene and find the target item on your active card!');
   const [isWon, setIsWon] = useState<boolean>(false);
   const [wrongClickedId, setWrongClickedId] = useState<number | null>(null);
@@ -47,8 +47,7 @@ export default function BeeISpy({ onBackToGames }: BeeISpyProps) {
         setGameMessage('🎉 Hurray! You found all the hidden items in the beehive scene! "I found it!"');
       } else {
         const newRemainingCount = TARGET_ITEMS.length - newFound.length;
-        const nextRandom = Math.floor(Math.random() * newRemainingCount);
-        setCurrentRandomIndex(nextRandom);
+        setCurrentRandomIndex(randomIndex(newRemainingCount));
         setGameMessage('✨ Great job! Now look at your new active card and find it in the scene!');
       }
     } else {
@@ -63,7 +62,7 @@ export default function BeeISpy({ onBackToGames }: BeeISpyProps) {
 
   const resetGame = (): void => {
     setFoundItems([]);
-    setCurrentRandomIndex(Math.floor(Math.random() * TARGET_ITEMS.length));
+    setCurrentRandomIndex(randomIndex(TARGET_ITEMS.length));
     setIsWon(false);
     setWrongClickedId(null);
     setGameMessage('Look at the busy beehive scene and find the target item!');
