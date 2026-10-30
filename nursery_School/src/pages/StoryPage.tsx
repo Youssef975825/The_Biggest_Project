@@ -30,7 +30,8 @@ export default function StoryPage() {
       icon: <BookOpen className="w-6 h-6 text-amber-600" />,
       color: 'bg-amber-50 dark:bg-amber-950/40 border-amber-200 dark:border-amber-800/60 text-amber-900 dark:text-amber-200',
       actionText: t('res.open'),
-      file: story.activities.story.file,
+      slug: 'story',
+      hasContent: !!story.activities.story.pages?.length,
     },
     {
       id: 'worksheet',
@@ -39,7 +40,8 @@ export default function StoryPage() {
       icon: <FileText className="w-6 h-6 text-pink-600" />,
       color: 'bg-pink-50 dark:bg-pink-950/40 border-pink-200 dark:border-pink-800/60 text-pink-900 dark:text-pink-200',
       actionText: t('ws.print'),
-      file: story.activities.worksheet.file,
+      slug: 'worksheet',
+      hasContent: !!story.activities.worksheet.pages?.length,
     },
     {
       id: 'flashcards',
@@ -48,7 +50,8 @@ export default function StoryPage() {
       icon: <Sparkles className="w-6 h-6 text-yellow-600" />,
       color: 'bg-yellow-50 dark:bg-yellow-950/40 border-yellow-200 dark:border-yellow-800/60 text-yellow-900 dark:text-yellow-200',
       actionText: t('res.open'),
-      file: story.activities.flashcards.file,
+      slug: 'flashcards',
+      hasContent: !!story.activities.flashcards.pages?.length,
     },
     {
       id: 'crafts',
@@ -57,7 +60,8 @@ export default function StoryPage() {
       icon: <Scissors className="w-6 h-6 text-emerald-600" />,
       color: 'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800/60 text-emerald-900 dark:text-emerald-200',
       actionText: t('res.open'),
-      file: story.activities.crafts.file,
+      slug: 'crafts',
+      hasContent: !!story.activities.crafts.pages?.length,
     },
     {
       id: 'games',
@@ -122,21 +126,17 @@ export default function StoryPage() {
                 >
                   <span>{act.actionText}</span>
                 </Link>
-              ) : (
-                <a
-                  href={act.file || '#'}
-                  onClick={(e) => {
-                    if (!act.file) {
-                      e.preventDefault();
-                      alert(`${act.title}: ${t('res.soon')}`);
-                    }
-                  }}
-                  target="_blank"
-                  rel="noopener noreferrer"
+              ) : act.hasContent ? (
+                <Link
+                  to={`/themes/${theme.id}/stories/${story.id}/${act.slug}`}
                   className="px-4 py-2 rounded-xl bg-pink-600 text-white shadow-md hover:bg-pink-700 transition-all cursor-pointer text-xs flex items-center gap-1"
-                >
+                  >
                   <span>{act.actionText}</span>
-                </a>
+                </Link>
+              ) : (
+                <span className="px-3 py-1.5 rounded-xl bg-white/60 dark:bg-gray-900/60 text-xs font-bold opacity-70">
+                  {t('res.soon')}
+                </span>
               )}
             </div>
           </div>
