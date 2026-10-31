@@ -40,27 +40,51 @@ He followed a trail of friendly footprints, found a shiny egg under a fern, and 
 "I can be brave and kind," Rexy said, and he skipped back to his friends.`;
 
 const BEES_S1 = '/files/bees/story-1';
+const BEES_S2 = "/files/bees/story-2";
 const beesNov: MonthlyPack = {
-  month: '2026-10',
+  month: "2026-10",
   stories: [
-    story(1, 'Bella Finds a Flower', '2026-10-01', 'bees/games', BELLA_FLOWER, {
+    story(1, "Bella Finds a Flower", "2026-10-01", "bees/games", BELLA_FLOWER, {
       story: { pages: pageUrls(`${BEES_S1}/story`, 4) },
-      worksheet: { pages: pageUrls(`${BEES_S1}/worksheet`, 6), file: `${BEES_S1}/worksheet.pdf` },
-      flashcards: {
-      pages: [...pageUrls(`${BEES_S1}/flashcards-1`, 6), ...pageUrls(`${BEES_S1}/flashcards-2`, 9)],
-      files: [
-        { label: 'Part 1', url: `${BEES_S1}/flashcards-1.pdf` },
-        { label: 'Part 2', url: `${BEES_S1}/flashcards-2.pdf` },
-      ],
+      worksheet: {
+        pages: pageUrls(`${BEES_S1}/worksheet`, 6),
+        file: `${BEES_S1}/worksheet.pdf`,
       },
-      crafts: { pages: pageUrls(`${BEES_S1}/crafts`, 6), file: `${BEES_S1}/crafts.pdf` },
+      flashcards: {
+        pages: [
+          ...pageUrls(`${BEES_S1}/flashcards-1`, 6),
+          ...pageUrls(`${BEES_S1}/flashcards-2`, 9),
+        ],
+        files: [
+          { label: "Part 1", url: `${BEES_S1}/flashcards-1.pdf` },
+          { label: "Part 2", url: `${BEES_S1}/flashcards-2.pdf` },
+        ],
+      },
+      crafts: {
+        pages: pageUrls(`${BEES_S1}/crafts`, 6),
+        file: `${BEES_S1}/crafts.pdf`,
+      },
     }),
-    story(2, 'The Busy Hive', '2026-11-08', 'bees/games'),
-    story(3, 'Honey Day', '2026-11-15', 'bees/games'),
-    story(4, 'Bella Says Goodbye to Autumn', '2026-11-22', 'bees/games'),
+    story(2, "Bella Asks for Help", "2026-10-08", "bees/games", undefined, {
+      story: { pages: pageUrls(`${BEES_S2}/story`, 4) },
+      worksheet: {
+        pages: pageUrls(`${BEES_S2}/worksheet`, 6),
+        file: `${BEES_S2}/worksheet.pdf`,
+      },
+      flashcards: {
+        pages: pageUrls(`${BEES_S2}/flashcards`, 5),
+        file: `${BEES_S2}/flashcards.pdf`,
+      },
+      crafts: {
+        pages: pageUrls(`${BEES_S2}/crafts`, 6),
+        file: `${BEES_S2}/crafts.pdf`,
+      },
+    }),
+    story(3, "Honey Day", "2026-11-15", "bees/games"),
+    story(4, "Bella Says Goodbye to Autumn", "2026-11-22", "bees/games"),
   ],
-  decoration: [res('Bee classroom banner'), res('Door sign')],
-  teacherGuide: res('Teacher guide: November'),
+  decoration: [res("Bee classroom banner"), res("Door sign")],
+  teacherGuide: res("Teacher guide: November"),
 };
 
 const dinoNov: MonthlyPack = {
