@@ -1,6 +1,10 @@
 import type { ActivityKind, MonthlyPack, Resource, Story, Theme } from './types';
 
 const res = (title: string, file?: string, body?: string): Resource => ({ title, file, body });
+const pageUrls = (folder: string, count: number): string[] =>
+  Array.from({ length: count }, (_, i) => `${folder}/${String(i + 1).padStart(2, '0')}.webp`);
+
+type Extras = Partial<Record<ActivityKind, Partial<Resource>>>;
 
 const story = (
   n: 1 | 2 | 3 | 4,
@@ -8,16 +12,17 @@ const story = (
   releaseDate: string,
   gamesFile: string,
   storyBody?: string,
+  extras: Extras = {},
 ): Story => ({
   id: `story-${n}`,
   number: n,
   title,
   releaseDate,
   activities: {
-    story: res(`Story ${n}: ${title}`, undefined, storyBody),
-    worksheet: res('Worksheet'),
-    flashcards: res('Flashcards'),
-    crafts: res('Crafts'),
+    story: { ...res(`Story ${n}: ${title}`, undefined, storyBody), ...extras.story },
+    worksheet: { ...res('Worksheet'), ...extras.worksheet },
+    flashcards: { ...res('Flashcards'), ...extras.flashcards },
+    crafts: { ...res('Crafts'), ...extras.crafts },
     Games: res('5 Mini-Games Center', gamesFile),
   } satisfies Record<ActivityKind, Resource>,
 });
@@ -34,10 +39,22 @@ He followed a trail of friendly footprints, found a shiny egg under a fern, and 
 
 "I can be brave and kind," Rexy said, and he skipped back to his friends.`;
 
+const BEES_S1 = '/files/bees/story-1';
 const beesNov: MonthlyPack = {
   month: '2026-10',
   stories: [
-    story(1, 'Bella Finds a Flower', '2026-10-01', 'bees/games', BELLA_FLOWER),
+    story(1, 'Bella Finds a Flower', '2026-10-01', 'bees/games', BELLA_FLOWER, {
+      story: { pages: pageUrls(`${BEES_S1}/story`, 4) },
+      worksheet: { pages: pageUrls(`${BEES_S1}/worksheet`, 6), file: `${BEES_S1}/worksheet.pdf` },
+      flashcards: {
+      pages: [...pageUrls(`${BEES_S1}/flashcards-1`, 6), ...pageUrls(`${BEES_S1}/flashcards-2`, 9)],
+      files: [
+        { label: 'Part 1', url: `${BEES_S1}/flashcards-1.pdf` },
+        { label: 'Part 2', url: `${BEES_S1}/flashcards-2.pdf` },
+      ],
+      },
+      crafts: { pages: pageUrls(`${BEES_S1}/crafts`, 6), file: `${BEES_S1}/crafts.pdf` },
+    }),
     story(2, 'The Busy Hive', '2026-11-08', 'bees/games'),
     story(3, 'Honey Day', '2026-11-15', 'bees/games'),
     story(4, 'Bella Says Goodbye to Autumn', '2026-11-22', 'bees/games'),

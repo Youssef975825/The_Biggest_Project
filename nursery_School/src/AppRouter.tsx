@@ -6,6 +6,7 @@ import StoryPage from './pages/StoryPage';
 import GamesHubPage from './pages/GamesHubPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
+import ActivityPage from './pages/ActivityPage';
 
 export default function AppRoutes({ introFinished }: { introFinished: boolean }) {
   return (
@@ -17,7 +18,7 @@ export default function AppRoutes({ introFinished }: { introFinished: boolean })
       
         {/* مسار مركز الألعاب الخاص بكل قصة منفصلة */}
         <Route path="/themes/:themeId/stories/:storyId/games" element={<GamesHubPage />} />
-
+        <Route path="/themes/:themeId/stories/:storyId/:activity" element={<ActivityPage />} />
       <Route path="/about" element={<AboutPage />} />
       <Route path="/contact" element={<ContactPage />} />
       
