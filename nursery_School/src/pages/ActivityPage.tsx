@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Download } from 'lucide-react';
 import { getTheme } from '../data/themes';
 import { getCurrentPack } from '../lib/schedule';
 import { useLang } from '../i18n/useLang';
@@ -28,6 +28,13 @@ export default function ActivityPage() {
   const resource = story.activities[activity as ActivityKind];
   if (!resource.pages?.length) return <ComingSoon />;
 
+  // One PDF -> one button. Several PDFs (flashcards Part 1 / Part 2) -> one button each.
+  const downloads = resource.files?.length
+    ? resource.files.map((f) => ({ label: `${t('activity.download')} (${f.label})`, url: f.url }))
+    : resource.file
+      ? [{ label: t('activity.download'), url: resource.file }]
+      : [];
+
   return (
     <div className="min-h-screen pt-28 pb-20 px-6 max-w-5xl mx-auto">
       <Link
@@ -43,6 +50,22 @@ export default function ActivityPage() {
       </h1>
 
       <PageViewer pages={resource.pages} alt={resource.title} />
+
+      {downloads.length > 0 && (
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          {downloads.map((d) => (
+            <a
+              key={d.url}
+              href={d.url}
+              download
+              className="px-5 py-2.5 rounded-xl bg-[#FF70A6] hover:bg-[#ff5293] text-white font-bold text-sm shadow-md transition-all flex items-center gap-2 cursor-pointer"
+            >
+              <Download className="w-4 h-4" />
+              <span>{d.label}</span>
+            </a>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
