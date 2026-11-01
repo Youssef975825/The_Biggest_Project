@@ -42,6 +42,7 @@ He followed a trail of friendly footprints, found a shiny egg under a fern, and 
 const BEES_S1 = '/files/bees/story-1';
 const BEES_S2 = "/files/bees/story-2";
 const BEES_S3 = "/files/bees/story-3";
+const BEES_S4 = "/files/bees/story-4";
 const beesNov: MonthlyPack = {
   month: "2026-10",
   stories: [
@@ -82,22 +83,35 @@ const beesNov: MonthlyPack = {
       },
     }),
     story(3, "The Lost Honey Drop", "2026-10-10", "bees/games", undefined, {
-        story: { pages: pageUrls(`${BEES_S3}/story`, 5) },
-        worksheet: {
-          pages: pageUrls(`${BEES_S3}/worksheet`, 5),
-          file: `${BEES_S3}/worksheet.pdf`,
-        },
-        flashcards: {
-          pages: pageUrls(`${BEES_S3}/flashcards`, 7),
-          file: `${BEES_S3}/flashcards.pdf`,
-        },
-        crafts: {
-          pages: pageUrls(`${BEES_S3}/crafts`, 5),
-          file: `${BEES_S3}/crafts.pdf`,
-        },
+      story: { pages: pageUrls(`${BEES_S3}/story`, 5) },
+      worksheet: {
+        pages: pageUrls(`${BEES_S3}/worksheet`, 5),
+        file: `${BEES_S3}/worksheet.pdf`,
       },
-    ),
-    story(4, "Bella Says Goodbye to Autumn", "2026-11-22", "bees/games"),
+      flashcards: {
+        pages: pageUrls(`${BEES_S3}/flashcards`, 7),
+        file: `${BEES_S3}/flashcards.pdf`,
+      },
+      crafts: {
+        pages: pageUrls(`${BEES_S3}/crafts`, 5),
+        file: `${BEES_S3}/crafts.pdf`,
+      },
+    }),
+    story(4, "The Garden Party", "2026-10-18", "bees/games", undefined, {
+      story: { pages: pageUrls(`${BEES_S4}/story`, 4) },
+      worksheet: {
+        pages: pageUrls(`${BEES_S4}/worksheet`, 7),
+        file: `${BEES_S4}/worksheet.pdf`,
+      },
+      flashcards: {
+        pages: pageUrls(`${BEES_S4}/flashcards`, 4),
+        file: `${BEES_S4}/flashcards.pdf`,
+      },
+      crafts: {
+        pages: pageUrls(`${BEES_S4}/crafts`, 7),
+        file: `${BEES_S4}/crafts.pdf`,
+      },
+    }),
   ],
   decoration: [res("Bee classroom banner"), res("Door sign")],
   teacherGuide: res("Teacher guide: November"),
