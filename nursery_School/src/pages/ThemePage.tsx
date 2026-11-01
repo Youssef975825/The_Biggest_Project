@@ -107,7 +107,7 @@ export default function Bees() {
         })}
 
         {/* { Card Number 5 : Teacher Guide } */}
-        <div className="rounded-3xl p-6 border border-indigo-100 dark:border-indigo-950/60 bg-indigo-50/50 dark:bg-indigo-950/20 shadow-xl flex flex-col justify-between">
+        <div className="rounded-3xl p-6 border border-indigo-100 dark:border-indigo-950/60 bg-indigo-50/50 dark:bg-indigo-950/20 shadow-xl flex flex-col justify-between md:col-span-2">
           <div>
             <div className="flex items-center justify-between mb-4">
               <div className="w-10 h-10 rounded-2xl bg-indigo-100 dark:bg-indigo-900/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
@@ -146,7 +146,7 @@ export default function Bees() {
         </div>
 
         {/* { Card Number 6 : Decoration } */}
-        <div className="rounded-3xl p-6 border border-amber-100 dark:border-amber-950/60 bg-amber-50/50 dark:bg-amber-950/20 shadow-xl flex flex-col justify-between">
+        <div className="rounded-3xl p-6 border border-amber-100 dark:border-amber-950/60 bg-amber-50/50 dark:bg-amber-950/20 shadow-xl flex flex-col justify-between md:col-span-2 lg:col-span-3">
           <div>
             <div className="flex items-center justify-between mb-4">
               <div className="w-10 h-10 rounded-2xl bg-amber-100 dark:bg-amber-900/60 text-amber-600 dark:text-amber-400 flex items-center justify-center">
@@ -161,7 +161,7 @@ export default function Bees() {
               {t('theme.decoration')}
             </h3>
             
-            <div className="space-y-1.5 mt-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-1.5 mt-3">
               {currentPack.decoration.map((dec, idx) => (
                 <div key={idx} className="flex items-center justify-between text-xs py-1 border-b border-amber-100 dark:border-amber-900/40 last:border-0">
                   <span className="text-gray-700 dark:text-gray-300 font-medium truncate">• {dec.title}</span>
