@@ -39,6 +39,8 @@ He followed a trail of friendly footprints, found a shiny egg under a fern, and 
 
 "I can be brave and kind," Rexy said, and he skipped back to his friends.`;
 
+const BEES = "/files/bees";
+const BEES_DECO = `${BEES}/decoration`;
 const BEES_S1 = '/files/bees/story-1';
 const BEES_S2 = "/files/bees/story-2";
 const BEES_S3 = "/files/bees/story-3";
@@ -113,8 +115,20 @@ const beesNov: MonthlyPack = {
       },
     }),
   ],
-  decoration: [res("Bee classroom banner"), res("Door sign")],
-  teacherGuide: res("Teacher guide: November"),
+  decoration: [
+    res("Welcome to Our Hive banner", `${BEES_DECO}/welcome-banner.pdf`),
+    res("Welcome to Our Hive poster", `${BEES_DECO}/welcome-hive-poster.pdf`),
+    res("Bee Happy poster", `${BEES_DECO}/bee-happy-poster.pdf`),
+    res("Classroom rules", `${BEES_DECO}/classroom-rules.pdf`),
+    res("Name tags", `${BEES_DECO}/name-tags.pdf`),
+    res("Wall decorations 1", `${BEES_DECO}/wall-decorations-1.pdf`),
+    res("Wall decorations 2", `${BEES_DECO}/wall-decorations-2.pdf`),
+    res("Garland", `${BEES_DECO}/garland.pdf`),
+    res("Classroom labels 1", `${BEES_DECO}/classroom-labels-1.pdf`),
+    res("Classroom labels 2", `${BEES_DECO}/classroom-labels-2.pdf`),
+    res("Photo props", `${BEES_DECO}/photo-props.pdf`),
+  ],
+  teacherGuide: res("General Teacher Guide", `${BEES}/teacher-guide.pdf`),
 };
 
 const dinoNov: MonthlyPack = {
