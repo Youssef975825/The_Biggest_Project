@@ -41,6 +41,7 @@ He followed a trail of friendly footprints, found a shiny egg under a fern, and 
 
 const BEES = "/files/bees";
 const SPACE_S1 = "/files/space/story-1";
+const SPACE_S2 = "/files/space/story-2";
 const BEES_DECO = `${BEES}/decoration`;
 const BEES_S1 = '/files/bees/story-1';
 const BEES_S2 = "/files/bees/story-2";
@@ -162,7 +163,21 @@ const spaceNov: MonthlyPack = {
         file: `${SPACE_S1}/crafts.pdf`,
       },
     }),
-    story(2, "Space Story 2", "2026-11-08", "space/games"),
+    story(2, "Count the Stars", "2026-11-08", "space/games", undefined, {
+      story: { pages: pageUrls(`${SPACE_S2}/story`, 5) },
+      worksheet: {
+        pages: pageUrls(`${SPACE_S2}/worksheet`, 6),
+        file: `${SPACE_S2}/worksheet.pdf`,
+      },
+      flashcards: {
+        pages: pageUrls(`${SPACE_S2}/flashcards`, 7),
+        file: `${SPACE_S2}/flashcards.pdf`,
+      },
+      crafts: {
+        pages: pageUrls(`${SPACE_S2}/crafts`, 7),
+        file: `${SPACE_S2}/crafts.pdf`,
+      },
+    }),
     story(3, "Space Story 3", "2026-11-15", "space/games"),
     story(4, "Space Story 4", "2026-11-22", "space/games"),
   ],
