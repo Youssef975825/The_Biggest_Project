@@ -40,6 +40,7 @@ He followed a trail of friendly footprints, found a shiny egg under a fern, and 
 "I can be brave and kind," Rexy said, and he skipped back to his friends.`;
 
 const BEES = "/files/bees";
+const SPACE_S1 = "/files/space/story-1";
 const BEES_DECO = `${BEES}/decoration`;
 const BEES_S1 = '/files/bees/story-1';
 const BEES_S2 = "/files/bees/story-2";
@@ -143,9 +144,35 @@ const dinoNov: MonthlyPack = {
   teacherGuide: res('Teacher guide: Dino World'),
 };
 
+const spaceNov: MonthlyPack = {
+  month: "2026-11",
+  stories: [
+    story(1, "Meet the Planets", "2026-11-01", "space/games", undefined, {
+      story: { pages: pageUrls(`${SPACE_S1}/story`, 5) },
+      worksheet: {
+        pages: pageUrls(`${SPACE_S1}/worksheet`, 6),
+        file: `${SPACE_S1}/worksheet.pdf`,
+      },
+      flashcards: {
+        pages: pageUrls(`${SPACE_S1}/flashcards`, 7),
+        file: `${SPACE_S1}/flashcards.pdf`,
+      },
+      crafts: {
+        pages: pageUrls(`${SPACE_S1}/crafts`, 7),
+        file: `${SPACE_S1}/crafts.pdf`,
+      },
+    }),
+    story(2, "Space Story 2", "2026-11-08", "space/games"),
+    story(3, "Space Story 3", "2026-11-15", "space/games"),
+    story(4, "Space Story 4", "2026-11-22", "space/games"),
+  ],
+  decoration: [res("Space classroom banner"), res("Door sign")],
+  teacherGuide: res("Teacher guide: Space"),
+};
+
 export const THEMES: Theme[] = [
   { id: 'bees', status: 'available', name: 'Bees', icon: '🐝', packs: [beesNov] },
   { id: 'dino', status: 'available', name: 'Dinosaurs', icon: '🦖', packs: [dinoNov] },
-  { id: 'space', status: 'locked', name: 'Space', icon: '🚀', packs: [] },
+  { id: 'space', status: 'available', name: 'Space', icon: '🚀', packs: [spaceNov] },
 ];
 export const getTheme = (id?: string) => THEMES.find(t => t.id === id);
