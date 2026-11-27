@@ -2,6 +2,7 @@ import { BrowserRouter, useLocation } from 'react-router-dom';
 import LanguageProvider from './i18n/LanguageProvider';
 import AppRoutes from './AppRouter';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import Intro from './components/Preloader_Intro';
 import PageTransitionWrapper from './components/PageTransitionWrapper';
 import { useEffect, useState } from 'react';
@@ -76,6 +77,7 @@ export default function App() {
               {!introDone && <Intro onComplete={finishIntro} />}
               <Header darkMode={darkMode} setDarkMode={setDarkMode} />
               <AnimatedMain introFinished={introDone} />
+              <Footer />
             </div>
           </div>
         </BrowserRouter>

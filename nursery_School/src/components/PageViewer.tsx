@@ -22,7 +22,9 @@ export default function PageViewer({ pages, alt }: PageViewerProps) {
       <img
         src={pages[index]}
         alt={`${alt} - page ${index + 1}`}
-        className="max-h-[75vh] w-auto max-w-full rounded-2xl object-contain shadow-xl"
+        draggable={false}
+        onContextMenu={(e) => e.preventDefault()}
+        className="max-h-[75vh] w-auto max-w-full select-none rounded-2xl object-contain shadow-xl"
       />
       <div className="flex items-center gap-6">
         <button
