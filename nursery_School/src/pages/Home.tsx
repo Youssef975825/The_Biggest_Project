@@ -96,7 +96,6 @@ export default function Home({ introFinished }: HomeProps): React.JSX.Element {
 
           </div>
 
-          <p className="mt-16 text-xl text-black dark:text-white">© Little Wonder Studio</p>
         </div>
 
       </div>

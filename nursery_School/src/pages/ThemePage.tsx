@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { getTheme } from '../data/themes';
 import { getCurrentPack, getReleasedStories } from '../lib/schedule';
 import { RELEASE_MODE } from '../data/site';
+import { DOWNLOADS_ENABLED } from '../config';
 import { useLang } from '../i18n/useLang';
 import ComingSoon from '../components/ComingSoon';
 import { Download, Sparkles, UserCheck, Lock, ArrowLeft } from 'lucide-react';
@@ -128,7 +129,7 @@ export default function Bees() {
 
           <div className="mt-6 pt-4 border-t border-indigo-100 dark:border-indigo-900/50 flex items-center justify-between">
             <span className="text-xs font-medium text-indigo-900/60 dark:text-indigo-300/60">{t('theme.pdf')}</span>
-            {currentPack.teacherGuide.file ? (
+            {DOWNLOADS_ENABLED && currentPack.teacherGuide.file ? (
               <a
                 href={currentPack.teacherGuide.file}
                 download
@@ -165,7 +166,7 @@ export default function Bees() {
               {currentPack.decoration.map((dec, idx) => (
                 <div key={idx} className="flex items-center justify-between text-xs py-1 border-b border-amber-100 dark:border-amber-900/40 last:border-0">
                   <span className="text-gray-700 dark:text-gray-300 font-medium truncate">• {dec.title}</span>
-                  {dec.file ? (
+                  {DOWNLOADS_ENABLED && dec.file ? (
                     <a href={dec.file} download className="text-amber-700 dark:text-amber-400 font-bold hover:underline ml-2">
                       {t('res.open')}
                     </a>

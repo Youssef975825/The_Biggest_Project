@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Download } from 'lucide-react';
 import { getTheme } from '../data/themes';
+import { DOWNLOADS_ENABLED } from '../config';
 import { getCurrentPack } from '../lib/schedule';
 import { useLang } from '../i18n/useLang';
 import ComingSoon from '../components/ComingSoon';
@@ -29,7 +30,9 @@ export default function ActivityPage() {
   if (!resource.pages?.length) return <ComingSoon />;
 
   // One PDF -> one button. Several PDFs (flashcards Part 1 / Part 2) -> one button each.
-  const downloads = resource.files?.length
+  const downloads = !DOWNLOADS_ENABLED
+    ? []
+    : resource.files?.length
     ? resource.files.map((f) => ({ label: `${t('activity.download')} (${f.label})`, url: f.url }))
     : resource.file
       ? [{ label: t('activity.download'), url: resource.file }]
