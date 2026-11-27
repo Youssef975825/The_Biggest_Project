@@ -185,6 +185,14 @@ const spaceNov: MonthlyPack = {
         pages: pageUrls(`${SPACE_S3}/worksheet`, 6),
         file: `${SPACE_S3}/worksheet.pdf`,
       },
+      flashcards: {
+        pages: pageUrls(`${SPACE_S3}/flashcards`, 8),
+        file: `${SPACE_S3}/flashcards.pdf`,
+      },
+      crafts: {
+        pages: pageUrls(`${SPACE_S3}/crafts`, 6),
+        file: `${SPACE_S3}/crafts.pdf`,
+      },
     }),
     story(4, "Space Story 4", "2026-11-22", "space/games"),
   ],
