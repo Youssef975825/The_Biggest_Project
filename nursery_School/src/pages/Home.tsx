@@ -89,12 +89,14 @@ export default function Home({ introFinished }: HomeProps): React.JSX.Element {
         </div>
 
         {/* Right side / world slider wrapper */}
-        <div className="hero-card relative flex justify-center">
+        <div className="hero-card relative flex flex-col items-center">
           <div className="w-72 h-72 md:w-96 md:h-96 rounded-3xl bg-gradient-to-tr from-[#FFD13B]/30 to-[#70C1B3]/30 dark:from-yellow-950/30 dark:to-teal-950/30 backdrop-blur-xl border border-white/50 dark:border-gray-800 shadow-2xl flex items-center justify-center p-6 relative">
             
             <WorldsSlider />
 
           </div>
+
+          <p className="mt-16 text-xl text-black dark:text-white">© Little Wonder Studio</p>
         </div>
 
       </div>
